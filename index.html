@@ -1,0 +1,1509 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Anna 安娜｜塔羅品牌陪跑計畫</title>
+<style>
+  /* ─── Reset & Base ─── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --orange: #E8825A;
+    --orange-dark: #CF6A40;
+    --orange-light: #FBF0EB;
+    --dark: #1A1A1A;
+    --grey: #555;
+    --light-grey: #F5F5F3;
+    --border: #E5E5E0;
+    --white: #FFFFFF;
+    --radius: 12px;
+    --shadow: 0 4px 24px rgba(0,0,0,0.08);
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Helvetica Neue', '微軟正黑體', 'PingFang TC', 'Noto Sans TC', sans-serif;
+    color: var(--dark);
+    background: var(--white);
+    line-height: 1.7;
+    font-size: 16px;
+  }
+  a { color: inherit; text-decoration: none; }
+  img { max-width: 100%; display: block; }
+  ul { list-style: none; }
+
+  /* ─── Typography ─── */
+  h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; line-height: 1.15; letter-spacing: -0.02em; }
+  h2 { font-size: clamp(1.5rem, 3.5vw, 2.4rem); font-weight: 700; line-height: 1.2; letter-spacing: -0.01em; }
+  h3 { font-size: clamp(1rem, 2.5vw, 1.25rem); font-weight: 700; }
+  p { color: var(--grey); }
+
+  /* ─── Layout ─── */
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+  section { padding: 96px 0; }
+  section:nth-child(even) { background: var(--light-grey); }
+
+  .section-label {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--orange);
+    background: var(--orange-light);
+    padding: 6px 14px;
+    border-radius: 100px;
+    margin-bottom: 20px;
+  }
+  .section-header { text-align: center; margin-bottom: 64px; }
+  .section-header h2 { margin-bottom: 16px; }
+  .section-header p { font-size: 1.1rem; color: var(--grey); max-width: 600px; margin: 0 auto; }
+
+  /* ─── Buttons ─── */
+  .btn {
+    display: inline-block;
+    padding: 14px 32px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 2px solid transparent;
+    white-space: nowrap;
+  }
+  .btn-primary {
+    background: var(--orange);
+    color: var(--white);
+  }
+  .btn-primary:hover { background: var(--orange-dark); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(232,130,90,0.35); }
+  .btn-outline {
+    border-color: var(--orange);
+    color: var(--orange);
+    background: transparent;
+  }
+  .btn-outline:hover { background: var(--orange-light); }
+  .btn-ghost {
+    border-color: var(--border);
+    color: var(--dark);
+    background: transparent;
+  }
+  .btn-ghost:hover { background: var(--light-grey); }
+  .btn-lg { padding: 18px 44px; font-size: 1.1rem; border-radius: 10px; }
+
+  /* ─── Nav ─── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 16px 24px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .nav-logo {
+    font-weight: 800;
+    font-size: 1.05rem;
+    color: var(--dark);
+    white-space: nowrap;
+  }
+  .nav-logo span { color: var(--orange); }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+  .nav-links a {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--grey);
+    transition: color 0.15s;
+  }
+  .nav-links a:hover { color: var(--orange); }
+  .nav-cta { display: flex; gap: 10px; align-items: center; }
+  .nav-cta .btn { padding: 10px 20px; font-size: 0.875rem; }
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 4px;
+  }
+  .hamburger span { display: block; width: 24px; height: 2px; background: var(--dark); border-radius: 2px; transition: all 0.2s; }
+  .mobile-menu {
+    display: none;
+    flex-direction: column;
+    gap: 0;
+    background: var(--white);
+    border-top: 1px solid var(--border);
+    padding: 16px 24px 24px;
+  }
+  .mobile-menu a, .mobile-menu .btn {
+    display: block;
+    padding: 12px 0;
+    font-size: 1rem;
+    border-bottom: 1px solid var(--border);
+    color: var(--dark);
+    font-weight: 500;
+  }
+  .mobile-menu .btn {
+    margin-top: 16px;
+    border-bottom: none;
+    text-align: center;
+    border-radius: 8px;
+    padding: 14px;
+  }
+  .mobile-menu.open { display: flex; }
+
+  /* ─── Hero ─── */
+  #hero {
+    background: linear-gradient(160deg, #FBF0EB 0%, #FFFFFF 60%);
+    padding: 120px 0 96px;
+    text-align: center;
+  }
+  .hero-mark {
+    font-size: 3rem;
+    margin-bottom: 24px;
+    display: block;
+  }
+  .hero-subtitle {
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 20px;
+    display: block;
+  }
+  #hero h1 { margin-bottom: 24px; max-width: 800px; margin-left: auto; margin-right: auto; }
+  #hero .hero-desc {
+    font-size: 1.15rem;
+    max-width: 620px;
+    margin: 0 auto 48px;
+    color: var(--grey);
+  }
+  .hero-cta { margin-bottom: 56px; }
+  .hero-supplement {
+    max-width: 700px;
+    margin: 0 auto;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px 36px;
+    text-align: left;
+    box-shadow: var(--shadow);
+    font-size: 0.97rem;
+    color: var(--grey);
+    line-height: 1.9;
+  }
+
+  /* ─── Feature Cards ─── */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+  }
+  .card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px 24px;
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .card:hover { box-shadow: var(--shadow); transform: translateY(-4px); }
+  .card-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: var(--orange-light);
+    color: var(--orange);
+    font-weight: 800;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    margin-bottom: 16px;
+  }
+  .card h3 { margin-bottom: 10px; font-size: 1.05rem; }
+  .card p { font-size: 0.9rem; }
+
+  /* ─── Highlights (5大亮點) ─── */
+  .highlights-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 28px;
+  }
+  .highlight-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 32px 28px;
+    border: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+  .highlight-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 4px; height: 100%;
+    background: var(--orange);
+    border-radius: 4px 0 0 4px;
+  }
+  .highlight-card h3 { margin-bottom: 12px; }
+  .highlight-card p { font-size: 0.95rem; }
+  .highlight-footer {
+    margin-top: 64px;
+    background: var(--orange-light);
+    border-radius: var(--radius);
+    padding: 32px 36px;
+    text-align: center;
+  }
+  .highlight-footer p { color: var(--dark); font-size: 1rem; line-height: 1.8; }
+
+  /* ─── Testimonials ─── */
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+    margin-bottom: 48px;
+  }
+  .testimonial-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .testimonial-avatar {
+    width: 52px; height: 52px;
+    background: var(--orange-light);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem;
+  }
+  .testimonial-name { font-weight: 700; font-size: 1rem; color: var(--dark); margin-bottom: 2px; }
+  .testimonial-role { font-size: 0.82rem; color: var(--grey); }
+  .testimonial-result {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--orange-light);
+    color: var(--orange-dark);
+    padding: 6px 14px;
+    border-radius: 100px;
+    font-size: 0.82rem;
+    font-weight: 700;
+  }
+  .testimonial-body { font-size: 0.93rem; color: var(--grey); font-style: italic; }
+  .testimonials-cta { text-align: center; }
+  .testimonials-cta p { margin-bottom: 20px; font-size: 1.05rem; color: var(--dark); font-weight: 600; }
+
+  /* ─── Not For / For Who ─── */
+  .warning-grid { display: grid; gap: 20px; }
+  .warning-item {
+    display: flex;
+    gap: 20px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px 28px;
+    align-items: flex-start;
+  }
+  .warning-x {
+    flex-shrink: 0;
+    width: 36px; height: 36px;
+    background: var(--light-grey);
+    color: var(--grey);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 1.1rem;
+  }
+  .warning-content h3 { margin-bottom: 6px; font-size: 1rem; }
+  .warning-content p { font-size: 0.92rem; }
+  .warning-footer { margin-top: 32px; text-align: center; color: var(--grey); font-size: 0.95rem; }
+
+  .forwhom-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+  }
+  .forwhom-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 32px 28px;
+    border: 1px solid var(--border);
+  }
+  .forwhom-icon {
+    font-size: 1.8rem;
+    margin-bottom: 16px;
+    display: block;
+  }
+  .forwhom-card h3 { margin-bottom: 10px; }
+  .forwhom-card p { font-size: 0.93rem; }
+
+  /* ─── Screenshots wall ─── */
+  .screenshots-placeholder {
+    background: var(--light-grey);
+    border: 2px dashed var(--border);
+    border-radius: var(--radius);
+    padding: 80px 40px;
+    text-align: center;
+  }
+  .screenshots-placeholder p { color: #999; font-size: 0.95rem; }
+  .screenshots-placeholder strong { display: block; font-size: 1.1rem; margin-bottom: 8px; color: var(--dark); }
+
+  /* ─── Pain Points ─── */
+  .painpoints-grid { display: grid; gap: 0; }
+  .painpoint-item {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .painpoint-item:last-child { border-bottom: none; }
+  .pain-side, .solution-side {
+    padding: 32px 36px;
+  }
+  .pain-side { border-right: 1px solid var(--border); }
+  .pain-label {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--grey); background: var(--light-grey);
+    padding: 4px 10px; border-radius: 100px; margin-bottom: 14px;
+  }
+  .solution-label {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--orange-dark); background: var(--orange-light);
+    padding: 4px 10px; border-radius: 100px; margin-bottom: 14px;
+  }
+  .pain-side h3, .solution-side h3 { margin-bottom: 10px; font-size: 1rem; }
+  .pain-side p, .solution-side p { font-size: 0.92rem; }
+  .solution-side { background: var(--orange-light); }
+  .painpoints-wrapper {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+
+  /* ─── About ─── */
+  .about-inner {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 64px;
+    align-items: start;
+  }
+  .about-avatar-box {
+    text-align: center;
+  }
+  .about-avatar {
+    width: 200px; height: 200px;
+    background: var(--orange-light);
+    border-radius: 50%;
+    margin: 0 auto 20px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 4rem;
+    border: 4px solid var(--orange);
+  }
+  .about-email {
+    font-size: 0.88rem;
+    color: var(--grey);
+    margin-top: 12px;
+  }
+  .about-content h2 { margin-bottom: 28px; }
+  .about-list { display: grid; gap: 14px; margin-bottom: 40px; }
+  .about-list li {
+    display: flex; gap: 12px; align-items: flex-start;
+    font-size: 0.95rem; color: var(--grey);
+  }
+  .about-list li::before {
+    content: '▸';
+    color: var(--orange);
+    flex-shrink: 0;
+    font-size: 0.85rem;
+    margin-top: 3px;
+  }
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+  .stat-item {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    text-align: center;
+  }
+  .stat-num { font-size: 1.8rem; font-weight: 800; color: var(--orange); display: block; }
+  .stat-desc { font-size: 0.8rem; color: var(--grey); margin-top: 4px; }
+
+  /* ─── Curriculum ─── */
+  .curriculum-tabs { margin-bottom: 40px; display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+  .tab-btn {
+    padding: 10px 24px;
+    border-radius: 100px;
+    border: 2px solid var(--border);
+    background: var(--white);
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--grey);
+    transition: all 0.2s;
+  }
+  .tab-btn.active {
+    border-color: var(--orange);
+    background: var(--orange);
+    color: var(--white);
+  }
+  .curriculum-panel { display: none; }
+  .curriculum-panel.active { display: block; }
+  .curriculum-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--white);
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .curriculum-table th {
+    background: var(--dark);
+    color: var(--white);
+    padding: 16px 20px;
+    text-align: left;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+  .curriculum-table td {
+    padding: 18px 20px;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.92rem;
+    vertical-align: top;
+  }
+  .curriculum-table tr:last-child td { border-bottom: none; }
+  .curriculum-table tr:hover td { background: var(--light-grey); }
+  .week-badge {
+    display: inline-block;
+    background: var(--orange-light);
+    color: var(--orange-dark);
+    padding: 4px 12px;
+    border-radius: 100px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  .curriculum-content li { padding: 3px 0; font-size: 0.88rem; color: var(--grey); }
+  .curriculum-content li::before { content: '• '; color: var(--orange); }
+  .curriculum-outcomes {
+    margin-top: 40px;
+    background: var(--orange-light);
+    border-radius: var(--radius);
+    padding: 36px;
+  }
+  .curriculum-outcomes h3 { margin-bottom: 20px; color: var(--dark); }
+  .outcomes-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+  .outcome-item {
+    display: flex; gap: 10px; align-items: flex-start;
+    font-size: 0.92rem; color: var(--dark);
+  }
+  .outcome-check { color: var(--orange); font-weight: 800; flex-shrink: 0; }
+  .curriculum-diff {
+    margin-top: 28px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px 32px;
+  }
+  .curriculum-diff h3 { margin-bottom: 16px; }
+  .curriculum-diff li {
+    display: flex; gap: 10px; align-items: flex-start;
+    padding: 6px 0; font-size: 0.92rem; color: var(--grey);
+  }
+  .curriculum-diff li::before { content: '✓'; color: var(--orange); font-weight: 800; flex-shrink: 0; }
+
+  /* ─── Bonus ─── */
+  .bonus-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+  }
+  .bonus-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 32px 28px;
+    position: relative;
+  }
+  .bonus-num {
+    position: absolute;
+    top: -14px; left: 24px;
+    background: var(--orange);
+    color: var(--white);
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 0.85rem;
+  }
+  .bonus-card h3 { margin-bottom: 12px; padding-top: 8px; }
+  .bonus-card p { font-size: 0.93rem; }
+
+  /* ─── Pricing ─── */
+  .pricing-note {
+    text-align: center;
+    background: var(--orange-light);
+    border-radius: var(--radius);
+    padding: 20px;
+    margin-bottom: 48px;
+    font-size: 0.93rem;
+    color: var(--orange-dark);
+    font-weight: 600;
+  }
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 28px;
+    align-items: start;
+  }
+  .pricing-card {
+    background: var(--white);
+    border: 2px solid var(--border);
+    border-radius: 16px;
+    padding: 36px 32px;
+    position: relative;
+    transition: box-shadow 0.2s;
+  }
+  .pricing-card:hover { box-shadow: var(--shadow); }
+  .pricing-card.featured {
+    border-color: var(--orange);
+    box-shadow: 0 0 0 4px rgba(232,130,90,0.12);
+  }
+  .pricing-badge {
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--orange);
+    color: var(--white);
+    font-size: 0.78rem;
+    font-weight: 800;
+    padding: 6px 18px;
+    border-radius: 100px;
+    white-space: nowrap;
+    letter-spacing: 0.05em;
+  }
+  .pricing-plan-name { font-size: 0.82rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--orange); margin-bottom: 8px; }
+  .pricing-card h3 { font-size: 1.3rem; margin-bottom: 12px; }
+  .pricing-desc { font-size: 0.9rem; color: var(--grey); margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid var(--border); }
+  .pricing-old { font-size: 0.85rem; color: #999; text-decoration: line-through; margin-bottom: 4px; }
+  .pricing-price { font-size: 2rem; font-weight: 800; color: var(--dark); margin-bottom: 4px; }
+  .pricing-save { font-size: 0.82rem; color: var(--orange-dark); font-weight: 700; margin-bottom: 24px; }
+  .pricing-features { margin-bottom: 28px; display: grid; gap: 10px; }
+  .pricing-feature {
+    display: flex; gap: 10px; align-items: flex-start;
+    font-size: 0.88rem; color: var(--grey);
+  }
+  .pricing-feature .check { color: var(--orange); font-weight: 800; flex-shrink: 0; }
+  .pricing-feature .feature-label { font-weight: 700; color: var(--dark); display: block; margin-bottom: 2px; }
+  .pricing-feature-group { margin-top: 16px; }
+  .pricing-feature-group-label {
+    font-size: 0.75rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--grey); margin-bottom: 10px; display: block;
+  }
+  .pricing-cta { width: 100%; text-align: center; display: block; }
+  .pricing-warning {
+    margin-top: 14px;
+    font-size: 0.78rem;
+    color: var(--orange-dark);
+    text-align: center;
+    font-weight: 600;
+  }
+  .pricing-fire {
+    background: var(--orange-light);
+    border: 1px solid #F1D4C6;
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 0.83rem;
+    color: var(--orange-dark);
+    margin-bottom: 20px;
+    line-height: 1.6;
+  }
+
+  /* ─── FAQ ─── */
+  .faq-list { display: grid; gap: 0; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+  .faq-item { border-bottom: 1px solid var(--border); }
+  .faq-item:last-child { border-bottom: none; }
+  .faq-q {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 22px 28px;
+    background: var(--white);
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--dark);
+    gap: 16px;
+    transition: background 0.15s;
+  }
+  .faq-q:hover { background: var(--light-grey); }
+  .faq-icon {
+    flex-shrink: 0;
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: var(--orange-light);
+    color: var(--orange);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem;
+    font-weight: 700;
+    transition: transform 0.2s;
+  }
+  .faq-item.open .faq-icon { transform: rotate(45deg); }
+  .faq-a {
+    display: none;
+    padding: 0 28px 22px;
+    font-size: 0.95rem;
+    color: var(--grey);
+    line-height: 1.8;
+  }
+  .faq-item.open .faq-a { display: block; }
+
+  /* ─── Footer CTA ─── */
+  #footer-cta {
+    background: linear-gradient(135deg, var(--dark) 0%, #2D1F1A 100%);
+    text-align: center;
+    padding: 96px 24px;
+  }
+  #footer-cta h2 { color: var(--white); margin-bottom: 16px; }
+  #footer-cta p { color: rgba(255,255,255,0.65); max-width: 520px; margin: 0 auto 40px; font-size: 1.05rem; }
+  #footer-cta .btn-primary { font-size: 1.1rem; padding: 18px 48px; }
+
+  footer {
+    background: var(--dark);
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding: 48px 24px 32px;
+    color: rgba(255,255,255,0.5);
+  }
+  .footer-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding-bottom: 40px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    margin-bottom: 24px;
+  }
+  .footer-brand .nav-logo { color: var(--white); font-size: 1.1rem; margin-bottom: 8px; }
+  .footer-brand p { font-size: 0.85rem; color: rgba(255,255,255,0.4); margin-top: 6px; }
+  .footer-links h4 { color: var(--white); font-size: 0.85rem; margin-bottom: 14px; letter-spacing: 0.08em; text-transform: uppercase; }
+  .footer-links ul { display: grid; gap: 10px; }
+  .footer-links a { font-size: 0.88rem; transition: color 0.15s; }
+  .footer-links a:hover { color: var(--orange); }
+  .footer-copyright { text-align: center; font-size: 0.82rem; }
+
+  /* ─── Divider ─── */
+  .orange-divider { width: 48px; height: 3px; background: var(--orange); border-radius: 2px; margin: 16px auto 0; }
+
+  /* ─── Responsive ─── */
+  @media (max-width: 900px) {
+    .nav-links { display: none; }
+    .nav-cta { display: none; }
+    .hamburger { display: flex; }
+    .about-inner { grid-template-columns: 1fr; }
+    .about-avatar { width: 140px; height: 140px; font-size: 3rem; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .painpoint-item { grid-template-columns: 1fr; }
+    .pain-side { border-right: none; border-bottom: 1px solid var(--border); }
+  }
+  @media (max-width: 640px) {
+    section { padding: 64px 0; }
+    #hero { padding: 80px 0 64px; }
+    .hero-supplement { padding: 20px 20px; }
+    .pricing-grid { grid-template-columns: 1fr; }
+    .cards-grid { grid-template-columns: 1fr; }
+    .highlights-grid { grid-template-columns: 1fr; }
+    .forwhom-grid { grid-template-columns: 1fr; }
+    .bonus-grid { grid-template-columns: 1fr; }
+    .testimonials-grid { grid-template-columns: 1fr; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .curriculum-table { font-size: 0.85rem; }
+    .curriculum-table th, .curriculum-table td { padding: 12px 14px; }
+    .faq-q { padding: 18px 20px; font-size: 0.95rem; }
+    .faq-a { padding: 0 20px 18px; }
+    .about-inner { gap: 36px; }
+    .footer-inner { flex-direction: column; gap: 32px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ──────────── NAV ──────────── -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">Anna 安娜｜<span>塔羅品牌陪跑計畫</span></a>
+    <div class="nav-links">
+      <a href="#features">課程介紹</a>
+      <a href="#about">關於 Anna</a>
+      <a href="#testimonials">學員見證</a>
+      <a href="#faq">常見問題</a>
+    </div>
+    <div class="nav-cta">
+      <a href="#" class="btn btn-ghost">訂閱免費電子報</a>
+      <a href="#" class="btn btn-primary">預約諮詢</a>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="選單">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#features">課程介紹</a>
+    <a href="#about">關於 Anna</a>
+    <a href="#testimonials">學員見證</a>
+    <a href="#faq">常見問題</a>
+    <a href="#" class="btn btn-ghost">訂閱免費電子報</a>
+    <a href="#" class="btn btn-primary">預約諮詢</a>
+  </div>
+</nav>
+
+<!-- ──────────── HERO ──────────── -->
+<section id="hero">
+  <div class="container">
+    <span class="hero-mark">🃏</span>
+    <span class="hero-subtitle">Anna 安娜｜塔羅品牌陪跑計畫</span>
+    <h1>打造屬於你的<br/>塔羅品牌風格</h1>
+    <p class="hero-desc">從牌義基礎，解牌實戰到內容創作，陪你建立穩定輸出與獨特觀點，具有內容與品牌辨識度</p>
+    <div class="hero-cta">
+      <a href="#" class="btn btn-primary btn-lg">加入等候名單</a>
+    </div>
+    <div class="hero-supplement">
+      《塔羅品牌陪跑計畫》專為對塔羅牌有熱情、從把牌當成自我探索療癒的工具外，也想將塔羅變成品牌事業的你設計。透過探索定位 × 塔羅 × 個人品牌的完整系統，讓你從塔羅愛好者，蛻變為有經營方向、有定位、有受眾的塔羅創作者與品牌經營者。
+    </div>
+  </div>
+</section>
+
+<!-- ──────────── 區塊 2｜功能卡片 ──────────── -->
+<section id="features">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">全新升級</span>
+      <h2>用 AI 加速你的塔羅創業工作流</h2>
+      <div class="orange-divider"></div>
+      <p style="margin-top:20px;">解決一人創業者內容產出慢、害怕沒有靈感的核心痛點</p>
+    </div>
+    <div class="cards-grid">
+      <div class="card">
+        <div class="card-num">1</div>
+        <h3>品牌定位</h3>
+        <p>✓ 協助你找到塔羅帳號的核心定位，不再模糊不清</p>
+      </div>
+      <div class="card">
+        <div class="card-num">2</div>
+        <h3>內容創作</h3>
+        <p>✓ 客製塔羅語氣的高流量 IG／Threads 寫作 AI 助手教學</p>
+      </div>
+      <div class="card">
+        <div class="card-num">3</div>
+        <h3>變現設計</h3>
+        <p>✓ 課程、占卜服務、社群訂閱三大收入模式規劃教學</p>
+      </div>
+      <div class="card">
+        <div class="card-num">4</div>
+        <h3>受眾經營</h3>
+        <p>✓ 如何在社群找到對塔羅有共鳴的精準受眾並留住他們</p>
+      </div>
+      <div class="card">
+        <div class="card-num">5</div>
+        <h3>內容再製</h3>
+        <p>✓ 一個觀念拆成 IG／YT Short／Threads 多平台輸出教學</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ──────────── 區塊 3｜5大亮點 ──────────── -->
+<section id="highlights">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">最受好評</span>
+      <h2>《塔羅品牌陪跑計畫》5 大亮點</h2>
+      <div class="orange-divider"></div>
+      <p style="margin-top:20px;">從第一張牌，走到有屬於你受眾的完整路徑</p>
+    </div>
+    <div class="highlights-grid">
+      <div class="highlight-card">
+        <h3>塔羅受眾文章拆解</h3>
+        <p>學會把塔羅內容轉化為觀眾看得懂、願意分享的貼文與影片</p>
+      </div>
+      <div class="highlight-card">
+        <h3>作業一對一批改 × 5次</h3>
+        <p>Anna 親自批改你的塔羅內容，讓你了解「原來塔羅內容這樣寫才有人看」</p>
+      </div>
+      <div class="highlight-card">
+        <h3>3 款 AI 助手加快創業工作流</h3>
+        <p>課堂直接客製化屬於你塔羅風格的 AI 寫作機器人，不用懂 code，去除 AI 感，讓內容有溫度又有流量</p>
+      </div>
+      <div class="highlight-card">
+        <h3>Anna 1 對 1 事業諮詢</h3>
+        <p>幫你找定位、設計收費服務、規劃從流量到變現的完整路徑</p>
+      </div>
+      <div class="highlight-card">
+        <h3>4 堂直播實作課</h3>
+        <p>下課即帶走成果，不是單向聽課，每堂課雙向互動，下課就有實際產出</p>
+      </div>
+    </div>
+    <div class="highlight-footer">
+      <p>《塔羅品牌陪跑計畫》持續更新，所有設計都以最大化協助你「打造塔羅個人品牌」為核心。<br/>AI 時代，有價值的不只是塔羅知識，而是透過陪伴與系統，讓你真正「實踐」並「創造成果」。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ──────────── 區塊 4｜學員見證 ──────────── -->
+<section id="testimonials">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">成功案例</span>
+      <h2>看看過往學員怎麼說</h2>
+      <div class="orange-divider"></div>
+    </div>
+    <div class="testimonials-grid">
+      <!-- 卡片 1（示意格式，請替換為真實學員） -->
+      <div class="testimonial-card">
+        <div class="testimonial-avatar">🌙</div>
+        <div>
+          <div class="testimonial-name">學員姓名</div>
+          <div class="testimonial-role">兼職塔羅師／上班族塔羅創作者</div>
+        </div>
+        <span class="testimonial-result">✓ 3個月開出第一堂塔羅課，成功收到10位學員</span>
+        <p class="testimonial-body">「在這裡填入學員的真實見證內文，分享他們在加入計畫前的狀況、參與過程中的轉變，以及最後達到的成果……」</p>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-avatar">⭐</div>
+        <div>
+          <div class="testimonial-name">學員姓名</div>
+          <div class="testimonial-role">全職媽媽／塔羅內容創作者</div>
+        </div>
+        <span class="testimonial-result">✓ 粉絲從 0 成長到 2,000，成功接到第一筆付費</span>
+        <p class="testimonial-body">「在這裡填入學員的真實見證內文，分享他們在加入計畫前的狀況、參與過程中的轉變，以及最後達到的成果……」</p>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-avatar">🔮</div>
+        <div>
+          <div class="testimonial-name">學員姓名</div>
+          <div class="testimonial-role">上班族副業斜槓／塔羅師</div>
+        </div>
+        <span class="testimonial-result">✓ 6週內設計出定價清晰的占卜服務，自信收費</span>
+        <p class="testimonial-body">「在這裡填入學員的真實見證內文，分享他們在加入計畫前的狀況、參與過程中的轉變，以及最後達到的成果……」</p>
+      </div>
+    </div>
+    <div class="testimonials-cta">
+      <p>加入我們，成為下一位成功案例 →</p>
+      <a href="#" class="btn btn-primary">加入等候名單</a>
+    </div>
+  </div>
+</section>
+
+<!-- ──────────── 區塊 5｜不適合 ──────────── -->
+<section id="not-for">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">請先確認</span>
+      <h2>《塔羅品牌陪跑計畫》不適合以下 3 種人</h2>
+      <div class="orange-divider"></div>
+    </div>
+    <div class="warning-grid">
+      <div class="warning-item">
+        <div class="warning-x">✕</div>
+        <div class="warning-content">
+          <h3>只想學牌義、不想經營事業</h3>
+          <p>本計畫的核心不是塔羅解牌技巧本身，而是如何以塔羅為核心打造個人品牌與收入。若你只想精進解牌，這個計畫目前不適合你。</p>
+        </div>
+      </div>
+      <div class="warning-item">
+        <div class="warning-x">✕</div>
+        <div class="warning-content">
+          <h3>不願意在社群上曝光自己</h3>
+          <p>塔羅創業需要被人看見。若你完全排斥社群經營、不願意分享自己的想法與內容，本計畫的成效將非常有限。</p>
+        </div>
+      </div>
+      <div class="warning-item">
+        <div class="warning-x">✕</div>
+        <div class="warning-content">
+          <h3>期待零投入、快速暴富</h3>
+          <p>一人事業需要時間與實作的累積。若你沒有準備好每週投入時間練習與執行，請先做好心理準備再加入。</p>
+        </div>
+      </div>
+    </div>
+    <p class="warning-footer">如果你符合上述任何一項，請知悉此計畫目前無法幫上忙。</p>
+  </div>
+</section>
+
+<!-- ──────────── 區塊 6｜適合誰 ──────────── -->
+<section id="for-who">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">這是你的計畫</span>
+      <h2>《塔羅品牌陪跑計畫》適合誰？</h2>
+      <div class="orange-divider"></div>
+    </div>
+    <div class="forwhom-grid">
+      <div class="forwhom-card">
+        <span class="forwhom-icon">🃏</span>
+        <h3>熱愛塔羅，想把興趣變收入</h3>
+        <p>你對塔羅充滿熱情，也幫朋友解過牌，但一直不知道如何從「愛好」走向「收費服務」或「開課」。</p>
+      </div>
+      <div class="forwhom-card">
+        <span class="forwhom-icon">🌿</span>
+        <h3>想打造個人品牌，不想只靠接案度日</h3>
+        <p>你想建立屬於自己的塔羅品牌，擁有自己的受眾與學員名單，而不是永遠在平台上搶排名、削價競爭。</p>
+      </div>
+      <div class="forwhom-card">
+        <span class="forwhom-icon">✨</span>
+        <h3>追求長期自由，想要有彈性的一人事業</h3>
+        <p>你嚮往能自己決定工作節奏的生活，透過塔羅教學、服務、內容創作實現財務與時間的自由。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ──────────── 區塊 7｜截圖見證牆 ──────────── -->
+<section id="screenshots">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">好評見證</span>
+      <h2>來自學員的真實分享與回饋</h2>
+      <div class="orange-divider"></div>
+    </div>
+    <div class="screenshots-placeholder">
+      <strong>📸 截圖見證牆</strong>
+      <p>請在此放置來自 IG / Threads / LINE 的真實學員截圖回饋（標明來源）</p>
+    </div>
+  </div>
+</section>
+
+<!-- ──────────── 區塊 8｜痛點解方 ──────────── -->
+<section id="painpoints">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">痛點 × 解方</span>
+      <h2>這些困擾，你是不是也有？</h2>
+      <div class="orange-divider"></div>
+      <p style="margin-top:20px;">別擔心，《塔羅品牌陪跑計畫》將幫你一一突破</p>
+    </div>
+    <div class="painpoints-wrapper">
+      <div class="painpoints-grid">
+        <div class="painpoint-item">
+          <div class="pain-side">
+            <span class="pain-label">✕ 痛點</span>
+            <h3>不知道如何定價與收費</h3>
+            <p>學了這麼久的牌，卻不敢開口收錢，怕被嫌貴、怕沒人買</p>
+          </div>
+          <div class="solution-side">
+            <span class="solution-label">✓ 解方</span>
+            <h3>設計收費服務階梯</h3>
+            <p>從入門到進階，自信定價不心虛</p>
+          </div>
+        </div>
+        <div class="painpoint-item">
+          <div class="pain-side">
+            <span class="pain-label">✕ 痛點</span>
+            <h3>內容沒人看，流量卡關</h3>
+            <p>認真寫了貼文，卻只有幾個按讚，不知道問題在哪裡</p>
+          </div>
+          <div class="solution-side">
+            <span class="solution-label">✓ 解方</span>
+            <h3>掌握塔羅高流量寫法</h3>
+            <p>讓貼文吸引對的人駐足與追蹤</p>
+          </div>
+        </div>
+        <div class="painpoint-item">
+          <div class="pain-side">
+            <span class="pain-label">✕ 痛點</span>
+            <h3>不知道要教什麼、怎麼開課</h3>
+            <p>想開塔羅課，卻不知道從哪裡開始，課程架構、招生、定價全都沒頭緒</p>
+          </div>
+          <div class="solution-side">
+            <span class="solution-label">✓ 解方</span>
+            <h3>從零規劃第一門塔羅課</h3>
+            <p>含課綱設計、定價邏輯與招生策略</p>
+          </div>
+        </div>
+        <div class="painpoint-item">
+          <div class="pain-side">
+            <span class="pain-label">✕ 痛點</span>
+            <h3>每天靈感枯竭，不知道發什麼</h3>
+            <p>知道要持續輸出內容，但腦中一片空白，每次打開 IG 就不知道該寫什麼</p>
+          </div>
+          <div class="solution-side">
+            <span class="solution-label">✓ 解方</span>
+            <h3>建立塔羅內容矩陣 + AI 靈感庫</h3>
+            <p>讓日更不再是壓力而是習慣</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ──────────── 區塊 9｜關於 Anna ──────────── -->
+<section id="about">
+  <div class="container">
+    <div class="about-inner">
+      <div class="about-avatar-box">
+        <div class="about-avatar">👩</div>
+        <div class="nav-logo" style="margin-top:12px;">Anna 安娜</div>
+        <div class="about-email">helloanna520@gmail.com</div>
+      </div>
+      <div class="about-content">
+        <span class="section-label">About 導師</span>
+        <h2>Anna 安娜</h2>
+        <ul class="about-list">
+          <li>14 年資深國文和輔導教師，深諳人心與心理學應用</li>
+          <li>辭去教職，全職投入塔羅事業，成立工作室與教學領域</li>
+          <li>YouTube 頻道突破 10 萬訂閱，以「塔羅 × 心理學」為核心風格</li>
+          <li>結合雷諾曼牌、塔羅牌教學，開創心理靈性複合教學體系</li>
+          <li>長期陪伴學員從「塔羅愛好者」走向「塔羅品牌創作者」</li>
+          <li>主理《塔羅品牌陪跑計畫》，協助一人事業主打造可持續的個人品牌</li>
+          <li>經營個人電子報，定期分享塔羅創業心法與心理學洞察</li>
+        </ul>
+        <div class="stats-grid">
+          <div class="stat-item">
+            <span class="stat-num">10萬+</span>
+            <div class="stat-desc">YouTube 訂閱數</div>
+          </div>
+          <div class="stat-item">
+            <span class="stat-num">14年</span>
+            <div class="stat-desc">輔導教師年資</div>
+          </div>
+          <div class="stat-item">
+            <span class="stat-num">200+</span>
+            <div class="stat-desc">帶過的塔羅學員</div>
+          </div>
+          <div class="stat-item">
+            <span class="stat-num">1200+</span>
+            <div class="stat-desc">電子報訂閱數</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ──────────── 區塊 10｜課程大綱 ──────────── -->
+<section id="curriculum">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">課程大綱</span>
+      <h2>塔羅品牌陪跑計畫 5 週課程大綱</h2>
+      <div class="orange-divider"></div>
+      <p style="margin-top:20px;">從塔羅定位到自媒體經營的完整執行系統</p>
+    </div>
+    <div class="curriculum-tabs">
+      <button class="tab-btn active" onclick="switchTab('tarot')">🃏 塔羅技術課（Week 1–5）</button>
+      <button class="tab-btn" onclick="switchTab('brand')">🚀 品牌陪跑課（Week 1–5）</button>
+    </div>
+    <div id="tab-tarot" class="curriculum-panel active">
+      <table class="curriculum-table">
+        <thead>
+          <tr>
+            <th style="width:100px;">週次</th>
+            <th style="width:200px;">主題</th>
+            <th>課程內容</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="week-badge">Week 1</span></td>
+            <td><strong>塔羅原理，占卜步驟與心態建立</strong></td>
+            <td>
+              <ul class="curriculum-content">
+                <li>78張牌架構／四大元素（火、水、風、土）核心本質</li>
+                <li>大牌前篇：物質與意識層面</li>
+                <li>抽牌前準備／如何洗牌</li>
+                <li>22張大牌前篇：從 0號愚者到 7號戰車的意涵與符號拆解</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td><span class="week-badge">Week 2</span></td>
+            <td><strong>元素世界觀／大牌中篇：潛意識與心靈層面</strong></td>
+            <td>
+              <ul class="curriculum-content">
+                <li>22張大牌中篇：從 8號力量牌到 14號節制牌的意涵與符號拆解</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td><span class="week-badge">Week 3</span></td>
+            <td><strong>大牌後篇：轉化重生與昇華</strong></td>
+            <td>
+              <ul class="curriculum-content">
+                <li>三張牌的牌陣教學</li>
+                <li>22張大牌後篇：從 15號惡魔牌到 21號世界牌的意涵與符號拆解</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td><span class="week-badge">Week 4</span></td>
+            <td><strong>四元素與數字小牌（交付錄播課）</strong></td>
+            <td>
+              <ul class="curriculum-content">
+                <li>從數字小牌看日常具體事件</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td><span class="week-badge">Week 5</span></td>
+            <td><strong>宮廷人物牌（交付錄播課）</strong></td>
+            <td>
+              <ul class="curriculum-content">
+                <li>從宮廷人物牌看人物特質／內外在思考</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td><span class="week-badge">Week 6</span></td>
+            <td><strong>團體 Q&A</strong></td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td><span class="week-badge">Week 7–10</span></td>
+            <td><strong>課程更新中</strong></td>
+            <td>持續更新中，敬請期待</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div id="tab-brand" class="curriculum-panel">
+      <table class="curriculum-table">
+        <thead>
+          <tr>
+            <th style="width:100px;">週次</th>
+            <th style="width:200px;">主題</th>
+            <th>課程內容</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="week-badge">Week 1</span></td>
+            <td><strong>Brand<br/>塔羅品牌定位 × 理想受眾</strong></td>
+            <td>
+              <ul class="curriculum-content">
+                <li>找到你的塔羅創業定位（教學／服務／內容創作）</li>
+                <li>釐清你的理想客戶是誰</li>
+                <li>打造「想追蹤、想學習」的個人主頁與介紹</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td><span class="week-badge">Week 2</span></td>
+            <td><strong>Launch<br/>高流量塔羅內容寫法</strong></td>
+            <td>
+              <ul class="curriculum-content">
+                <li>塔羅貼文的爆文結構拆解</li>
+                <li>如何把牌義轉化為有共鳴的故事型內容</li>
+                <li>IG / Threads 塔羅內容發文策略</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td><span class="week-badge">Week 3</span></td>
+            <td><strong>Outreach<br/>社群互動 × 精準受眾觸及</strong></td>
+            <td>
+              <ul class="curriculum-content">
+                <li>如何找到對塔羅有興趣的精準受眾</li>
+                <li>留言互動策略，讓演算法幫你推播</li>
+                <li>與潛在學員建立信任感的方法</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td><span class="week-badge">Week 4</span></td>
+            <td><strong>Optimize<br/>靈感矩陣 × AI 寫作助手</strong></td>
+            <td>
+              <ul class="curriculum-content">
+                <li>建立永不枯竭的塔羅內容矩陣</li>
+                <li>打造屬於你語氣的 AI 寫作機器人</li>
+                <li>多平台內容再製策略（IG／YT短影音／電子報）</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td><span class="week-badge">Week 5</span></td>
+            <td><strong>Monetize<br/>課程設計 × 流量變現</strong></td>
+            <td>
+              <ul class="curriculum-content">
+                <li>設計你的第一門塔羅課程</li>
+                <li>定價邏輯與收費服務階梯設計</li>
+                <li>招生頁面撰寫 × 成交路徑規劃</li>
+              </ul>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="curriculum-outcomes">
+      <h3>課程結束後，你將擁有：</h3>
+      <div class="outcomes-grid">
+        <div class="outcome-item"><span class="outcome-check">✓</span><span>擁有清晰的塔羅創業定位與個人品牌</span></div>
+        <div class="outcome-item"><span class="outcome-check">✓</span><span>掌握高流量塔羅內容寫法，能每週穩定輸出</span></div>
+        <div class="outcome-item"><span class="outcome-check">✓</span><span>設計出第一門可收費的塔羅課程或服務</span></div>
+        <div class="outcome-item"><span class="outcome-check">✓</span><span>將 AI 工具融入工作流，大幅提升創作效率</span></div>
+        <div class="outcome-item"><span class="outcome-check">✓</span><span>結識同樣走在塔羅創業路上的夥伴</span></div>
+      </div>
+    </div>
+    <div class="curriculum-diff">
+      <h3>與坊間塔羅課最大差別</h3>
+      <ul>
+        <li>不只教牌義，而是教你如何以塔羅為核心建立事業</li>
+        <li>直播實作課取代預錄課，下課即帶走可執行的成果</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ──────────── 區塊 11｜Bonus ──────────── -->
+<section id="bonus">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">加值 Bonus</span>
+      <h2>除了課程，我還為你準備了 3 個 Bonus</h2>
+      <div class="orange-divider"></div>
+      <p style="margin-top:20px;">解決塔羅創業者靈感枯竭、孤軍奮戰、不知如何推廣的三大卡關點</p>
+    </div>
+    <div class="bonus-grid">
+      <div class="bonus-card">
+        <div class="bonus-num">1</div>
+        <h3>塔羅創業者專屬社群</h3>
+        <p>加入與你同樣走在塔羅創業路上的夥伴，互相支持、互讚互留言，不孤單地走這條路</p>
+      </div>
+      <div class="bonus-card">
+        <div class="bonus-num">2</div>
+        <h3>塔羅高流量內容靈感 AI 機器人</h3>
+        <p>Anna 獨家開發提示詞，協助你每天快速找到塔羅爆文靈感，按你的牌卡風格客製化輸出</p>
+      </div>
+      <div class="bonus-card">
+        <div class="bonus-num">3</div>
+        <h3>塔羅貼文轉 IG 輪播教學</h3>
+        <p>Anna 獨家提示詞教學，一篇 Threads 塔羅文章直接變成精美 IG 輪播貼文，一魚多吃不費力</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ──────────── 區塊 12｜定價 ──────────── -->
+<section id="pricing">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">方案選擇</span>
+      <h2>塔羅斜槓計畫</h2>
+      <div class="orange-divider"></div>
+      <p style="margin-top:20px;">透過完整系統，從塔羅愛好者走向有收入的塔羅創業者</p>
+    </div>
+    <div class="pricing-note">
+      · 單買對比：初階牌義（$12,000）＋ 解牌實戰（$16,000）
+    </div>
+    <div class="pricing-grid">
+
+      <!-- 方案 A -->
+      <div class="pricing-card">
+        <div class="pricing-plan-name">方案 A</div>
+        <h3>解牌養成方案</h3>
+        <p class="pricing-desc">扎實攻克 78 張牌義，鍛鍊直覺論斷邏輯。若你只想學會精準占卜、為自己與身邊朋友解惑，不需要經營自媒體，這是最扎實的技術打底選擇。</p>
+        <div class="pricing-old">原價 $28,000 元</div>
+        <div class="pricing-price">$22,800</div>
+        <div class="pricing-save">現省 $5,200 元</div>
+        <div class="pricing-fire">🔥 超早鳥限定：前 5 名報名者，免費升級贈送「1 次 30 分鐘解牌卡關 1 對 1 私密診斷」（由安娜親自幫你找出論斷盲點，5人額滿即截止）</div>
+        <div class="pricing-features">
+          <div style="font-size:0.78rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--grey);margin-bottom:6px;">包含內容</div>
+          <div class="pricing-feature"><span class="check">✓</span><span>第 1~4 週：初階牌義直播課（含第 3 週全面交付平日錄播複習影片）</span></div>
+          <div class="pricing-feature"><span class="check">✓</span><span>第 5~8 週：解牌實戰直播課（萬用三牌陣、抉擇牌陣與真實個案線上對練）</span></div>
+          <div class="pricing-feature"><span class="check">✓</span><span>專屬學習群組：平日牌義及解牌討論群</span></div>
+        </div>
+        <a href="#" class="btn btn-outline pricing-cta">點我卡位｜解牌養成方案</a>
+      </div>
+
+      <!-- 方案 B -->
+      <div class="pricing-card featured">
+        <div class="pricing-badge">🌟 熱銷主推！</div>
+        <div class="pricing-plan-name">方案 B</div>
+        <h3>完整品牌方案</h3>
+        <p class="pricing-desc">一站式陪伴｜全套解牌技術 ＋ 4週品牌陪跑 ＋ 2次團體QA ＋ 2次個人諮詢。若你渴望把對塔羅的熱愛化為兼職事業、建立個人自媒體，卻卡在定位模糊、害怕發文，讓我陪你穩健起步。</p>
+        <div class="pricing-old">原價 $54,000 元</div>
+        <div class="pricing-price">$39,800</div>
+        <div class="pricing-save">現省 $14,200 元！直接省破萬</div>
+        <div class="pricing-features">
+          <div style="font-size:0.78rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--grey);margin-bottom:6px;">包含內容</div>
+          <div class="pricing-feature"><span class="check">✓</span><span>完整享有【方案 A】全部 8 週的解牌技術課程與錄播影片</span></div>
+          <div class="pricing-feature"><span class="check">✓</span><span>第 11~14 週：全新升級！4 週自媒體品牌陪跑計劃（高辨識度粉專 × 萬用故事貼文架構 × 第一款收費諮詢項目）</span></div>
+          <div class="pricing-feature"><span class="check">✓</span><span>👥 2 次團體線上實務 QA（集體點評學員粉專、修改發文文案）</span></div>
+          <div class="pricing-feature"><span class="check">✓</span><span>💎 2 次 Anna 1 對 1 品牌私密深度諮詢（每次 45 分鐘）<br/><small style="color:var(--grey);">第 1 次（期初）：粉專名稱、視覺定位與第一個月發文主題定錨<br/>第 2 次（期末）：成果驗收 × 修改諮詢產品銷售文案</small></span></div>
+        </div>
+        <a href="#" class="btn btn-primary pricing-cta">點我卡位｜完整品牌方案</a>
+        <p class="pricing-warning">⚠️ 限量陪伴門檻：本期僅限 8 名，額滿即關閉通道</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ──────────── 區塊 13｜FAQ ──────────── -->
+<section id="faq">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">常見問題</span>
+      <h2>你可能很關心的問題</h2>
+      <div class="orange-divider"></div>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          《塔羅品牌陪跑計畫》適合完全新手嗎？
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">適合。課程從 78 張牌的架構與四大元素（火、水、風、土）核心本質教起，循序進入大牌、小牌與宮廷牌，再延伸到解牌實戰，完全沒有基礎也能跟上。我們更在意的是你願不願意每週投入時間練習與實作。</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          這個計畫跟其他塔羅課有什麼不同？
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">坊間多數塔羅課只教牌義；這個計畫是以塔羅為核心「打造個人品牌與收入」的完整系統——從定位、高流量內容寫法、AI 工作流，到課程設計與變現一次串起，並以直播實作課取代預錄課，讓你下課就帶走可執行的成果。</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          我沒有社群帳號，可以從零開始嗎？
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">可以。品牌陪跑單元的第一週就從定位與個人主頁開始，帶你一步步建立高辨識度的帳號，不需要任何粉絲基礎，新手也能安心起步。</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          課程有回放嗎？我上班族時間不固定怎麼辦？
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">有。直播課皆提供回放（依方案保留時間，部分單元另交付平日錄播複習影片），就算當下無法參與，也能依自己的步調補課與練習，不必擔心時間卡得太死。</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          我已經有在接占卜服務，還適合加入嗎？
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">很適合。我們會幫你把零散的接案，升級為有定位、有定價階梯與招生路徑的品牌化服務，讓你跳脫平台削價競爭，建立屬於自己的受眾與回購。</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          計畫期間多忙？每週要投入多少時間？
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">建議每週預留約 3–5 小時：包含一堂直播實作課，以及課後的內容練習與發文。重點不在時數多寡，而是穩定累積與持續實作。</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          結束後還有支援嗎？
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">有。你會持續留在塔羅創業者專屬社群，與夥伴互相支持、互讚互留言；Anna 也會不定期分享最新的創業心法、心理學洞察與 AI 工具更新。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ──────────── 區塊 14｜Footer CTA ──────────── -->
+<section id="footer-cta">
+  <div>
+    <h2>準備好讓塔羅成為你的事業了嗎？</h2>
+    <p>若你不確定計畫是否適合你，歡迎先訂閱電子報，或直接預約一次 20 分鐘免費諮詢聊聊。</p>
+    <a href="#" class="btn btn-primary btn-lg">加入等候名單</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="nav-logo">Anna 安娜｜<span style="color:var(--orange);">塔羅品牌陪跑計畫</span></div>
+      <p>從塔羅愛好者，蛻變為有品牌的創業者</p>
+    </div>
+    <div class="footer-links">
+      <h4>社群連結</h4>
+      <ul>
+        <li><a href="#">📸 Instagram｜@hello_ms_anna</a></li>
+        <li><a href="#">🧵 Threads｜@hello_ms_anna</a></li>
+        <li><a href="#">▶ YouTube｜Hello Anna Tarot 安娜塔羅</a></li>
+        <li><a href="#">✉ 電子報｜Anna 安娜塔羅</a></li>
+      </ul>
+    </div>
+    <div class="footer-links">
+      <h4>頁面導覽</h4>
+      <ul>
+        <li><a href="#features">課程介紹</a></li>
+        <li><a href="#about">關於 Anna</a></li>
+        <li><a href="#testimonials">學員見證</a></li>
+        <li><a href="#pricing">方案定價</a></li>
+        <li><a href="#faq">常見問題</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-copyright">
+    © 2026 Anna 安娜 All rights reserved.
+  </div>
+</footer>
+
+<script>
+  // Hamburger menu
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', () => {
+    mobileMenu.classList.toggle('open');
+  });
+  // Close menu on link click
+  mobileMenu.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => mobileMenu.classList.remove('open'));
+  });
+
+  // Curriculum tabs
+  function switchTab(id) {
+    document.querySelectorAll('.curriculum-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + id).classList.add('active');
+    event.target.classList.add('active');
+  }
+
+  // FAQ accordion
+  function toggleFaq(btn) {
+    const item = btn.closest('.faq-item');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  }
+
+  // Smooth scroll for nav links
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+</script>
+</body>
+</html>
