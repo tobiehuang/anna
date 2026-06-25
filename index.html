@@ -43,7 +43,7 @@
   section:nth-child(even) { background: transparent; }
   #pricing { background: #C19A3C; padding: 0; }
   #pricing .container { padding-top: 72px; padding-bottom: 72px; }
-  #pricing .section-header p { color: #FAE6DE; }
+  #pricing .section-header p { color: #8B3A2E; }
   .checker { width: 100%; height: 28px; }
   .checker-top { background: conic-gradient(#9FB8D6 0deg 90deg, #C19A3C 90deg 180deg, #9FB8D6 180deg 270deg, #C19A3C 270deg 360deg) 0 0 / 28px 28px; }
   .checker-bottom { background: conic-gradient(#9FB8D6 0deg 90deg, #3A2E25 90deg 180deg, #9FB8D6 180deg 270deg, #3A2E25 270deg 360deg) 0 0 / 28px 28px; }
@@ -614,7 +614,8 @@
   }
   .pricing-plan-name { font-size: 0.82rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--orange); margin-bottom: 8px; }
   .pricing-card h3 { font-size: 1.3rem; margin-bottom: 12px; color: #3A312C; }
-  .pricing-desc { font-size: 0.9rem; color: var(--grey); margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid var(--border); }
+  .pricing-desc { font-size: 0.9rem; color: var(--grey); margin-bottom: 20px; padding-bottom: 0; }
+  .pricing-desc::after { content: ""; display: block; width: 50%; height: 12px; margin-top: 18px; background: conic-gradient(#9FB8D6 0deg 90deg, #3A2E25 90deg 180deg, #9FB8D6 180deg 270deg, #3A2E25 270deg 360deg) 0 0 / 12px 12px; }
   .pricing-old { font-size: 0.85rem; color: #999; text-decoration: line-through; margin-bottom: 4px; }
   .pricing-price { font-size: 2rem; font-weight: 800; color: #3A312C; margin-bottom: 4px; }
   .pricing-save { font-size: 0.82rem; color: var(--orange-dark); font-weight: 700; margin-bottom: 24px; }
