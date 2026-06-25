@@ -8,8 +8,8 @@
   /* ─── Reset & Base ─── */
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
-    --orange: #E8825A;
-    --orange-dark: #CF6A40;
+    --orange: #F26B2E;
+    --orange-dark: #D2551C;
     --orange-light: #FBF0EB;
     --dark: #1A1A1A;
     --grey: #555;
@@ -23,7 +23,7 @@
   body {
     font-family: 'Helvetica Neue', '微軟正黑體', 'PingFang TC', 'Noto Sans TC', sans-serif;
     color: var(--dark);
-    background: var(--white);
+    background: #FAE6DE;
     line-height: 1.7;
     font-size: 16px;
   }
@@ -40,9 +40,13 @@
   /* ─── Layout ─── */
   .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
   section { padding: 96px 0; }
-  section:nth-child(even) { background: var(--light-grey); }
-  #pricing { background: #C19A3C; }
+  section:nth-child(even) { background: transparent; }
+  #pricing { background: #C19A3C; padding: 0; }
+  #pricing .container { padding-top: 72px; padding-bottom: 72px; }
   #pricing .section-header p { color: #3A312C; }
+  .checker { width: 100%; height: 28px; }
+  .checker-top { background: conic-gradient(#9FB8D6 0deg 90deg, #C19A3C 90deg 180deg, #9FB8D6 180deg 270deg, #C19A3C 270deg 360deg) 0 0 / 28px 28px; }
+  .checker-bottom { background: conic-gradient(#9FB8D6 0deg 90deg, #3A2E25 90deg 180deg, #9FB8D6 180deg 270deg, #3A2E25 270deg 360deg) 0 0 / 28px 28px; }
 
   .section-label {
     display: inline-block;
@@ -791,18 +795,18 @@
   <div class="container">
     <span class="hero-mark">
       <svg width="54" height="76" viewBox="0 0 64 90" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Anna 塔羅品牌標誌">
-        <rect x="3" y="3" width="58" height="84" rx="10" fill="#FFFFFF" stroke="#E8825A" stroke-width="2.5"/>
-        <rect x="8.5" y="8.5" width="47" height="73" rx="6" fill="none" stroke="#E8825A" stroke-width="1" opacity="0.45"/>
-        <path d="M32 27 34.9 38.1 44.7 32.3 38.9 42.1 50 45 38.9 47.9 44.7 57.7 34.9 51.9 32 63 29.1 51.9 19.3 57.7 25.1 47.9 14 45 25.1 42.1 19.3 32.3 29.1 38.1 Z" fill="#E8825A"/>
+        <rect x="3" y="3" width="58" height="84" rx="10" fill="#FFFFFF" stroke="#F26B2E" stroke-width="2.5"/>
+        <rect x="8.5" y="8.5" width="47" height="73" rx="6" fill="none" stroke="#F26B2E" stroke-width="1" opacity="0.45"/>
+        <path d="M32 27 34.9 38.1 44.7 32.3 38.9 42.1 50 45 38.9 47.9 44.7 57.7 34.9 51.9 32 63 29.1 51.9 19.3 57.7 25.1 47.9 14 45 25.1 42.1 19.3 32.3 29.1 38.1 Z" fill="#F26B2E"/>
         <circle cx="32" cy="45" r="2.6" fill="#FFFFFF"/>
-        <circle cx="21.5" cy="20.5" r="1.5" fill="#E8825A"/>
-        <circle cx="42.5" cy="20.5" r="1.5" fill="#E8825A"/>
-        <circle cx="32" cy="72.5" r="1.6" fill="#E8825A"/>
+        <circle cx="21.5" cy="20.5" r="1.5" fill="#F26B2E"/>
+        <circle cx="42.5" cy="20.5" r="1.5" fill="#F26B2E"/>
+        <circle cx="32" cy="72.5" r="1.6" fill="#F26B2E"/>
       </svg>
     </span>
     <span class="hero-subtitle">Anna 安娜｜塔羅品牌陪跑計畫</span>
     <h1 style="color:#3A312C;">打造屬於你的<br/>塔羅品牌風格</h1>
-    <p class="hero-desc">從牌義基礎，解牌實戰到內容創作，陪你建立穩定輸出與獨特觀點，具有內容與品牌辨識度</p>
+    <p class="hero-desc">你走在人生轉彎處，想更理解自己有哪些可能嗎？<br/>你覺察到人生有更值得挖掘的熱情？<br/>你其實已經想學塔羅很久了，該是時候跳脫了？</p>
     <!-- 區塊1 主要 CTA 按鈕已移除 -->
     <div class="hero-supplement">
       《塔羅品牌陪跑計畫》專為對塔羅牌有熱情、從把牌當成自我探索療癒的工具外，也想將塔羅變成品牌事業的你設計。透過探索定位 × 塔羅 × 個人品牌的完整系統，讓你從塔羅愛好者，蛻變為有經營方向、有定位、有受眾的塔羅創作者與品牌經營者。
@@ -996,7 +1000,7 @@
       <div class="forwhom-card">
         <span class="forwhom-icon">
           <svg width="30" height="30" viewBox="14 27 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="塔羅星星圖示">
-            <path d="M32 27 34.9 38.1 44.7 32.3 38.9 42.1 50 45 38.9 47.9 44.7 57.7 34.9 51.9 32 63 29.1 51.9 19.3 57.7 25.1 47.9 14 45 25.1 42.1 19.3 32.3 29.1 38.1 Z" fill="#E8825A"/>
+            <path d="M32 27 34.9 38.1 44.7 32.3 38.9 42.1 50 45 38.9 47.9 44.7 57.7 34.9 51.9 32 63 29.1 51.9 19.3 57.7 25.1 47.9 14 45 25.1 42.1 19.3 32.3 29.1 38.1 Z" fill="#F26B2E"/>
           </svg>
         </span>
         <h3>熱愛塔羅，想把興趣變收入</h3>
@@ -1358,6 +1362,7 @@
 
 <!-- ──────────── 區塊 12｜定價 ──────────── -->
 <section id="pricing">
+  <div class="checker checker-top"></div>
   <div class="container">
     <div class="section-header">
       <span class="section-label">方案選擇</span>
@@ -1482,6 +1487,7 @@
 
     </div>
   </div>
+  <div class="checker checker-bottom"></div>
 </section>
 
 <!-- ──────────── 區塊 13｜FAQ ──────────── -->
