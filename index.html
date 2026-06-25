@@ -200,16 +200,17 @@
   .hero-supplement {
     max-width: 700px;
     margin: 0 auto;
-    background: var(--white);
+    background: #C19A3C;
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    padding: 28px 36px;
+    overflow: hidden;
     text-align: left;
     box-shadow: var(--shadow);
     font-size: 0.97rem;
-    color: #8B3A2E;
+    color: #3A312C;
     line-height: 1.9;
   }
+  .supplement-text { padding: 28px 36px; }
 
   /* ─── Feature Cards ─── */
   .cards-grid {
@@ -743,7 +744,7 @@
   @media (max-width: 640px) {
     section { padding: 64px 0; }
     #hero { padding: 80px 0 64px; }
-    .hero-supplement { padding: 20px 20px; }
+    .supplement-text { padding: 20px 20px; }
     .pricing-grid { grid-template-columns: 1fr; }
     .cards-grid { grid-template-columns: 1fr; }
     .highlights-grid { grid-template-columns: 1fr; }
@@ -806,10 +807,12 @@
     </span>
     <span class="hero-subtitle">Anna 安娜｜塔羅品牌陪跑計畫</span>
     <h1 style="color:#3A312C;">打造屬於你的<br/>塔羅品牌風格</h1>
-    <p class="hero-desc">你走在人生轉彎處，想更理解自己有哪些可能嗎？<br/>你覺察到人生有更值得挖掘的熱情？<br/>你其實已經想學塔羅很久了，該是時候跳脫了？</p>
+    <p class="hero-desc" style="color:#8B3A2E;">你走在人生轉彎處，<br/>想更理解自己有哪些可能嗎？<br/><br/>你其實已經想學塔羅很久了，<br/>該是時候跳脫了？</p>
     <!-- 區塊1 主要 CTA 按鈕已移除 -->
     <div class="hero-supplement">
-      《塔羅品牌陪跑計畫》專為對塔羅牌有熱情、從把牌當成自我探索療癒的工具外，也想將塔羅變成品牌事業的你設計。透過探索定位 × 塔羅 × 個人品牌的完整系統，讓你從塔羅愛好者，蛻變為有經營方向、有定位、有受眾的塔羅創作者與品牌經營者。
+      <div class="checker checker-top"></div>
+      <div class="supplement-text">《塔羅品牌陪跑計畫》專為對塔羅牌有熱情、從把牌當成自我探索療癒的工具外，也想將塔羅變成品牌事業的你設計。透過探索定位 × 塔羅 × 個人品牌的完整系統，讓你從塔羅愛好者，蛻變為有經營方向、有定位、有受眾的塔羅創作者與品牌經營者。</div>
+      <div class="checker checker-bottom"></div>
     </div>
   </div>
 </section>
