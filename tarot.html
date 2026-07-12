@@ -118,6 +118,16 @@ section { margin-top: 46px; }
   font-size: 13.5px; color: rgba(74,55,40,.85);
 }
 .client-quote b { color: var(--orange); }
+@keyframes quoteIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+.client-refresh {
+  margin-top: 10px;
+  font-size: 12.5px; font-weight: 700; letter-spacing: .05em; color: var(--orange);
+  border: 1.5px dashed rgba(231,123,67,.55); border-radius: 999px;
+  padding: 6px 15px; background: var(--white);
+  transition: all .2s;
+}
+.client-refresh:hover { background: var(--orange); color: #fff; border-style: solid; }
+.client-refresh:active { transform: scale(.95); }
 
 .spread-btns { display: grid; grid-template-columns: repeat(2, 1fr); gap: 9px; }
 .spread-btn {
@@ -469,6 +479,7 @@ footer {
         <label class="field-label" for="scenarioSelect">客戶情境</label>
         <select id="scenarioSelect" class="scenario-select"></select>
         <div class="client-quote" id="clientQuote"></div>
+        <button class="client-refresh" id="clientRefresh" type="button">🔄 換一位客戶練習</button>
       </div>
       <div>
         <span class="field-label">選擇牌陣（8 種）</span>
@@ -563,12 +574,48 @@ const MAJOR_ARCANA = [
 ];
 
 const SCENARIOS = [
-  { id: 'love',    label: '感情迷惘', icon: '💗',
-    client: '客戶與曖昧對象認識半年，最近對方忽冷忽熱、訊息回得越來越慢。客戶想知道：「這段關係，我還該不該繼續投入？」' },
-  { id: 'career',  label: '職涯轉職', icon: '🌱',
-    client: '客戶在現職待了五年，最近感到強烈倦怠。手上有一個薪水較高、但產業完全陌生的 offer。客戶想知道：「我該離開舒適圈嗎？」' },
-  { id: 'partner', label: '合夥財運', icon: '🤝',
-    client: '客戶與好友合夥經營工作室兩年，近期在帳務與利潤分配上出現分歧，氣氛越來越僵。客戶想知道：「這段合夥的財務走向會如何？」' },
+  { id: 'love', label: '感情迷惘', icon: '💗', clients: [
+    '客戶與曖昧對象認識半年，最近對方忽冷忽熱、訊息回得越來越慢。客戶想知道：「這段關係，我還該不該繼續投入？」',
+    '客戶與男友遠距離戀愛一年，見面次數越來越少，通話也常常沒話聊。客戶想知道：「我們的感情是不是正在變淡？」',
+    '客戶分手三個月，前任突然傳訊息說「最近好嗎」。客戶心又亂了，想知道：「我該不該回頭？這次會不一樣嗎？」',
+    '客戶與伴侶交往五年，對方遲遲不談婚事，每次提起就轉移話題。客戶想知道：「我還要繼續等下去嗎？」',
+    '客戶結婚七年，與另一半像室友一樣，各過各的生活。客戶想知道：「這段婚姻還能找回當初的溫度嗎？」',
+    '客戶同時被兩位條件不同的追求者告白：一位穩重體貼、一位有趣但飄忽。客戶想知道：「哪一段緣分更值得我把心放進去？」',
+    '客戶喜歡上朝夕相處的同事，但怕告白失敗連朋友都做不成，還影響工作。客戶想知道：「這份心意該說出口嗎？」',
+    '客戶正在相親交往中，對方條件很好、家人也滿意，但客戶總覺得少了心動的感覺。客戶想知道：「沒有心動的感情，該繼續嗎？」',
+    '客戶剛結束一段八年的長跑感情，朋友開始介紹新對象，但客戶心裡還是很怕受傷。客戶想知道：「我準備好重新開始了嗎？」',
+    '客戶發現伴侶最近神祕兮兮，常常背著自己滑手機、笑得很開心。客戶很不安卻不敢問。客戶想知道：「我們之間是不是出現了第三個人？」',
+    '客戶的家人強烈反對這段感情，一邊是相愛的伴侶、一邊是養育自己的家人，客戶夾在中間喘不過氣。客戶想知道：「這段感情有辦法走到被祝福的那天嗎？」',
+    '客戶單身五年，身邊朋友一個個結婚，開始懷疑自己是不是不適合談戀愛。客戶想知道：「我的正緣到底什麼時候會出現？」',
+  ]},
+  { id: 'career', label: '職涯轉職', icon: '🌱', clients: [
+    '客戶在現職待了五年，最近感到強烈倦怠。手上有一個薪水較高、但產業完全陌生的 offer。客戶想知道：「我該離開舒適圈嗎？」',
+    '客戶被公司裁員兩個月了，投了幾十封履歷都沒有回音，開始懷疑自己的能力。客戶想知道：「我的工作運什麼時候會好轉？」',
+    '客戶想離職開一間自己的甜點工作室，但存款只夠撐一年，家人也不太支持。客戶想知道：「現在是創業的好時機嗎？」',
+    '客戶的主管兩年來一直畫大餅說要幫他升遷加薪，卻遲遲沒有兌現。客戶想知道：「我該繼續相信等下去，還是另謀出路？」',
+    '客戶手上有兩個 offer：A 公司薪水高但出了名的爆肝，B 公司穩定但成長空間有限。客戶想知道：「哪一條路對我的長期發展比較好？」',
+    '客戶做了多年會計，其實一直熱愛設計，最近想砍掉重練轉行。客戶想知道：「為了熱情從零開始，值得嗎？」',
+    '客戶跳槽到新公司三個月，卻始終覺得格格不入，和團隊處不來。客戶想知道：「是我還需要時間適應，還是我真的選錯了？」',
+    '客戶被公司指派外派海外兩年，薪水幾乎翻倍，但要離開家人和另一半。客戶想知道：「這個機會我該抓住嗎？」',
+    '客戶做了十年行政工作，想轉往數位行銷發展，卻擔心年齡和經驗歸零的問題。客戶想知道：「現在轉跑道還來得及嗎？」',
+    '客戶經營的副業收入已經快追上正職薪水，最近常常蠟燭兩頭燒。客戶想知道：「我該辭職全心投入副業嗎？」',
+    '客戶的部門半年內走了一半的同事，公司氣氛低迷，客戶不知道該跟著離開還是留下來等機會。客戶想知道：「留下來對我是機會還是消耗？」',
+    '客戶考公職已經三年，每次都差一點點上榜，家裡的經濟壓力越來越大。客戶想知道：「我該再拚一年，還是先去工作？」',
+  ]},
+  { id: 'partner', label: '合夥財運', icon: '🤝', clients: [
+    '客戶與好友合夥經營工作室兩年，近期在帳務與利潤分配上出現分歧，氣氛越來越僵。客戶想知道：「這段合夥的財務走向會如何？」',
+    '客戶的朋友邀他一起開咖啡店：朋友出技術、客戶出資金。客戶有點心動又怕友情變質。客戶想知道：「這個合作值得投入嗎？」',
+    '客戶的合夥人最近常常請假、進度擺爛，利潤卻照樣對半分，客戶心裡越來越不平衡。客戶想知道：「我該攤牌重談分潤，還是繼續忍？」',
+    '客戶的公司想引進一位新股東擴大經營，資金到位但客戶擔心主導權被稀釋。客戶想知道：「引進新股東對公司是助力還是隱憂？」',
+    '客戶打算和親哥哥合資做小生意，賺錢還好，就怕虧錢傷了家人感情。客戶想知道：「和家人合夥，這步棋該不該走？」',
+    '客戶與人合夥三年，翅膀硬了想拆夥自立門戶，但又怕撕破臉、客源被瓜分。客戶想知道：「現在是單飛的好時機嗎？」',
+    '客戶的合夥人口頭承諾很多（分紅、股份），卻一直沒有白紙黑字。客戶想知道：「我該正式攤牌簽合約嗎？對方會怎麼反應？」',
+    '客戶的店生意越來越好，合夥人想趁勢快速展店，客戶卻想穩紮穩打。客戶想知道：「擴張的財務風險，我們扛得住嗎？」',
+    '客戶的朋友找他投資一個「穩賺不賠」的虛擬貨幣項目，報酬聽起來很誘人。客戶想知道：「這筆投資的財運如何？背後有沒有我沒看見的風險？」',
+    '客戶的接案工作室收入不穩，合夥人為了搶案子一直壓低報價，客戶覺得快做白工了。客戶想知道：「我們的定價策略和財務體質該怎麼調整？」',
+    '客戶的合夥人的另一半最近頻頻干涉公司決策，連人事和帳目都要過問。客戶想知道：「這個局面再下去，合夥關係會走向哪裡？」',
+    '客戶的店在大環境影響下生意下滑，現在面臨抉擇：增資撐下去，還是認賠出場。客戶想知道：「哪一個決定對我的財務比較有利？」',
+  ]},
 ];
 
 const SPREADS = [
@@ -628,6 +675,7 @@ const LAYOUT_WRAP = {
 const state = {
   scenarioId: 'love',
   spreadId: 'time3',
+  clientIdx: 0,       // 目前情境中的客戶編號
   drawn: null,        // [{card, reversed}]
   shuffling: false,
   thinking: false,
@@ -718,11 +766,29 @@ function buildMentorFeedback(sc, sp, drawn, text) {
 
 /* ═══════════════════════ 畫面渲染 ═══════════════════════ */
 
+function pickClient(forceNew) {
+  const list = scenario().clients;
+  if (list.length < 2) { state.clientIdx = 0; return; }
+  let n = Math.floor(Math.random() * list.length);
+  if (forceNew) {
+    while (n === state.clientIdx) n = Math.floor(Math.random() * list.length);
+  }
+  state.clientIdx = n;
+}
+
+function renderClient() {
+  const q = $('clientQuote');
+  q.innerHTML = '<b>客戶說：</b>' + esc(scenario().clients[state.clientIdx]);
+  q.style.animation = 'none';
+  void q.offsetWidth;
+  q.style.animation = 'quoteIn .45s ease';
+}
+
 function renderSetup() {
   $('scenarioSelect').innerHTML = SCENARIOS.map(s =>
     '<option value="' + s.id + '"' + (s.id === state.scenarioId ? ' selected' : '') + '>' +
     s.icon + ' ' + s.label + '</option>').join('');
-  $('clientQuote').innerHTML = '<b>客戶說：</b>' + esc(scenario().client);
+  renderClient();
 
   $('spreadBtns').innerHTML = SPREADS.map(s =>
     '<button class="spread-btn' + (s.id === state.spreadId ? ' active' : '') + '" data-id="' + s.id + '">' +
@@ -851,12 +917,20 @@ function hideWarn() { $('warnBox').classList.remove('show'); }
 $('scenarioSelect').addEventListener('change', e => {
   state.scenarioId = e.target.value;
   state.drawn = null; state.feedback = null;
+  pickClient(false);
   hideWarn(); renderSetup(); renderBoard(); renderReport();
+});
+
+$('clientRefresh').addEventListener('click', () => {
+  pickClient(true);
+  renderClient();
 });
 
 $('shuffleBtn').addEventListener('click', () => {
   if (state.shuffling) return;
   state.shuffling = true; state.drawn = null; state.feedback = null;
+  pickClient(true);   // 每次洗牌隨機換一位客戶
+  renderClient();
   hideWarn();
   $('shuffleBtn').disabled = true;
   $('shuffleBtn').textContent = '洗牌中…';
@@ -896,6 +970,7 @@ $('submitBtn').addEventListener('click', () => {
 });
 
 /* ═══════════════════════ 初始化 ═══════════════════════ */
+pickClient(false);
 renderSetup();
 renderBoard();
 renderReport();
