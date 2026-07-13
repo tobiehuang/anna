@@ -534,10 +534,38 @@ section { margin-top: 46px; }
 .exp-btn.ghost:hover { border-color: var(--orange); color: var(--orange); }
 .export-note { text-align: center; font-size: 12px; color: rgba(74,55,40,.5); margin-top: 13px; }
 
+/* 導師解牌時光 */
+.demo-btn {
+  margin-top: 22px;
+  background: linear-gradient(90deg, #8A6D57, #A98F76); color: #fff;
+  box-shadow: 0 8px 20px rgba(74,55,40,.3);
+}
+.demo-btn:hover { transform: scale(1.05); }
+.demo-panel {
+  margin-top: 22px;
+  background: var(--milk);
+  border: 1px solid var(--milk-deep);
+  border-radius: 22px;
+  padding: 26px 24px;
+}
+@media (min-width: 768px) { .demo-panel { padding: 30px 36px; } }
+.demo-panel h4 { font-family: 'Noto Serif TC', serif; font-size: 19px; font-weight: 900; color: var(--coffee); letter-spacing: .05em; }
+.demo-panel .dsub { font-size: 12.5px; color: rgba(74,55,40,.55); margin: 3px 0 14px; }
+.demo-panel .dline { font-size: 14.5px; line-height: 2; color: rgba(74,55,40,.9); margin-bottom: 9px; }
+.demo-panel .dtie {
+  margin-top: 14px; background: rgba(255,255,255,.75);
+  border: 1px solid rgba(216,195,165,.6); border-radius: 14px;
+  padding: 14px 16px; font-size: 14.5px; line-height: 2; color: rgba(74,55,40,.9);
+}
+.demo-panel .dtie b { color: var(--orange); }
+.demo-panel .dsyn { margin-top: 15px; padding-top: 14px; border-top: 1.5px dashed var(--milk-deep); font-size: 15px; line-height: 2; font-weight: 500; color: var(--coffee); }
+.demo-panel .dnote { margin-top: 12px; font-size: 12px; color: rgba(74,55,40,.55); text-align: center; }
+
 /* ═══════════ 頁尾 ═══════════ */
 footer {
-  background: var(--coffee-deep);
-  color: rgba(250,246,239,.55);
+  /* 與頁首同色系的淺灰咖啡 */
+  background: linear-gradient(135deg, #6E5C4B 0%, #5A4C40 55%, #695849 100%);
+  color: rgba(250,246,239,.7);
   text-align: center; font-size: 12px; letter-spacing: .18em;
   padding: 26px 16px;
 }
@@ -638,7 +666,7 @@ footer {
 
 </div>
 
-<footer>✦ 安娜塔羅 ANNA TAROT · 塔羅解牌實戰教室 ✦<br>本工具為教學用途 · 版本 v10（V 型馬蹄鐵版）</footer>
+<footer>✦ 安娜塔羅 ANNA TAROT · 塔羅解牌實戰教室 ✦<br>本工具為教學用途 · 版本 v11（導師解牌時光版）</footer>
 
 <script>
 /* ═══════════════════════ 資料區 ═══════════════════════ */
@@ -934,6 +962,7 @@ const state = {
   spreadId: 'time3',
   clientIdx: 0,       // 目前情境中的客戶編號
   deckMode: 'full',   // 'full' = 78 張全牌組, 'major' = 22 張大牌
+  demo: null,         // 導師解牌時光（示範解讀），送出講評後才可解鎖
   drawn: null,        // [{card, reversed}]
   shuffling: false,
   thinking: false,
@@ -1103,7 +1132,7 @@ function renderSetup() {
   Array.prototype.forEach.call(document.querySelectorAll('.spread-btn'), btn => {
     btn.addEventListener('click', () => {
       state.spreadId = btn.getAttribute('data-id');
-      state.drawn = null; state.feedback = null;
+      state.drawn = null; state.feedback = null; state.demo = null;
       hideWarn(); renderSetup(); renderBoard(); renderReport();
     });
   });
@@ -1212,6 +1241,11 @@ function renderReport() {
         '<div class="report-foot">✦ 本報告由 AI 導師生成，僅供解牌練習參考 · 安娜塔羅實戰教室 ✦</div>' +
       '</div>' +
     '</div>' +
+    '<div id="demoZone">' +
+      (state.demo
+        ? state.demo.html
+        : '<div style="text-align:center"><button type="button" class="exp-btn demo-btn" id="btnDemo">🕯️ 導師解牌時光｜看看導師會怎麼解這副牌</button></div>') +
+    '</div>' +
     '<div class="export-bar">' +
       '<button type="button" class="exp-btn primary" id="btnCopy">📋 複製練習紀錄</button>' +
       '<button type="button" class="exp-btn outline" id="btnWord">📥 下載 Word 檔</button>' +
@@ -1220,6 +1254,16 @@ function renderReport() {
     '</div>' +
     '<p class="export-note">複製後可直接貼到你的 Notion 或任何筆記工具保存；「傳給安娜老師」會開啟你的信箱並自動帶入這次的練習紀錄。</p>';
 
+  if (!state.demo) {
+    $('btnDemo').addEventListener('click', () => {
+      state.demo = buildMentorDemo();
+      renderReport();
+      setTimeout(() => {
+        const z = document.getElementById('demoZone');
+        if (z) z.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 120);
+    });
+  }
   $('btnCopy').addEventListener('click', () => {
     copyText(buildRecord(), ok => {
       const b = $('btnCopy'); if (!b) return;
@@ -1264,9 +1308,79 @@ function buildRecord() {
   lines.push('【牌陣核心矛盾點解析】' + fb.conflict);
   lines.push('【諮詢技巧與同理心稱讚】' + fb.praise);
   lines.push('【改進與切入點建議】' + fb.improve);
+  if (state.demo) { lines.push(''); lines.push(state.demo.text); }
   lines.push('');
   lines.push('✦ 安娜塔羅 ANNA TAROT · 塔羅解牌實戰教室 ✦');
   return lines.join('\n');
+}
+
+/* ─── 導師解牌時光（示範解讀＋扣題分析） ─── */
+function buildMentorDemo() {
+  const sp = spread(), sc = scenario();
+  const clientText = sc.clients[state.clientIdx];
+  const q = (clientText.split('客戶想知道：')[1] || '').replace(/^「|」$/g, '');
+
+  const UP = [
+    '這股能量是打開的，我會直接把它當成客戶手上的資源來點名',
+    '這裡的訊息相對明朗，用肯定、具體的語言說給客戶聽',
+    '這張牌在這個位置是順流的，可以放心讓它撐起這段解讀的亮點',
+    '我會請客戶回想：這份能量最近已經在生活裡出現過的證據，替他把信心接起來',
+  ];
+  const REV = [
+    '能量在這裡是內縮的，我會放慢語速，先陪客戶承認卡住的感覺',
+    '逆位不是壞消息，我會把它翻譯成「還沒被釋放的潛能」，並問客戶：卡住的點在哪裡',
+    '這是整個牌陣裡需要溫柔以對的位置——先同理，再給方向',
+    '我會邀請客戶分辨：這股堵塞是外在的限制，還是自己按下的暫停鍵',
+  ];
+  const conns = ['接著，', '再往下走，', '視線轉過來，', '然後，', '走到這裡，'];
+  const conn = i => i === 0 ? '故事從這裡開始——' : (i === sp.count - 1 && sp.count > 1 ? '最後，' : conns[(i - 1) % conns.length]);
+
+  const lines = state.drawn.map((d, i) => {
+    const keys = d.reversed ? d.card.rev : d.card.up;
+    const pool = d.reversed ? REV : UP;
+    return conn(i) + '第 ' + (i + 1) + ' 張「' + sp.positions[i] + '」是' + (d.reversed ? '逆位' : '正位') +
+      '的' + d.card.name + '（' + keys + '）。' + pool[i % pool.length] + '。';
+  });
+
+  /* 扣題分析：挑最能回應問題的兩張示範 */
+  const withIdx = state.drawn.map((d, i) => ({ d, i }));
+  const keyA = withIdx[withIdx.length - 1];                       // 結尾牌
+  const revPick = withIdx.find(x => x.d.reversed && x.i !== keyA.i);
+  const keyB = revPick || withIdx[0];
+  const tieIn =
+    '客戶真正問的是——「' + q + '」。示範兩個扣題句：' +
+    '①「' + sp.positions[keyB.i] + '」的' + (keyB.d.reversed ? '逆位' : '正位') + keyB.d.card.name +
+    '，我會對客戶說：『你問' + (q.split('？')[0] || q) + '？這張牌回答的正是這件事——' +
+    (keyB.d.reversed ? keyB.d.card.rev.split('、')[0] + '，就是你此刻卡住的位置' : keyB.d.card.up.split('、')[0] + '，是你已經握在手上的答案') + '。』' +
+    '②收尾時用「' + sp.positions[keyA.i] + '」的' + keyA.d.card.name + '把問題重述一次再回答，' +
+    '讓客戶清楚感覺到「我的問題被接住了」。切記：每講兩三張牌，就要回頭扣一次客戶的原話，解讀才不會飄走。';
+
+  const last = keyA.d;
+  const lastKey = (last.reversed ? last.card.rev : last.card.up).split('、')[0];
+  const closing = last.reversed
+    ? '終點的' + last.card.name + '提醒我們：答案不在更用力，而在先鬆開。把「' + lastKey + '」的課題整理好，路自然會開。'
+    : last.card.name + '已經在終點等著——把「' + lastKey + '」帶在身上，往前走就是了。';
+  const syn =
+    (sp.count > 1
+      ? '把整條敘事線收攏：這副牌從「' + sp.positions[0] + '」的' + state.drawn[0].card.name +
+        '出發，最終落在「' + sp.positions[sp.count - 1] + '」的' + last.card.name + '。'
+      : '') +
+    '對「' + sc.label + '」的這位客戶，我會用一句話作結：「' + closing + '」';
+  const note = '以上是導師的其中一種解法，塔羅沒有唯一的標準答案。比較看看：你的敘事線和我的差在哪裡？誰的版本更貼近這位客戶的心？';
+
+  const text =
+    '🕯️ 導師解牌時光（示範解讀）\n' + lines.join('\n') +
+    '\n【如何扣題】' + tieIn + '\n' + syn + '\n' + note;
+  const html =
+    '<div class="demo-panel rise-in">' +
+      '<h4>🕯️ 導師解牌時光</h4>' +
+      '<div class="dsub">同一副牌，導師的示範解讀</div>' +
+      lines.map(l => '<p class="dline">' + l + '</p>').join('') +
+      '<div class="dtie"><b>【如何扣題】</b>' + tieIn + '</div>' +
+      '<p class="dsyn">' + syn + '</p>' +
+      '<p class="dnote">' + note + '</p>' +
+    '</div>';
+  return { html, text };
 }
 
 function copyText(t, done) {
@@ -1315,7 +1429,7 @@ function mailTeacher() {
 }
 
 function resetPractice() {
-  state.drawn = null; state.feedback = null;
+  state.drawn = null; state.feedback = null; state.demo = null;
   document.getElementById('interpTa').value = '';
   document.getElementById('charCount').textContent = '已輸入 0 字';
   hideWarn(); renderBoard(); renderReport();
@@ -1329,7 +1443,7 @@ function hideWarn() { $('warnBox').classList.remove('show'); }
 
 $('scenarioSelect').addEventListener('change', e => {
   state.scenarioId = e.target.value;
-  state.drawn = null; state.feedback = null;
+  state.drawn = null; state.feedback = null; state.demo = null;
   pickClient(false);
   hideWarn(); renderSetup(); renderBoard(); renderReport();
 });
@@ -1343,7 +1457,7 @@ Array.prototype.forEach.call(document.querySelectorAll('.deck-btn'), b => {
   b.addEventListener('click', () => {
     if (state.deckMode === b.getAttribute('data-mode')) return;
     state.deckMode = b.getAttribute('data-mode');
-    state.drawn = null; state.feedback = null;
+    state.drawn = null; state.feedback = null; state.demo = null;
     hideWarn(); renderDeckToggle(); renderBoard(); renderReport();
   });
 });
@@ -1355,7 +1469,7 @@ $('clientRefresh').addEventListener('click', () => {
 
 $('shuffleBtn').addEventListener('click', () => {
   if (state.shuffling) return;
-  state.shuffling = true; state.drawn = null; state.feedback = null;
+  state.shuffling = true; state.drawn = null; state.feedback = null; state.demo = null;
   hideWarn();
   $('shuffleBtn').disabled = true;
   $('shuffleBtn').textContent = '洗牌中…';
@@ -1379,7 +1493,7 @@ $('submitBtn').addEventListener('click', () => {
   if (!state.drawn) { showWarn('請先點擊上方「洗牌並抽選牌陣」，抽出牌陣後再進行解牌練習。'); return; }
   if (text.length < 20) { showWarn('解牌內容太短囉！請至少寫 20 字，把各位置的牌義與客戶情境串起來。'); return; }
   hideWarn();
-  state.thinking = true; state.feedback = null;
+  state.thinking = true; state.feedback = null; state.demo = null;
   $('submitBtn').disabled = true;
   $('submitBtn').textContent = '導師批閱中…';
   renderReport();
