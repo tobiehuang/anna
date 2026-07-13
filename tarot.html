@@ -319,14 +319,15 @@ section { margin-top: 46px; }
 }
 .pos-t1 { grid-area: t1; } .pos-t2 { grid-area: t2; } .pos-t3 { grid-area: t3; }
 
-/* 七張牌馬蹄鐵：U 字弧線 */
+/* 七張牌馬蹄鐵：開口朝上的 V 型 */
 .lay-horse {
   display: grid; gap: 14px;
   grid-template-columns: repeat(5, 1fr);
   grid-template-areas:
-    ".  m3 m4 m5 ."
+    "m1 .  .  .  m7"
     "m2 .  .  .  m6"
-    "m1 .  .  .  m7";
+    ".  m3 .  m5 ."
+    ".  .  m4 .  .";
   max-width: 1000px; margin: 0 auto;
 }
 .pos-m1{grid-area:m1} .pos-m2{grid-area:m2} .pos-m3{grid-area:m3}
@@ -390,27 +391,32 @@ section { margin-top: 46px; }
   .lay-row4 { grid-template-columns: repeat(2, 1fr); }
   .lay-3x2  { grid-template-columns: repeat(2, 1fr); }
 }
-/* 手機：保留牌陣形狀，牌卡縮小、可左右滑動 */
+/* 手機：牌陣形狀完整呈現在一個畫面內（牌卡極簡化，不需滑動） */
 .scroll-hint { display: none; text-align: center; font-size: 12px; color: rgba(74,55,40,.55); margin: 0 0 12px; letter-spacing: .05em; }
 @media (max-width: 680px) {
-  #boardArea { overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 6px; }
-  .scroll-hint { display: block; }
-  .lay-row3  { min-width: 470px; }
-  .lay-row4  { min-width: 620px; }
-  .lay-3x2   { min-width: 470px; }
-  .lay-tri   { min-width: 470px; }
-  .lay-choice{ min-width: 500px; }
-  .lay-hex   { min-width: 500px; }
-  .lay-horse { min-width: 660px; }
-  .lay-celtic{ min-width: 700px; }
-  .tcard { max-width: 148px; min-height: 226px; padding: 10px 7px 12px; }
-  .tcard .cname { font-size: 15px; }
-  .tcard .art { font-size: 22px; }
-  .tcard .keys { font-size: 9.5px; }
-  .tcard .pos-name { font-size: 10px; padding: 2px 8px; }
-  .lay-horse .tcard { max-width: 122px; min-height: 206px; }
-  .lay-celtic .tcard { max-width: 126px; min-height: 206px; }
+  .lay-row3, .lay-row4, .lay-3x2, .lay-tri, .lay-choice, .lay-hex, .lay-horse, .lay-celtic {
+    min-width: 0; max-width: 100%; gap: 7px;
+  }
+  .lay-horse, .lay-celtic { gap: 5px; }
+  .tcard { max-width: none; min-height: 130px; padding: 7px 3px 8px; border-radius: 9px; border-width: 1.5px; }
+  .tcard::after { inset: 3px; border-radius: 6px; }
+  .tcard .pos-row { gap: 2px; margin-bottom: 3px; }
+  .tcard .pos-row .n { width: 14px; height: 14px; font-size: 9px; }
+  .tcard .pos-name { font-size: 9px; padding: 1px 6px; letter-spacing: .02em; }
+  .tcard .art { font-size: 15px; }
+  .tcard .cname { font-size: 13px; }
+  .tcard .cen { display: none; }   /* 手機隱藏英文名 */
+  .tcard .keys { display: none; }  /* 手機隱藏關鍵字，畫面才放得下整個牌陣 */
+  .tcard .orient { font-size: 9px; padding: 1px 8px; margin-top: 3px; }
+  .lay-one .tcard { max-width: 175px; min-height: 210px; }
+  .lay-one .tcard .cen { display: block; font-size: 9px; }
+  .lay-one .tcard .keys { display: block; font-size: 10px; }
+  .lay-horse .tcard, .lay-celtic .tcard { min-height: 116px; }
+  .lay-horse .tcard .cname, .lay-celtic .tcard .cname { font-size: 11.5px; }
+  .staff { padding-left: 4px; border-left-width: 1px; }
   .branch-labels, .celtic-labels { display: none; }
+  .lay-hex { overflow: hidden; }
+  .lay-hex::before { font-size: 9rem; }
 }
 
 /* ═══════════ 3. 解牌輸入 ═══════════ */
@@ -632,7 +638,7 @@ footer {
 
 </div>
 
-<footer>✦ 安娜塔羅 ANNA TAROT · 塔羅解牌實戰教室 ✦<br>本工具為教學用途 · 版本 v8（手機牌陣形狀版）</footer>
+<footer>✦ 安娜塔羅 ANNA TAROT · 塔羅解牌實戰教室 ✦<br>本工具為教學用途 · 版本 v10（V 型馬蹄鐵版）</footer>
 
 <script>
 /* ═══════════════════════ 資料區 ═══════════════════════ */
@@ -1154,8 +1160,7 @@ function renderBoard() {
   } else if (sp.layout === 'celtic') {
     extra = '<div class="celtic-labels"><span>─ 十字：處境全貌 ─</span><span>─ 權杖：發展走向 ─</span></div>';
   }
-  area.innerHTML =
-    '<div class="scroll-hint">👈 手機上左右滑動，可看完整牌陣形狀 👉</div>' + extra +
+  area.innerHTML = extra +
     '<div class="' + LAYOUT_WRAP[sp.layout] + '">' +
     state.drawn.map((d, i) => cardHTML(d, i)).join('') + '</div>';
   $('drawHint').textContent =
