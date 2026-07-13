@@ -512,6 +512,15 @@ section { margin-top: 46px; }
 }
 .rb-block p { font-size: 15px; line-height: 2; color: rgba(74,55,40,.86); }
 .rb-block p + p { margin-top: 13px; }
+.pt-list { list-style: none; margin-top: 10px; }
+.pt-list li {
+  position: relative; padding-left: 25px;
+  font-size: 15px; line-height: 2; color: rgba(74,55,40,.86);
+  margin-bottom: 11px;
+}
+.pt-list li:last-child { margin-bottom: 0; }
+.pt-list li::before { content: '✦'; position: absolute; left: 3px; color: var(--orange); }
+.dtie .pt-list li { font-size: 14.5px; }
 .report-foot { text-align: center; font-size: 11.5px; color: rgba(74,55,40,.45); padding-top: 6px; letter-spacing: .1em; }
 
 /* 練習紀錄匯出按鈕列 */
@@ -669,7 +678,7 @@ footer {
 
 </div>
 
-<footer>✦ 安娜塔羅 ANNA TAROT · 塔羅解牌實戰教室 ✦<br>本工具為教學用途<span id="appVersion" style="display:none">v13</span></footer>
+<footer>✦ 安娜塔羅 ANNA TAROT · 塔羅解牌實戰教室 ✦<br>本工具為教學用途<span id="appVersion" style="display:none">v14</span></footer>
 
 <script>
 /* ═══════════════════════ 資料區 ═══════════════════════ */
@@ -989,6 +998,8 @@ function paraize(t, limit) {
 }
 function parasHTML(t) { return paraize(t).map(p => '<p>' + p + '</p>').join(''); }
 function parasText(t) { return paraize(t).join('\n\n'); }
+function ptList(points) { return '<ul class="pt-list">' + points.map(p => '<li>' + p + '</li>').join('') + '</ul>'; }
+function ptText(points) { return points.map(p => '• ' + p).join('\n'); }
 
 const scenario = () => SCENARIOS.find(s => s.id === state.scenarioId);
 const spread   = () => SPREADS.find(s => s.id === state.spreadId);
@@ -1027,39 +1038,39 @@ function buildMentorFeedback(sc, sp, drawn, text) {
   const revs = withIdx.filter(d => d.reversed);
   const ups  = withIdx.filter(d => !d.reversed);
 
-  /* 1. 牌陣核心矛盾點解析 */
-  let conflict;
+  /* 1. 牌陣核心矛盾點解析（導言＋列點） */
+  let conflictLead;
+  const conflictPoints = [];
   if (revs.length && ups.length) {
     const a = ups[0], b = revs[0];
-    conflict =
-      '本次牌陣最值得深挖的張力，出現在「' + sp.positions[a.idx] + '」的正位' + a.card.name +
-      '（' + a.card.up + '）與「' + sp.positions[b.idx] + '」的逆位' + b.card.name +
-      '（' + b.card.rev + '）之間。一邊是向外展開的能量，一邊卻是受阻、內縮的訊號——這組對照正是客戶「' +
-      sc.label + '」議題的核心矛盾：表面上的動能與底層的卡點並不同步。' +
-      '優秀的解牌者會把這個落差「說破」，讓客戶意識到自己真正卡住的位置。';
+    conflictLead = '本次牌陣最值得深挖的張力，出現在「' + sp.positions[a.idx] + '」的正位' + a.card.name +
+      '，與「' + sp.positions[b.idx] + '」的逆位' + b.card.name + '之間。';
+    conflictPoints.push('張力所在：' + a.card.name + '帶來「' + a.card.up + '」的開展能量；' +
+      b.card.name + '卻透出「' + b.card.rev + '」的受阻訊號——兩股能量並不同步。');
+    conflictPoints.push('對客戶的意義：這正是「' + sc.label + '」議題的核心矛盾——表面上的動能，和底層的卡點在互相拉扯。');
+    conflictPoints.push('解牌者的任務：把這個落差溫柔地「說破」，幫客戶指認自己真正卡住的位置。');
   } else if (revs.length === drawn.length) {
-    conflict =
-      '本次牌陣全數為逆位，這本身就是強烈訊號：整個局面的能量處於堵塞、需要先「清理」而非「前進」的階段。' +
-      '矛盾點在於——客戶帶著「想往前走」的問題來（' + sc.label + '），牌陣卻一致指向「先停下來面對內在」。' +
-      '解讀時若只逐張講負面關鍵字，會讓客戶越聽越沉重；更好的做法是把逆位讀成「尚未釋放的潛能」。';
+    conflictLead = '本次牌陣全數逆位——這個現象本身，就是最重要的訊息。';
+    conflictPoints.push('能量狀態：整個局面處於堵塞期，此刻的功課是「先清理」，而不是「往前衝」。');
+    conflictPoints.push('矛盾點：客戶帶著「想往前走」的問題來（' + sc.label + '），牌陣卻一致指向「先停下來面對內在」。');
+    conflictPoints.push('解讀策略：不要逐張唸負面關鍵字，把逆位讀成「尚未釋放的潛能」，客戶才聽得進去。');
   } else {
     const first = drawn[0], last = drawn[drawn.length - 1];
-    conflict =
-      '本次牌陣全數為正位，能量流暢，但這反而是進階解牌者的考驗：矛盾點藏在「位置與位置的關係」裡。' +
-      '例如「' + sp.positions[0] + '」的' + first.card.name + '與「' + sp.positions[drawn.length - 1] + '」的' +
-      last.card.name + '，兩者的元素性格並不相同——前者與後者之間的過渡，就是客戶在「' + sc.label +
-      '」中需要主動搭起的橋。全正位不等於沒有課題。';
+    conflictLead = '本次牌陣全數正位、能量流暢——但這反而是進階解牌者的考驗：矛盾藏在「位置與位置的關係」裡。';
+    conflictPoints.push('觀察對照：「' + sp.positions[0] + '」的' + first.card.name + '與「' +
+      sp.positions[drawn.length - 1] + '」的' + last.card.name + '，兩張牌的元素性格並不相同。');
+    conflictPoints.push('解讀重點：這兩者之間的過渡，就是客戶在「' + sc.label + '」中需要主動搭起的橋。');
+    conflictPoints.push('提醒：全正位不等於沒有課題，別把報喜不報憂當成溫柔。');
   }
 
   /* 大小牌比例觀察（全牌組模式限定） */
   if (state.deckMode === 'full' && drawn.length >= 3) {
     const majors = drawn.filter(d => d.card.arcana === 'major').length;
     if (majors >= Math.ceil(drawn.length / 2)) {
-      conflict += '另外值得注意：本次大牌比例偏高（' + majors + '／' + drawn.length +
-        '），顯示這不只是日常的波動，而是牽動客戶人生方向的深層課題，解讀時可以把格局拉大。';
+      conflictPoints.push('牌面觀察：本次大牌比例偏高（' + majors + '／' + drawn.length +
+        '），這不只是日常波動，而是牽動人生方向的深層課題，格局可以拉大。');
     } else if (majors === 0) {
-      conflict += '另外值得注意：本次全數為小牌，議題偏向日常事件層面，' +
-        '客戶手上的主導權其實很高，建議把重點放在具體可行的行動上。';
+      conflictPoints.push('牌面觀察：本次全數為小牌，議題偏日常事件層面，客戶的主導權其實很高，重點放在具體可行的行動。');
     }
   }
 
@@ -1083,10 +1094,12 @@ function buildMentorFeedback(sc, sp, drawn, text) {
     '客戶的自尊與安全感都很脆弱，你的語氣讓人感覺被陪伴而非被評斷——請保持這個溫度。';
 
   /* 3. 改進與切入點建議 */
-  const improve =
-    SPREAD_TIPS[sp.id] + ' 另外，' + SCENARIO_TIPS[sc.id] +
-    ' 下一步的練習方向：試著在結尾加上一句「收束句」，用一個意象總結整個牌陣（例如以' +
-    drawn[drawn.length - 1].card.name + '的畫面作結），讓客戶帶著一個清晰的畫面離開諮詢，記憶點會完全不同。';
+  const improvePoints = [
+    '牌陣心法：' + SPREAD_TIPS[sp.id],
+    '情境切入：' + SCENARIO_TIPS[sc.id],
+    '下一步練習：試著在結尾加一句「收束句」，用一個意象總結整個牌陣（例如以' +
+      drawn[drawn.length - 1].card.name + '的畫面作結），讓客戶帶著清晰的畫面離開諮詢，記憶點會完全不同。',
+  ];
 
   /* 4. 綜合評分（基本盤 78 ＋ 三個構面加分，上限 97） */
   const lenBonus   = Math.min(10, Math.floor(text.length / 60));          // 解讀完整度：每 60 字 +1，最多 +10
@@ -1113,7 +1126,7 @@ function buildMentorFeedback(sc, sp, drawn, text) {
     warms[Math.floor(Math.random() * warms.length)] +
     '這次的練習裡，' + praises[0] + '——我們就從這個好的基礎出發，一起往下看。';
 
-  return { opening, conflict, praise, improve, score, grade, scoreDetail };
+  return { opening, conflictLead, conflictPoints, praise, improvePoints, score, grade, scoreDetail };
 }
 
 /* ═══════════════════════ 畫面渲染 ═══════════════════════ */
@@ -1253,9 +1266,9 @@ function renderReport() {
       '</div>' +
       '<div class="report-body">' +
         '<div class="rb-block rb-lead"><h4>💬 導師的話</h4>' + parasHTML(fb.opening) + '</div>' +
-        '<div class="rb-block"><h4>🔍 【牌陣核心矛盾點解析】</h4>' + parasHTML(fb.conflict) + '</div>' +
+        '<div class="rb-block"><h4>🔍 【牌陣核心矛盾點解析】</h4>' + parasHTML(fb.conflictLead) + ptList(fb.conflictPoints) + '</div>' +
         '<div class="rb-block"><h4>🌷 【諮詢技巧與同理心稱讚】</h4>' + parasHTML(fb.praise) + '</div>' +
-        '<div class="rb-block"><h4>🧭 【改進與切入點建議】</h4>' + parasHTML(fb.improve) + '</div>' +
+        '<div class="rb-block"><h4>🧭 【改進與切入點建議】</h4>' + ptList(fb.improvePoints) + '</div>' +
         '<div class="report-foot">✦ 本報告由 AI 導師生成，僅供解牌練習參考 · 安娜塔羅實戰教室 ✦</div>' +
       '</div>' +
     '</div>' +
@@ -1324,11 +1337,11 @@ function buildRecord() {
   lines.push(fb.scoreDetail);
   lines.push('【導師的話】\n' + parasText(fb.opening));
   lines.push('');
-  lines.push('【牌陣核心矛盾點解析】\n' + parasText(fb.conflict));
+  lines.push('【牌陣核心矛盾點解析】\n' + parasText(fb.conflictLead) + '\n' + ptText(fb.conflictPoints));
   lines.push('');
   lines.push('【諮詢技巧與同理心稱讚】\n' + parasText(fb.praise));
   lines.push('');
-  lines.push('【改進與切入點建議】\n' + parasText(fb.improve));
+  lines.push('【改進與切入點建議】\n' + ptText(fb.improvePoints));
   if (state.demo) { lines.push(''); lines.push(state.demo.text); }
   lines.push('');
   lines.push('✦ 安娜塔羅 ANNA TAROT · 塔羅解牌實戰教室 ✦');
@@ -1368,13 +1381,14 @@ function buildMentorDemo() {
   const keyA = withIdx[withIdx.length - 1];                       // 結尾牌
   const revPick = withIdx.find(x => x.d.reversed && x.i !== keyA.i);
   const keyB = revPick || withIdx[0];
-  const tieIn =
-    '客戶真正問的是——「' + q + '」。示範兩個扣題句：' +
-    '①「' + sp.positions[keyB.i] + '」的' + (keyB.d.reversed ? '逆位' : '正位') + keyB.d.card.name +
-    '，我會對客戶說：『你問' + (q.split('？')[0] || q) + '？這張牌回答的正是這件事——' +
-    (keyB.d.reversed ? keyB.d.card.rev.split('、')[0] + '，就是你此刻卡住的位置' : keyB.d.card.up.split('、')[0] + '，是你已經握在手上的答案') + '。』' +
-    '②收尾時用「' + sp.positions[keyA.i] + '」的' + keyA.d.card.name + '把問題重述一次再回答，' +
-    '讓客戶清楚感覺到「我的問題被接住了」。切記：每講兩三張牌，就要回頭扣一次客戶的原話，解讀才不會飄走。';
+  const tieLead = '客戶真正問的是——「' + q + '」。';
+  const tiePoints = [
+    '扣題句示範：「' + sp.positions[keyB.i] + '」的' + (keyB.d.reversed ? '逆位' : '正位') + keyB.d.card.name +
+      '，我會對客戶說：『你問' + (q.split('？')[0] || q) + '？這張牌回答的正是這件事——' +
+      (keyB.d.reversed ? keyB.d.card.rev.split('、')[0] + '，就是你此刻卡住的位置' : keyB.d.card.up.split('、')[0] + '，是你已經握在手上的答案') + '。』',
+    '收尾扣題：用「' + sp.positions[keyA.i] + '」的' + keyA.d.card.name + '把客戶的問題重述一次再回答，讓他清楚感覺到「我的問題被接住了」。',
+    '原則：每講兩三張牌，就回頭扣一次客戶的原話，解讀才不會飄走。',
+  ];
 
   const last = keyA.d;
   const lastKey = (last.reversed ? last.card.rev : last.card.up).split('、')[0];
@@ -1391,13 +1405,13 @@ function buildMentorDemo() {
 
   const text =
     '🕯️ 導師解牌時光（示範解讀）\n' + lines.join('\n') +
-    '\n【如何扣題】' + tieIn + '\n' + syn + '\n' + note;
+    '\n【如何扣題】' + tieLead + '\n' + ptText(tiePoints) + '\n' + syn + '\n' + note;
   const html =
     '<div class="demo-panel rise-in">' +
       '<h4>🕯️ 導師解牌時光</h4>' +
       '<div class="dsub">同一副牌，導師的示範解讀</div>' +
       lines.map(l => '<p class="dline">' + l + '</p>').join('') +
-      '<div class="dtie"><b>【如何扣題】</b>' + parasHTML(tieIn) + '</div>' +
+      '<div class="dtie"><b>【如何扣題】</b>' + parasHTML(tieLead) + ptList(tiePoints) + '</div>' +
       '<div class="dsyn">' + parasHTML(syn) + '</div>' +
       '<p class="dnote">' + note + '</p>' +
     '</div>';
