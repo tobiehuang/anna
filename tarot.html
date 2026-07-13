@@ -511,6 +511,7 @@ section { margin-top: 46px; }
   display: flex; align-items: center; gap: 8px;
 }
 .rb-block p { font-size: 15px; line-height: 2; color: rgba(74,55,40,.86); }
+.rb-block p + p { margin-top: 13px; }
 .report-foot { text-align: center; font-size: 11.5px; color: rgba(74,55,40,.45); padding-top: 6px; letter-spacing: .1em; }
 
 /* 練習紀錄匯出按鈕列 */
@@ -557,8 +558,10 @@ section { margin-top: 46px; }
   border: 1px solid rgba(216,195,165,.6); border-radius: 14px;
   padding: 14px 16px; font-size: 14.5px; line-height: 2; color: rgba(74,55,40,.9);
 }
-.demo-panel .dtie b { color: var(--orange); }
+.demo-panel .dtie b { color: var(--orange); display: block; margin-bottom: 4px; }
+.demo-panel .dtie p + p { margin-top: 12px; }
 .demo-panel .dsyn { margin-top: 15px; padding-top: 14px; border-top: 1.5px dashed var(--milk-deep); font-size: 15px; line-height: 2; font-weight: 500; color: var(--coffee); }
+.demo-panel .dsyn p + p { margin-top: 12px; }
 .demo-panel .dnote { margin-top: 12px; font-size: 12px; color: rgba(74,55,40,.55); text-align: center; }
 
 /* ═══════════ 頁尾 ═══════════ */
@@ -666,7 +669,7 @@ footer {
 
 </div>
 
-<footer>✦ 安娜塔羅 ANNA TAROT · 塔羅解牌實戰教室 ✦<br>本工具為教學用途 · 版本 v11（導師解牌時光版）</footer>
+<footer>✦ 安娜塔羅 ANNA TAROT · 塔羅解牌實戰教室 ✦<br>本工具為教學用途<span id="appVersion" style="display:none">v13</span></footer>
 
 <script>
 /* ═══════════════════════ 資料區 ═══════════════════════ */
@@ -972,6 +975,21 @@ const state = {
 const $ = id => document.getElementById(id);
 const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 
+/* 長文自動分段：約每 110 字（手機約六行）在句尾切一段，閱讀有呼吸感 */
+function paraize(t, limit) {
+  limit = limit || 110;
+  const sentences = t.match(/[^。！？]+[。！？]*[」』]?/g) || [t];
+  const out = []; let cur = '';
+  sentences.forEach(s => {
+    if (cur && (cur.length + s.length) > limit) { out.push(cur); cur = s; }
+    else { cur += s; }
+  });
+  if (cur) out.push(cur);
+  return out;
+}
+function parasHTML(t) { return paraize(t).map(p => '<p>' + p + '</p>').join(''); }
+function parasText(t) { return paraize(t).join('\n\n'); }
+
 const scenario = () => SCENARIOS.find(s => s.id === state.scenarioId);
 const spread   = () => SPREADS.find(s => s.id === state.spreadId);
 
@@ -1234,10 +1252,10 @@ function renderReport() {
         '</div>' +
       '</div>' +
       '<div class="report-body">' +
-        '<div class="rb-block rb-lead"><h4>💬 導師的話</h4><p>' + fb.opening + '</p></div>' +
-        '<div class="rb-block"><h4>🔍 【牌陣核心矛盾點解析】</h4><p>' + fb.conflict + '</p></div>' +
-        '<div class="rb-block"><h4>🌷 【諮詢技巧與同理心稱讚】</h4><p>' + fb.praise + '</p></div>' +
-        '<div class="rb-block"><h4>🧭 【改進與切入點建議】</h4><p>' + fb.improve + '</p></div>' +
+        '<div class="rb-block rb-lead"><h4>💬 導師的話</h4>' + parasHTML(fb.opening) + '</div>' +
+        '<div class="rb-block"><h4>🔍 【牌陣核心矛盾點解析】</h4>' + parasHTML(fb.conflict) + '</div>' +
+        '<div class="rb-block"><h4>🌷 【諮詢技巧與同理心稱讚】</h4>' + parasHTML(fb.praise) + '</div>' +
+        '<div class="rb-block"><h4>🧭 【改進與切入點建議】</h4>' + parasHTML(fb.improve) + '</div>' +
         '<div class="report-foot">✦ 本報告由 AI 導師生成，僅供解牌練習參考 · 安娜塔羅實戰教室 ✦</div>' +
       '</div>' +
     '</div>' +
@@ -1249,10 +1267,10 @@ function renderReport() {
     '<div class="export-bar">' +
       '<button type="button" class="exp-btn primary" id="btnCopy">📋 複製練習紀錄</button>' +
       '<button type="button" class="exp-btn outline" id="btnWord">📥 下載 Word 檔</button>' +
-      '<button type="button" class="exp-btn solid" id="btnMail">✉️ 一鍵傳給安娜老師</button>' +
+      '<button type="button" class="exp-btn solid" id="btnMail">✉️ 寄給群組討論區</button>' +
       '<button type="button" class="exp-btn ghost" id="btnReset">🔁 清除重填</button>' +
     '</div>' +
-    '<p class="export-note">複製後可直接貼到你的 Notion 或任何筆記工具保存；「傳給安娜老師」會開啟你的信箱並自動帶入這次的練習紀錄。</p>';
+    '<p class="export-note">複製後可直接貼到你的 Notion 或任何筆記工具保存；「寄給群組討論區」會開啟信箱並自動帶入練習紀錄（未來將直接串接 Notion 討論區）。</p>';
 
   if (!state.demo) {
     $('btnDemo').addEventListener('click', () => {
@@ -1304,10 +1322,13 @@ function buildRecord() {
   lines.push('');
   lines.push('▍AI 導師診斷報告　綜合評分 ' + fb.score + ' 分（' + fb.grade + '）');
   lines.push(fb.scoreDetail);
-  lines.push('【導師的話】' + fb.opening);
-  lines.push('【牌陣核心矛盾點解析】' + fb.conflict);
-  lines.push('【諮詢技巧與同理心稱讚】' + fb.praise);
-  lines.push('【改進與切入點建議】' + fb.improve);
+  lines.push('【導師的話】\n' + parasText(fb.opening));
+  lines.push('');
+  lines.push('【牌陣核心矛盾點解析】\n' + parasText(fb.conflict));
+  lines.push('');
+  lines.push('【諮詢技巧與同理心稱讚】\n' + parasText(fb.praise));
+  lines.push('');
+  lines.push('【改進與切入點建議】\n' + parasText(fb.improve));
   if (state.demo) { lines.push(''); lines.push(state.demo.text); }
   lines.push('');
   lines.push('✦ 安娜塔羅 ANNA TAROT · 塔羅解牌實戰教室 ✦');
@@ -1376,8 +1397,8 @@ function buildMentorDemo() {
       '<h4>🕯️ 導師解牌時光</h4>' +
       '<div class="dsub">同一副牌，導師的示範解讀</div>' +
       lines.map(l => '<p class="dline">' + l + '</p>').join('') +
-      '<div class="dtie"><b>【如何扣題】</b>' + tieIn + '</div>' +
-      '<p class="dsyn">' + syn + '</p>' +
+      '<div class="dtie"><b>【如何扣題】</b>' + parasHTML(tieIn) + '</div>' +
+      '<div class="dsyn">' + parasHTML(syn) + '</div>' +
       '<p class="dnote">' + note + '</p>' +
     '</div>';
   return { html, text };
