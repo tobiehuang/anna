@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>安娜塔羅｜塔羅 8 大牌陣・進階實戰解牌好幫手</title>
+<title>安娜塔羅｜塔羅 10 大牌陣・進階實戰解牌好幫手</title>
 <meta name="description" content="挑選客戶情境與 8 大牌陣，線上洗牌抽牌、練習綜合解讀，並由模擬 AI 導師給予講評。安娜塔羅實戰教室。" />
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#128302;</text></svg>" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -39,7 +39,8 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 
 /* ═══════════ 頁首 ═══════════ */
 .hero {
-  background: linear-gradient(135deg, var(--coffee) 0%, var(--coffee-deep) 55%, #3B2A1D 100%);
+  /* 淺一點的深灰咖啡，帶奶茶灰調 */
+  background: linear-gradient(135deg, #6E5C4B 0%, #5A4C40 55%, #695849 100%);
   color: var(--cream);
   text-align: center;
   padding: 56px 20px 88px;
@@ -112,10 +113,10 @@ section { margin-top: 46px; }
 
 .client-quote {
   margin-top: 13px;
-  background: var(--orange-mist);
-  border: 1px solid rgba(242,169,126,.5);
+  background: var(--milk);
+  border: 1px solid var(--milk-deep);
   border-radius: 14px; padding: 13px 16px;
-  font-size: 13.5px; color: rgba(74,55,40,.85);
+  font-size: 13.5px; color: rgba(74,55,40,.88);
 }
 .client-quote b { color: var(--orange); }
 @keyframes quoteIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
@@ -133,17 +134,15 @@ section { margin-top: 46px; }
 .spread-btn {
   border: 1.5px solid rgba(216,195,165,.75);
   background: var(--cream);
-  border-radius: 13px; padding: 11px 12px;
-  font-size: 13px; font-weight: 700; color: rgba(74,55,40,.82);
-  text-align: left; transition: all .2s;
+  border-radius: 10px; padding: 8px 8px;
+  font-size: 12.5px; font-weight: 700; color: rgba(74,55,40,.82);
+  text-align: center; transition: all .2s;
 }
-.spread-btn small { font-weight: 400; font-size: 11px; color: rgba(74,55,40,.45); margin-left: 3px; }
 .spread-btn:hover { border-color: rgba(231,123,67,.6); color: var(--orange); }
 .spread-btn.active {
   background: var(--orange); border-color: var(--orange); color: #fff;
-  box-shadow: 0 6px 16px rgba(231,123,67,.4);
+  box-shadow: 0 5px 14px rgba(231,123,67,.4);
 }
-.spread-btn.active small { color: rgba(255,255,255,.8); }
 
 .pos-def { margin-top: 24px; padding-top: 20px; border-top: 1.5px dashed rgba(216,195,165,.7); }
 .pos-def .lbl { font-size: 14px; font-weight: 700; color: rgba(74,55,40,.72); margin-bottom: 10px; }
@@ -241,10 +240,11 @@ section { margin-top: 46px; }
 .tcard {
   position: relative;
   background: linear-gradient(180deg, var(--white) 0%, var(--cream) 55%, var(--milk) 100%);
-  border: 1px solid rgba(216,195,165,.65);
-  border-radius: 18px;
-  padding: 16px 14px 18px;
-  min-height: 182px;
+  border: 2px solid rgba(216,195,165,.85);
+  border-radius: 14px;
+  padding: 14px 10px 15px;
+  min-height: 268px;
+  width: 100%; max-width: 186px; margin: 0 auto;   /* 直立長方形塔羅牌比例 */
   display: flex; flex-direction: column; align-items: center; text-align: center;
   box-shadow: 0 0 0 1px rgba(74,55,40,.06),
               0 0 22px rgba(231,123,67,.22),
@@ -263,7 +263,12 @@ section { margin-top: 46px; }
   60%  { opacity: 1; transform: perspective(900px) rotateY(-8deg) translateY(-2px) scale(1.02); }
   100% { opacity: 1; transform: perspective(900px) rotateY(0deg) translateY(0) scale(1); }
 }
-.tcard .pos-row { display: flex; align-items: center; gap: 6px; margin-bottom: 8px; }
+.tcard::after {
+  content: ''; position: absolute; inset: 6px;
+  border: 1px solid rgba(216,195,165,.7); border-radius: 9px;
+  pointer-events: none;
+}
+.tcard .pos-row { display: flex; flex-direction: column; align-items: center; gap: 4px; margin-bottom: 6px; }
 .tcard .pos-row .n {
   width: 20px; height: 20px; border-radius: 50%;
   background: var(--coffee); color: var(--cream);
@@ -282,24 +287,47 @@ section { margin-top: 46px; }
 .tcard.rev .art { transform: rotate(180deg); }
 .tcard .cname {
   font-family: 'Noto Serif TC', serif;
-  font-size: 20px; font-weight: 900; color: var(--coffee-deep); line-height: 1.3;
+  font-size: 18px; font-weight: 900; color: var(--coffee-deep); line-height: 1.3;
 }
-.tcard .cen { font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: rgba(74,55,40,.5); }
+.tcard .cen { font-size: 9.5px; letter-spacing: .12em; text-transform: uppercase; color: rgba(74,55,40,.5); }
 .tcard .orient {
-  display: inline-block; margin-top: 9px;
-  font-size: 12px; font-weight: 700;
-  border-radius: 999px; padding: 3px 14px;
+  display: inline-block; margin-top: 8px;
+  font-size: 11.5px; font-weight: 700;
+  border-radius: 999px; padding: 3px 13px;
 }
 .tcard .orient.up  { background: var(--orange); color: #fff; box-shadow: 0 3px 8px rgba(231,123,67,.4); }
 .tcard .orient.rv  { background: var(--coffee); color: var(--cream); }
-.tcard .keys { margin-top: 6px; font-size: 11px; line-height: 1.7; color: rgba(74,55,40,.62); padding: 0 4px; }
+.tcard .keys { margin-top: 5px; font-size: 10.5px; line-height: 1.65; color: rgba(74,55,40,.62); padding: 0 4px; }
 
 /* ── 牌陣排版 ── */
 .lay-one { display: flex; justify-content: center; }
-.lay-one .tcard { width: 100%; max-width: 240px; }
-.lay-row3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; max-width: 880px; margin: 0 auto; }
-.lay-row4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; max-width: 1080px; margin: 0 auto; }
-.lay-3x2  { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; max-width: 980px; margin: 0 auto; }
+.lay-one .tcard { max-width: 200px; }
+.lay-row3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; max-width: 640px; margin: 0 auto; }
+.lay-row4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; max-width: 860px; margin: 0 auto; }
+.lay-3x2  { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; max-width: 640px; margin: 0 auto; }
+
+/* 三張牌聖三角：頂點在上的三角形 */
+.lay-tri {
+  display: grid; gap: 18px;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-areas: ". t1 ." "t2 . t3";
+  max-width: 640px; margin: 0 auto;
+}
+.pos-t1 { grid-area: t1; } .pos-t2 { grid-area: t2; } .pos-t3 { grid-area: t3; }
+
+/* 七張牌馬蹄鐵：U 字弧線 */
+.lay-horse {
+  display: grid; gap: 14px;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-areas:
+    ".  m3 m4 m5 ."
+    "m2 .  .  .  m6"
+    "m1 .  .  .  m7";
+  max-width: 1000px; margin: 0 auto;
+}
+.pos-m1{grid-area:m1} .pos-m2{grid-area:m2} .pos-m3{grid-area:m3}
+.pos-m4{grid-area:m4} .pos-m5{grid-area:m5} .pos-m6{grid-area:m6} .pos-m7{grid-area:m7}
+.lay-horse .tcard { max-width: 165px; min-height: 250px; }
 
 .branch-labels {
   display: flex; justify-content: space-around;
@@ -346,7 +374,7 @@ section { margin-top: 46px; }
     ".  c4 .  s7";
   max-width: 1120px; margin: 0 auto;
 }
-.lay-celtic .tcard { min-height: 168px; }
+.lay-celtic .tcard { max-width: 158px; min-height: 240px; }
 .pos-c1{grid-area:c1} .pos-c2{grid-area:c2; transform: rotate(4deg);}
 .pos-c3{grid-area:c3} .pos-c4{grid-area:c4}
 .pos-c5{grid-area:c5} .pos-c6{grid-area:c6}
@@ -359,13 +387,15 @@ section { margin-top: 46px; }
   .lay-3x2  { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 680px) {
-  .lay-row3, .lay-row4, .lay-3x2, .lay-choice, .lay-hex, .lay-celtic {
+  .lay-row3, .lay-row4, .lay-3x2, .lay-tri, .lay-choice, .lay-hex, .lay-horse, .lay-celtic {
     grid-template-columns: 1fr; grid-template-areas: none;
   }
   .pos-st,.pos-a1,.pos-a2,.pos-b1,.pos-b2,
+  .pos-t1,.pos-t2,.pos-t3,
   .pos-h1,.pos-h2,.pos-h3,.pos-h4,.pos-h5,.pos-h6,
+  .pos-m1,.pos-m2,.pos-m3,.pos-m4,.pos-m5,.pos-m6,.pos-m7,
   .pos-c1,.pos-c2,.pos-c3,.pos-c4,.pos-c5,.pos-c6,
-  .pos-s7,.pos-s8,.pos-s9,.pos-s10 { grid-area: auto; transform: none; max-width: none; }
+  .pos-s7,.pos-s8,.pos-s9,.pos-s10 { grid-area: auto; transform: none; }
   .lay-hex::before { display: none; }
   .staff { border-left: none; padding-left: 0; }
   .branch-labels, .celtic-labels { display: none; }
@@ -440,7 +470,7 @@ section { margin-top: 46px; }
 .score-num b { font-family: 'Noto Serif TC', serif; font-size: 40px; font-weight: 900; color: var(--cream); line-height: 1; }
 .score-num span { font-size: 11px; letter-spacing: .22em; color: rgba(250,246,239,.6); margin-top: 5px; }
 
-.report-body { background: linear-gradient(180deg, var(--cream), var(--orange-mist)); padding: 30px 24px 26px; }
+.report-body { background: linear-gradient(180deg, var(--cream), #F0E6D4); padding: 30px 24px 26px; }
 @media (min-width: 768px) { .report-body { padding: 34px 44px 30px; } }
 .rb-block {
   background: rgba(255,255,255,.85);
@@ -454,7 +484,7 @@ section { margin-top: 46px; }
 .rb-block:nth-child(2) { animation-delay: .15s; }
 .rb-block:nth-child(3) { animation-delay: .3s; }
 .rb-block:nth-child(4) { animation-delay: .45s; }
-.rb-lead { background: var(--orange-mist); border-color: rgba(242,169,126,.65); }
+.rb-lead { background: var(--milk); border-color: var(--milk-deep); }
 .rb-lead h4 { color: var(--coffee); }
 .rb-block h4 {
   font-family: 'Noto Serif TC', serif;
@@ -500,7 +530,7 @@ footer {
 <!-- ═══════════ 頁首 ═══════════ -->
 <header class="hero">
   <div class="brand">✦ ANNA TAROT ✦</div>
-  <h1>塔羅 8 大牌陣<br>進階實戰解牌<span class="dot">好幫手</span></h1>
+  <h1>塔羅 10 大牌陣<br>進階實戰解牌<span class="dot">好幫手</span></h1>
   <p>挑選客戶情境與牌陣 → 洗牌抽牌<br>寫下你的綜合解讀 → 讓 AI 導師為你講評<br>像真正的諮詢現場一樣練習，累積你的實戰手感</p>
 </header>
 
@@ -524,7 +554,7 @@ footer {
         <button class="client-refresh" id="clientRefresh" type="button">🔄 換一位客戶練習</button>
       </div>
       <div>
-        <span class="field-label">選擇牌陣（8 種）</span>
+        <span class="field-label">選擇牌陣（10 種）</span>
         <div class="spread-btns" id="spreadBtns"></div>
       </div>
     </div>
@@ -541,7 +571,7 @@ footer {
       <div class="step-badge">2</div>
       <div>
         <h2>線上牌陣模擬</h2>
-        <div class="sub">洗牌之後隨機抽出 78 張牌的任意牌組（含正逆位，不重複）</div>
+        <div class="sub">洗牌之後隨機抽出 78 張牌的任意牌組<br>（含正逆位，不重複）</div>
       </div>
     </div>
 
@@ -784,21 +814,25 @@ const SCENARIOS = [
 ];
 
 const SPREADS = [
-  { id: 'one',      name: '單張牌練習',           count: 1,  layout: 'one',
+  { id: 'one',      name: '單張牌練習',           short: '單張牌練習',       count: 1,  layout: 'one',
     positions: ['核心指引'] },
-  { id: 'time3',    name: '三張牌時間之流牌陣',   count: 3,  layout: 'row3',
+  { id: 'time3',    name: '三張牌時間之流牌陣',   short: '三張牌時間之流',   count: 3,  layout: 'row3',
     positions: ['過去', '現在', '未來'] },
-  { id: 'bms3',     name: '三張牌身心靈牌陣',     count: 3,  layout: 'row3',
+  { id: 'bms3',     name: '三張牌身心靈牌陣',     short: '三張牌身心靈',     count: 3,  layout: 'row3',
     positions: ['身（行動）', '心（情感）', '靈（潛意識）'] },
-  { id: 'core4',    name: '四張牌直指核心牌陣',   count: 4,  layout: 'row4',
+  { id: 'tri3',     name: '三張牌聖三角牌陣',     short: '三張牌聖三角',     count: 3,  layout: 'tri',
+    positions: ['目前現況', '問題根源', '指引方向'] },
+  { id: 'core4',    name: '四張牌直指核心牌陣',   short: '四張牌直指核心',   count: 4,  layout: 'row4',
     positions: ['目前現況', '面臨阻礙', '核心關鍵', '解決對策'] },
-  { id: 'choice5',  name: '五張牌選擇牌陣',       count: 5,  layout: 'choice',
+  { id: 'choice5',  name: '五張牌選擇牌陣',       short: '五張牌選擇',       count: 5,  layout: 'choice',
     positions: ['現狀', '選擇A發展', '選擇A結果', '選擇B發展', '選擇B結果'] },
-  { id: 'hex6',     name: '六張牌六芒星牌陣',     count: 6,  layout: 'hex',
+  { id: 'hex6',     name: '六張牌六芒星牌陣',     short: '六張牌六芒星',     count: 6,  layout: 'hex',
     positions: ['過去影響', '現在處境', '未來趨勢', '自身環境', '周遭阻礙', '最終結果'] },
-  { id: 'goal6',    name: '六張牌目標牌陣',       count: 6,  layout: '3x2',
+  { id: 'goal6',    name: '六張牌目標牌陣',       short: '六張牌目標',       count: 6,  layout: '3x2',
     positions: ['目標現狀', '達成阻礙', '助力資源', '必要行動', '心理建設', '預期收穫'] },
-  { id: 'celtic10', name: '十張牌塞爾特十字牌陣', count: 10, layout: 'celtic',
+  { id: 'horse7',   name: '七張牌馬蹄鐵牌陣',     short: '七張牌馬蹄鐵',     count: 7,  layout: 'horse',
+    positions: ['過去影響', '現在處境', '未來發展', '應對方式', '周遭影響', '潛在阻礙', '最終結果'] },
+  { id: 'celtic10', name: '十張牌塞爾特十字牌陣', short: '十張牌塞爾特十字', count: 10, layout: 'celtic',
     positions: ['現狀', '阻礙', '意識目標', '潛意識根源', '近期過去', '近期未來', '自我狀態', '環境影響', '希望與恐懼', '最終結果'] },
 ];
 
@@ -806,10 +840,12 @@ const SPREAD_TIPS = {
   one:      '單張牌雖然只有一個位置，但別忘了把牌面的「人物視角、方向、色彩」都轉譯成客戶聽得懂的語言，一張牌也能講出立體的故事。',
   time3:    '時間之流的關鍵在「過去 → 現在」的因果線是否說得通，再由這條線自然推向未來，避免三張牌各講各的。',
   bms3:     '身心靈牌陣要注意三個層面的「落差」：當行動與潛意識方向相反時，那個落差本身就是客戶最需要聽到的訊息。',
+  tri3:     '聖三角牌陣的力量在「三點成面」：先把現況與根源對照清楚，第 3 張指引才有說服力。建議把三張牌講成一個閉環——是什麼、為什麼、怎麼辦。',
   core4:    '直指核心牌陣的靈魂在第 3 張「核心關鍵」——建議先解 1、2 鋪陳，再用核心關鍵翻轉視角，最後以解決對策收尾，結構感會更強。',
   choice5:  '選擇牌陣切記「不替客戶做決定」：把 A、B 兩條路的能量差異描述清楚，再把選擇權交還給客戶，這是諮詢倫理也是技巧。',
   hex6:     '六芒星牌陣資訊量大，建議用「時間軸（1-2-3）」與「空間軸（4-5）」兩條線分開梳理，最後匯流到第 6 張最終結果。',
   goal6:    '目標牌陣是行動導向的牌陣，解讀時每一張都要能回答「所以客戶可以做什麼？」，特別是第 4 張必要行動要給出具體可執行的建議。',
+  horse7:   '馬蹄鐵牌陣是一條時間與行動的弧線：先走完 1-2-3 的時間軸，再用 4、5、6 談應對、環境與阻礙，最後以第 7 張收束，層次會非常清楚。',
   celtic10: '塞爾特十字建議用「十字看處境、權杖看走向」兩段式解讀，並記得將第 9 張「希望與恐懼」與第 3 張「意識目標」對照——它們常常互為表裡。',
 };
 
@@ -826,14 +862,16 @@ const LAYOUT_CLASS = {
   row3:   ['', '', ''],
   row4:   ['', '', '', ''],
   '3x2':  ['', '', '', '', '', ''],
+  tri:    ['pos-t1', 'pos-t2', 'pos-t3'],
   choice: ['pos-st', 'pos-a1', 'pos-a2', 'pos-b1', 'pos-b2'],
   hex:    ['pos-h1', 'pos-h2', 'pos-h3', 'pos-h4', 'pos-h5', 'pos-h6'],
+  horse:  ['pos-m1', 'pos-m2', 'pos-m3', 'pos-m4', 'pos-m5', 'pos-m6', 'pos-m7'],
   celtic: ['pos-c1', 'pos-c2', 'pos-c3', 'pos-c4', 'pos-c5', 'pos-c6',
            'pos-s7 staff', 'pos-s8 staff', 'pos-s9 staff', 'pos-s10 staff'],
 };
 const LAYOUT_WRAP = {
   one: 'lay-one', row3: 'lay-row3', row4: 'lay-row4', '3x2': 'lay-3x2',
-  choice: 'lay-choice', hex: 'lay-hex', celtic: 'lay-celtic',
+  tri: 'lay-tri', choice: 'lay-choice', hex: 'lay-hex', horse: 'lay-horse', celtic: 'lay-celtic',
 };
 
 /* ═══════════════════════ 狀態 ═══════════════════════ */
@@ -1006,7 +1044,7 @@ function renderSetup() {
 
   $('spreadBtns').innerHTML = SPREADS.map(s =>
     '<button class="spread-btn' + (s.id === state.spreadId ? ' active' : '') + '" data-id="' + s.id + '">' +
-    s.name + '<small>(' + s.count + '張)</small></button>').join('');
+    s.short + '</button>').join('');
   Array.prototype.forEach.call(document.querySelectorAll('.spread-btn'), btn => {
     btn.addEventListener('click', () => {
       state.spreadId = btn.getAttribute('data-id');
@@ -1086,7 +1124,7 @@ function renderReport() {
   }
   if (!state.feedback) {
     area.innerHTML =
-      '<div class="empty-box"><div class="ic">📜</div><p>完成解牌並送出後，AI 導師診斷報告將在此展開</p></div>';
+      '<div class="empty-box"><div class="ic">📜</div><p>完成解牌並送出後<br>AI 導師診斷報告將在此展開</p></div>';
     return;
   }
 
