@@ -390,18 +390,26 @@ section { margin-top: 46px; }
   .lay-row4 { grid-template-columns: repeat(2, 1fr); }
   .lay-3x2  { grid-template-columns: repeat(2, 1fr); }
 }
+/* 手機：保留牌陣形狀，牌卡縮小、可左右滑動 */
+.scroll-hint { display: none; text-align: center; font-size: 12px; color: rgba(74,55,40,.55); margin: 0 0 12px; letter-spacing: .05em; }
 @media (max-width: 680px) {
-  .lay-row3, .lay-row4, .lay-3x2, .lay-tri, .lay-choice, .lay-hex, .lay-horse, .lay-celtic {
-    grid-template-columns: 1fr; grid-template-areas: none;
-  }
-  .pos-st,.pos-a1,.pos-a2,.pos-b1,.pos-b2,
-  .pos-t1,.pos-t2,.pos-t3,
-  .pos-h1,.pos-h2,.pos-h3,.pos-h4,.pos-h5,.pos-h6,
-  .pos-m1,.pos-m2,.pos-m3,.pos-m4,.pos-m5,.pos-m6,.pos-m7,
-  .pos-c1,.pos-c2,.pos-c3,.pos-c4,.pos-c5,.pos-c6,
-  .pos-s7,.pos-s8,.pos-s9,.pos-s10 { grid-area: auto; transform: none; }
-  .lay-hex::before { display: none; }
-  .staff { border-left: none; padding-left: 0; }
+  #boardArea { overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 6px; }
+  .scroll-hint { display: block; }
+  .lay-row3  { min-width: 470px; }
+  .lay-row4  { min-width: 620px; }
+  .lay-3x2   { min-width: 470px; }
+  .lay-tri   { min-width: 470px; }
+  .lay-choice{ min-width: 500px; }
+  .lay-hex   { min-width: 500px; }
+  .lay-horse { min-width: 660px; }
+  .lay-celtic{ min-width: 700px; }
+  .tcard { max-width: 148px; min-height: 226px; padding: 10px 7px 12px; }
+  .tcard .cname { font-size: 15px; }
+  .tcard .art { font-size: 22px; }
+  .tcard .keys { font-size: 9.5px; }
+  .tcard .pos-name { font-size: 10px; padding: 2px 8px; }
+  .lay-horse .tcard { max-width: 122px; min-height: 206px; }
+  .lay-celtic .tcard { max-width: 126px; min-height: 206px; }
   .branch-labels, .celtic-labels { display: none; }
 }
 
@@ -624,7 +632,7 @@ footer {
 
 </div>
 
-<footer>✦ 安娜塔羅 ANNA TAROT · 塔羅解牌實戰教室 ✦<br>本工具為教學用途</footer>
+<footer>✦ 安娜塔羅 ANNA TAROT · 塔羅解牌實戰教室 ✦<br>本工具為教學用途 · 版本 v8（手機牌陣形狀版）</footer>
 
 <script>
 /* ═══════════════════════ 資料區 ═══════════════════════ */
@@ -744,8 +752,6 @@ const FULL_DECK = MAJOR_ARCANA.concat(MINOR_ARCANA);  // 78 張
 const SCENARIOS = [
   { id: 'love', label: '感情迷惘', icon: '💗', clients: [
     '客戶與曖昧對象認識半年，最近對方忽冷忽熱、訊息回得越來越慢。客戶想知道：「這段關係目前的能量狀態是什麼？我可以如何調整自己的步調，讓關係變得更清晰？」',
-    '客戶與男友遠距離戀愛一年，見面次數越來越少，通話也常常沒話聊。客戶想知道：「我們的感情正在經歷什麼？我們可以如何增進彼此的連結與親密感？」',
-    '客戶分手三個月，前任突然傳訊息說「最近好嗎」，客戶的心又亂了。客戶想知道：「這段緣分對此刻的我而言是什麼課題？我該如何整理自己的心，做出對自己最好的回應？」',
     '客戶與伴侶交往五年，對方遲遲不談婚事，每次提起就轉移話題。客戶想知道：「我們的關係卡在什麼地方？我可以如何開啟對話，讓關係往下一步轉化？」',
     '客戶結婚七年，與另一半像室友一樣，各過各的生活。客戶想知道：「我們的婚姻目前處於什麼狀態？我們可以如何重新靠近、找回當初的溫度？」',
     '客戶同時被兩位條件不同的追求者告白：一位穩重體貼、一位有趣但飄忽。客戶想知道：「這兩段緣分各自帶給我什麼課題？我可以如何看清自己真正想要的伴侶關係？」',
@@ -1148,7 +1154,8 @@ function renderBoard() {
   } else if (sp.layout === 'celtic') {
     extra = '<div class="celtic-labels"><span>─ 十字：處境全貌 ─</span><span>─ 權杖：發展走向 ─</span></div>';
   }
-  area.innerHTML = extra +
+  area.innerHTML =
+    '<div class="scroll-hint">👈 手機上左右滑動，可看完整牌陣形狀 👉</div>' + extra +
     '<div class="' + LAYOUT_WRAP[sp.layout] + '">' +
     state.drawn.map((d, i) => cardHTML(d, i)).join('') + '</div>';
   $('drawHint').textContent =
