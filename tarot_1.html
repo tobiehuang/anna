@@ -1,0 +1,1400 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>安娜塔羅｜塔羅 10 大牌陣・進階實戰解牌好幫手</title>
+<meta name="description" content="挑選客戶情境與 10 大牌陣，線上洗牌抽牌、練習綜合解讀，並由 AI 導師給予講評。安娜塔羅實戰教室。" />
+<meta property="og:title" content="安娜塔羅｜塔羅 10 大牌陣・進階實戰解牌好幫手" />
+<meta property="og:description" content="挑選客戶情境與 10 大牌陣，線上洗牌抽牌、練習綜合解讀，並由 AI 導師給予講評。安娜塔羅實戰教室。" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://anna-iota-three.vercel.app/tarot.html" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#128302;</text></svg>" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@600;700;900&display=swap" rel="stylesheet" />
+<style>
+/* ═══════════ 基礎與配色（安娜塔羅：奶茶 × 暖白 × 深咖啡，暖橘襯托） ═══════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --cream:      #FAF6EF;   /* 暖白 */
+  --milk:       #EADFCB;   /* 奶茶 */
+  --milk-deep:  #D8C3A5;   /* 深奶茶 */
+  --coffee:     #4A3728;   /* 深咖啡 */
+  --coffee-deep:#2E2118;
+  --orange:     #E77B43;   /* 暖橘 */
+  --orange-soft:#F2A97E;
+  --orange-mist:#FBEFE4;
+  --white:      #FFFFFF;
+  --radius-lg:  24px;
+  --radius-md:  16px;
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Noto Sans TC', '微軟正黑體', 'PingFang TC', sans-serif;
+  background: var(--cream);
+  color: var(--coffee);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+.serif { font-family: 'Noto Serif TC', 'Noto Sans TC', serif; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+::selection { background: rgba(231,123,67,.3); }
+
+/* ═══════════ 頁首 ═══════════ */
+.hero {
+  /* 淺一點的深灰咖啡，帶奶茶灰調 */
+  background: linear-gradient(135deg, #6E5C4B 0%, #5A4C40 55%, #695849 100%);
+  color: var(--cream);
+  text-align: center;
+  padding: 56px 20px 88px;
+}
+.hero .brand {
+  color: var(--orange-soft);
+  letter-spacing: .45em;
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+.hero h1 {
+  font-family: 'Noto Serif TC', serif;
+  font-size: clamp(1.7rem, 4.5vw, 3rem);
+  font-weight: 900;
+  letter-spacing: .06em;
+  line-height: 1.3;
+}
+.hero h1 .dot { color: var(--orange); }
+.hero p {
+  margin: 18px auto 0;
+  max-width: 620px;
+  font-size: 14.5px;
+  color: rgba(250,246,239,.75);
+}
+
+/* ═══════════ 版面容器 ═══════════ */
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 20px 90px; }
+
+.panel {
+  background: rgba(255,255,255,.92);
+  border: 1px solid rgba(216,195,165,.55);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 14px 40px rgba(74,55,40,.10);
+  padding: 28px;
+}
+@media (min-width: 768px) { .panel { padding: 34px; } }
+.panel.setup { margin-top: -46px; position: relative; z-index: 2; }
+
+.section-head { display: flex; align-items: center; gap: 13px; margin-bottom: 22px; }
+.step-badge {
+  flex: none; width: 38px; height: 38px; border-radius: 50%;
+  background: var(--orange); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 900; font-size: 17px;
+  box-shadow: 0 6px 14px rgba(231,123,67,.38);
+}
+.section-head h2 {
+  font-family: 'Noto Serif TC', serif;
+  font-size: clamp(1.15rem, 2.6vw, 1.5rem);
+  font-weight: 900; letter-spacing: .05em;
+}
+.section-head .sub { font-size: 13px; color: rgba(74,55,40,.58); margin-top: 1px; }
+section { margin-top: 46px; }
+
+/* ═══════════ 1. 情境與牌陣選擇 ═══════════ */
+.setup-grid { display: grid; gap: 26px; }
+@media (min-width: 860px) { .setup-grid { grid-template-columns: 1fr 1.15fr; } }
+.field-label { display: block; font-size: 14px; font-weight: 700; color: rgba(74,55,40,.72); letter-spacing: .06em; margin-bottom: 9px; }
+
+.scenario-select {
+  width: 100%; appearance: none;
+  border: 1.5px solid var(--milk-deep);
+  background: var(--cream) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9'%3E%3Cpath d='M1 1l6 6 6-6' stroke='%234A3728' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat right 16px center;
+  border-radius: 14px; padding: 13px 44px 13px 16px;
+  font-size: 15.5px; font-weight: 700; color: var(--coffee);
+  cursor: pointer; transition: border-color .2s, box-shadow .2s;
+}
+.scenario-select:focus { outline: none; border-color: var(--orange); box-shadow: 0 0 0 3px rgba(231,123,67,.22); }
+
+.client-quote {
+  margin-top: 13px;
+  background: var(--milk);
+  border: 1px solid var(--milk-deep);
+  border-radius: 14px; padding: 13px 16px;
+  font-size: 13.5px; color: rgba(74,55,40,.88);
+}
+.client-quote b { color: var(--orange); }
+@keyframes quoteIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+.client-refresh {
+  margin-top: 10px;
+  font-size: 12.5px; font-weight: 700; letter-spacing: .05em; color: var(--orange);
+  border: 1.5px dashed rgba(231,123,67,.55); border-radius: 999px;
+  padding: 6px 15px; background: var(--white);
+  transition: all .2s;
+}
+.client-refresh:hover { background: var(--orange); color: #fff; border-style: solid; }
+.client-refresh:active { transform: scale(.95); }
+
+.spread-btns { display: grid; grid-template-columns: repeat(2, 1fr); gap: 9px; }
+.spread-btn {
+  border: 1.5px solid rgba(216,195,165,.75);
+  background: var(--cream);
+  border-radius: 10px; padding: 8px 8px;
+  font-size: 12.5px; font-weight: 700; color: rgba(74,55,40,.82);
+  text-align: center; transition: all .2s;
+}
+.spread-btn:hover { border-color: rgba(231,123,67,.6); color: var(--orange); }
+.spread-btn.active {
+  background: var(--orange); border-color: var(--orange); color: #fff;
+  box-shadow: 0 5px 14px rgba(231,123,67,.4);
+}
+
+.pos-def { margin-top: 24px; padding-top: 20px; border-top: 1.5px dashed rgba(216,195,165,.7); }
+.pos-def .lbl { font-size: 14px; font-weight: 700; color: rgba(74,55,40,.72); margin-bottom: 10px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(234,223,203,.55);
+  border: 1px solid rgba(216,195,165,.6);
+  border-radius: 999px; padding: 4px 12px 4px 5px;
+  font-size: 13px; color: rgba(74,55,40,.82);
+}
+.chip .n {
+  width: 18px; height: 18px; border-radius: 50%;
+  background: var(--coffee); color: var(--cream);
+  font-size: 10px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+
+/* ═══════════ 2. 洗牌與牌陣 ═══════════ */
+.shuffle-zone { text-align: center; margin-bottom: 30px; }
+.deck-toggle {
+  display: inline-flex; align-items: center; gap: 8px;
+  margin-bottom: 18px; flex-wrap: wrap; justify-content: center;
+}
+.deck-lbl { font-size: 13.5px; font-weight: 700; color: rgba(74,55,40,.6); letter-spacing: .05em; }
+.deck-btn {
+  border: 1.5px solid rgba(216,195,165,.8);
+  background: var(--white);
+  border-radius: 999px; padding: 7px 18px;
+  font-size: 13px; font-weight: 700; color: rgba(74,55,40,.75);
+  transition: all .2s;
+}
+.deck-btn:hover { border-color: rgba(231,123,67,.6); color: var(--orange); }
+.deck-btn.active {
+  background: var(--coffee); border-color: var(--coffee); color: var(--cream);
+  box-shadow: 0 5px 14px rgba(74,55,40,.3);
+}
+.shuffle-btn {
+  display: inline-flex; align-items: center; gap: 9px;
+  background: linear-gradient(90deg, var(--orange), var(--orange-soft));
+  color: #fff; font-size: 17px; font-weight: 900; letter-spacing: .18em;
+  border-radius: 999px; padding: 16px 42px;
+  box-shadow: 0 10px 26px rgba(231,123,67,.42);
+  transition: transform .25s, box-shadow .25s;
+  animation: pulseGlow 1.6s ease-in-out infinite;
+}
+.shuffle-btn:hover { transform: scale(1.05); }
+.shuffle-btn:active { transform: scale(.96); }
+.shuffle-btn:disabled { background: var(--milk-deep); color: rgba(74,55,40,.5); cursor: wait; animation: none; box-shadow: none; }
+.draw-hint { margin-top: 12px; font-size: 13.5px; color: rgba(74,55,40,.55); }
+
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 10px 26px rgba(231,123,67,.35); }
+  50%      { box-shadow: 0 10px 34px rgba(231,123,67,.62); }
+}
+
+.empty-box {
+  border: 2px dashed rgba(216,195,165,.8);
+  background: rgba(234,223,203,.25);
+  border-radius: var(--radius-lg);
+  padding: 58px 20px; text-align: center;
+}
+.empty-box .ic { font-size: 38px; margin-bottom: 10px; }
+.empty-box p { font-size: 13.5px; color: rgba(74,55,40,.5); letter-spacing: .08em; }
+
+/* 洗牌動畫 */
+.shuffle-stage { position: relative; height: 210px; }
+.card-back {
+  position: absolute; left: 50%; top: 8px; margin-left: -52px;
+  width: 104px; height: 152px; border-radius: 13px;
+  border: 2px solid rgba(231,123,67,.55);
+  background: linear-gradient(160deg, var(--coffee), var(--coffee-deep));
+  display: flex; align-items: center; justify-content: center;
+  color: var(--orange-soft); font-size: 26px;
+  animation: shuffleSway 1.1s ease-in-out infinite;
+  box-shadow: 0 8px 20px rgba(46,33,24,.35);
+}
+@keyframes shuffleSway {
+  0%   { transform: translateX(0) rotate(0deg); }
+  20%  { transform: translateX(-76px) rotate(-10deg); }
+  45%  { transform: translateX(76px) rotate(9deg); }
+  70%  { transform: translateX(-42px) rotate(-5deg); }
+  100% { transform: translateX(0) rotate(0deg); }
+}
+.shuffle-stage .txt {
+  position: absolute; bottom: 0; width: 100%;
+  text-align: center; font-size: 13.5px; letter-spacing: .18em; color: rgba(74,55,40,.6);
+}
+.dots span { animation: dotBlink 1.2s infinite both; }
+.dots span:nth-child(2) { animation-delay: .2s; }
+.dots span:nth-child(3) { animation-delay: .4s; }
+@keyframes dotBlink { 0%,80%,100% { opacity:.2; } 40% { opacity:1; } }
+
+/* 塔羅卡片面板 */
+.tcard {
+  position: relative;
+  background: linear-gradient(180deg, var(--white) 0%, var(--cream) 55%, var(--milk) 100%);
+  border: 2px solid rgba(216,195,165,.85);
+  border-radius: 14px;
+  padding: 14px 10px 15px;
+  min-height: 268px;
+  width: 100%; max-width: 186px; margin: 0 auto;   /* 直立長方形塔羅牌比例 */
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+  box-shadow: 0 0 0 1px rgba(74,55,40,.06),
+              0 0 22px rgba(231,123,67,.22),
+              0 10px 28px rgba(74,55,40,.14);
+  transition: transform .3s, box-shadow .3s;
+  animation: flipIn .7s cubic-bezier(.2,.7,.3,1) both;
+}
+.tcard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0 0 1px rgba(231,123,67,.28),
+              0 0 36px rgba(231,123,67,.42),
+              0 16px 36px rgba(74,55,40,.2);
+}
+@keyframes flipIn {
+  0%   { opacity: 0; transform: perspective(900px) rotateY(85deg) translateY(18px) scale(.92); }
+  60%  { opacity: 1; transform: perspective(900px) rotateY(-8deg) translateY(-2px) scale(1.02); }
+  100% { opacity: 1; transform: perspective(900px) rotateY(0deg) translateY(0) scale(1); }
+}
+.tcard::after {
+  content: ''; position: absolute; inset: 6px;
+  border: 1px solid rgba(216,195,165,.7); border-radius: 9px;
+  pointer-events: none;
+}
+.tcard .pos-row { display: flex; flex-direction: column; align-items: center; gap: 4px; margin-bottom: 6px; }
+.tcard .pos-row .n {
+  width: 20px; height: 20px; border-radius: 50%;
+  background: var(--coffee); color: var(--cream);
+  font-size: 11px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+.tcard .pos-name {
+  font-size: 12px; font-weight: 700; letter-spacing: .1em;
+  color: rgba(74,55,40,.8);
+  background: rgba(234,223,203,.7);
+  border: 1px solid rgba(216,195,165,.55);
+  border-radius: 999px; padding: 2px 11px;
+}
+.tcard .mid { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; }
+.tcard .art { font-size: 30px; transition: transform .5s; }
+.tcard.rev .art { transform: rotate(180deg); }
+.tcard .cname {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 18px; font-weight: 900; color: var(--coffee-deep); line-height: 1.3;
+}
+.tcard .cen { font-size: 9.5px; letter-spacing: .12em; text-transform: uppercase; color: rgba(74,55,40,.5); }
+.tcard .orient {
+  display: inline-block; margin-top: 8px;
+  font-size: 11.5px; font-weight: 700;
+  border-radius: 999px; padding: 3px 13px;
+}
+.tcard .orient.up  { background: var(--orange); color: #fff; box-shadow: 0 3px 8px rgba(231,123,67,.4); }
+.tcard .orient.rv  { background: var(--coffee); color: var(--cream); }
+.tcard .keys { margin-top: 5px; font-size: 10.5px; line-height: 1.65; color: rgba(74,55,40,.62); padding: 0 4px; }
+
+/* ── 牌陣排版 ── */
+.lay-one { display: flex; justify-content: center; }
+.lay-one .tcard { max-width: 200px; }
+.lay-row3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; max-width: 640px; margin: 0 auto; }
+.lay-row4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; max-width: 860px; margin: 0 auto; }
+.lay-3x2  { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; max-width: 640px; margin: 0 auto; }
+
+/* 三張牌聖三角：頂點在上的三角形 */
+.lay-tri {
+  display: grid; gap: 18px;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-areas: ". t1 ." "t2 . t3";
+  max-width: 640px; margin: 0 auto;
+}
+.pos-t1 { grid-area: t1; } .pos-t2 { grid-area: t2; } .pos-t3 { grid-area: t3; }
+
+/* 七張牌馬蹄鐵：U 字弧線 */
+.lay-horse {
+  display: grid; gap: 14px;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-areas:
+    ".  m3 m4 m5 ."
+    "m2 .  .  .  m6"
+    "m1 .  .  .  m7";
+  max-width: 1000px; margin: 0 auto;
+}
+.pos-m1{grid-area:m1} .pos-m2{grid-area:m2} .pos-m3{grid-area:m3}
+.pos-m4{grid-area:m4} .pos-m5{grid-area:m5} .pos-m6{grid-area:m6} .pos-m7{grid-area:m7}
+.lay-horse .tcard { max-width: 165px; min-height: 250px; }
+
+.branch-labels {
+  display: flex; justify-content: space-around;
+  max-width: 740px; margin: 0 auto 12px;
+  font-size: 13px; font-weight: 700; letter-spacing: .22em; color: rgba(74,55,40,.55);
+}
+.lay-choice {
+  display: grid; gap: 18px;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-areas: "a2 b2" "a1 b1" "st st";
+  max-width: 740px; margin: 0 auto;
+}
+.pos-st { grid-area: st; justify-self: center; width: 100%; max-width: 320px; }
+.pos-a1 { grid-area: a1; } .pos-a2 { grid-area: a2; }
+.pos-b1 { grid-area: b1; } .pos-b2 { grid-area: b2; }
+
+.lay-hex {
+  display: grid; gap: 18px; position: relative;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-areas: ". h3 ." "h1 h6 h2" "h4 . h5";
+  max-width: 920px; margin: 0 auto;
+}
+.lay-hex::before {
+  content: '✦'; position: absolute; inset: 0; z-index: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 19rem; color: rgba(231,123,67,.06); pointer-events: none;
+}
+.lay-hex .tcard { position: relative; z-index: 1; }
+.pos-h1{grid-area:h1} .pos-h2{grid-area:h2} .pos-h3{grid-area:h3}
+.pos-h4{grid-area:h4} .pos-h5{grid-area:h5} .pos-h6{grid-area:h6}
+
+.celtic-labels {
+  display: flex; justify-content: space-between;
+  max-width: 1120px; margin: 0 auto 12px; padding: 0 8px;
+  font-size: 13px; font-weight: 700; letter-spacing: .22em; color: rgba(74,55,40,.55);
+}
+.lay-celtic {
+  display: grid; gap: 15px;
+  grid-template-columns: repeat(3, 1fr) 1.05fr;
+  grid-template-areas:
+    ".  c3 .  s10"
+    "c5 c1 c6 s9"
+    ".  c2 .  s8"
+    ".  c4 .  s7";
+  max-width: 1120px; margin: 0 auto;
+}
+.lay-celtic .tcard { max-width: 158px; min-height: 240px; }
+.pos-c1{grid-area:c1} .pos-c2{grid-area:c2; transform: rotate(4deg);}
+.pos-c3{grid-area:c3} .pos-c4{grid-area:c4}
+.pos-c5{grid-area:c5} .pos-c6{grid-area:c6}
+.pos-s7{grid-area:s7} .pos-s8{grid-area:s8}
+.pos-s9{grid-area:s9} .pos-s10{grid-area:s10}
+.staff { border-left: 2px dashed rgba(74,55,40,.18); padding-left: 13px; }
+
+@media (max-width: 900px) {
+  .lay-row4 { grid-template-columns: repeat(2, 1fr); }
+  .lay-3x2  { grid-template-columns: repeat(2, 1fr); }
+}
+/* 手機：保留牌陣形狀，牌卡縮小、可左右滑動 */
+.scroll-hint { display: none; text-align: center; font-size: 12px; color: rgba(74,55,40,.55); margin: 0 0 12px; letter-spacing: .05em; }
+@media (max-width: 680px) {
+  #boardArea { overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 6px; }
+  .scroll-hint { display: block; }
+  .lay-row3  { min-width: 470px; }
+  .lay-row4  { min-width: 620px; }
+  .lay-3x2   { min-width: 470px; }
+  .lay-tri   { min-width: 470px; }
+  .lay-choice{ min-width: 500px; }
+  .lay-hex   { min-width: 500px; }
+  .lay-horse { min-width: 660px; }
+  .lay-celtic{ min-width: 700px; }
+  .tcard { max-width: 148px; min-height: 226px; padding: 10px 7px 12px; }
+  .tcard .cname { font-size: 15px; }
+  .tcard .art { font-size: 22px; }
+  .tcard .keys { font-size: 9.5px; }
+  .tcard .pos-name { font-size: 10px; padding: 2px 8px; }
+  .lay-horse .tcard { max-width: 122px; min-height: 206px; }
+  .lay-celtic .tcard { max-width: 126px; min-height: 206px; }
+  .branch-labels, .celtic-labels { display: none; }
+}
+
+/* ═══════════ 3. 解牌輸入 ═══════════ */
+.interp-ta {
+  width: 100%; resize: vertical; min-height: 170px;
+  border: 1.5px solid var(--milk-deep);
+  background: var(--cream);
+  border-radius: var(--radius-md);
+  padding: 16px 18px;
+  font-family: inherit; font-size: 15px; line-height: 1.9; color: var(--coffee);
+}
+.interp-ta::placeholder { color: rgba(74,55,40,.38); }
+.interp-ta:focus { outline: none; border-color: var(--orange); box-shadow: 0 0 0 3px rgba(231,123,67,.22); }
+.interp-foot { margin-top: 16px; display: flex; flex-wrap: wrap; align-items: center; gap: 14px; }
+.submit-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--coffee); color: var(--cream);
+  font-size: 15px; font-weight: 900; letter-spacing: .16em;
+  border-radius: 999px; padding: 14px 34px;
+  box-shadow: 0 10px 24px rgba(74,55,40,.32);
+  transition: transform .25s, background .25s;
+}
+.submit-btn:hover { background: var(--coffee-deep); transform: scale(1.03); }
+.submit-btn:active { transform: scale(.96); }
+.submit-btn:disabled { background: var(--milk-deep); color: rgba(74,55,40,.5); cursor: wait; box-shadow: none; }
+.char-count { font-size: 12px; color: rgba(74,55,40,.45); }
+.warn {
+  display: none; margin-top: 13px;
+  background: var(--orange-mist); border: 1px solid rgba(242,169,126,.6);
+  border-radius: 13px; padding: 11px 16px;
+  font-size: 13.5px; font-weight: 700; color: var(--orange);
+}
+.warn.show { display: block; }
+
+/* ═══════════ 4. 導師報告 ═══════════ */
+.think-box {
+  background: rgba(255,255,255,.85);
+  border: 1px solid rgba(216,195,165,.6);
+  border-radius: var(--radius-lg);
+  padding: 50px 20px; text-align: center;
+  box-shadow: 0 12px 30px rgba(74,55,40,.1);
+}
+.think-box .ic { font-size: 30px; margin-bottom: 10px; }
+.think-box .t1 { font-weight: 700; letter-spacing: .08em; color: rgba(74,55,40,.75); }
+.think-box .t2 { font-size: 12px; color: rgba(74,55,40,.42); margin-top: 6px; }
+
+.report { border-radius: 26px; overflow: hidden; border: 1px solid rgba(46,33,24,.4); box-shadow: 0 24px 60px rgba(74,55,40,.28); animation: riseIn .6s ease both; }
+@keyframes riseIn { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+.report-head {
+  background: linear-gradient(135deg, var(--coffee) 0%, var(--coffee-deep) 60%, #3B2A1D 100%);
+  padding: 34px 28px;
+  display: flex; flex-wrap: wrap; align-items: center; gap: 28px;
+}
+@media (min-width: 768px) { .report-head { padding: 38px 44px; } }
+.report-head .info { flex: 1 1 300px; }
+.report-head .tag { color: var(--orange-soft); font-size: 12.5px; font-weight: 700; letter-spacing: .32em; margin-bottom: 8px; }
+.report-head h3 { font-family: 'Noto Serif TC', serif; font-size: clamp(1.4rem, 3vw, 1.9rem); font-weight: 900; color: var(--cream); letter-spacing: .05em; }
+.report-head .meta { font-size: 13.5px; color: rgba(250,246,239,.68); margin-top: 8px; }
+.report-head .grade { font-size: 14px; font-weight: 700; color: var(--orange-soft); margin-top: 10px; }
+.report-head .score-detail { font-size: 12px; color: rgba(250,246,239,.55); margin-top: 7px; letter-spacing: .03em; }
+.score-wrap { position: relative; width: 148px; height: 148px; flex: none; margin: 0 auto; }
+.score-wrap svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+.score-ring-bg { fill: none; stroke: rgba(250,246,239,.15); stroke-width: 9; }
+.score-ring-fg { fill: none; stroke: var(--orange); stroke-width: 9; stroke-linecap: round; transition: stroke-dashoffset 1.2s cubic-bezier(.3,.7,.3,1); }
+.score-num {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+}
+.score-num b { font-family: 'Noto Serif TC', serif; font-size: 40px; font-weight: 900; color: var(--cream); line-height: 1; }
+.score-num span { font-size: 11px; letter-spacing: .22em; color: rgba(250,246,239,.6); margin-top: 5px; }
+
+.report-body { background: linear-gradient(180deg, var(--cream), #F0E6D4); padding: 30px 24px 26px; }
+@media (min-width: 768px) { .report-body { padding: 34px 44px 30px; } }
+.rb-block {
+  background: rgba(255,255,255,.85);
+  border: 1px solid rgba(216,195,165,.55);
+  border-radius: 18px;
+  padding: 22px 24px;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 14px rgba(74,55,40,.06);
+  animation: riseIn .6s ease both;
+}
+.rb-block:nth-child(2) { animation-delay: .15s; }
+.rb-block:nth-child(3) { animation-delay: .3s; }
+.rb-block:nth-child(4) { animation-delay: .45s; }
+.rb-lead { background: var(--milk); border-color: var(--milk-deep); }
+.rb-lead h4 { color: var(--coffee); }
+.rb-block h4 {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 16.5px; font-weight: 900; color: var(--orange);
+  letter-spacing: .06em; margin-bottom: 9px;
+  display: flex; align-items: center; gap: 8px;
+}
+.rb-block p { font-size: 15px; line-height: 2; color: rgba(74,55,40,.86); }
+.report-foot { text-align: center; font-size: 11.5px; color: rgba(74,55,40,.45); padding-top: 6px; letter-spacing: .1em; }
+
+/* 練習紀錄匯出按鈕列 */
+.export-bar { margin-top: 24px; display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+.exp-btn {
+  border-radius: 999px; padding: 13px 26px;
+  font-size: 14px; font-weight: 700; letter-spacing: .06em;
+  transition: all .25s;
+}
+.exp-btn:active { transform: scale(.95); }
+.exp-btn.primary {
+  background: linear-gradient(90deg, var(--orange), var(--orange-soft)); color: #fff;
+  box-shadow: 0 8px 20px rgba(231,123,67,.38);
+}
+.exp-btn.primary:hover { transform: scale(1.05); }
+.exp-btn.outline { background: var(--white); border: 1.5px solid var(--coffee); color: var(--coffee); }
+.exp-btn.outline:hover { background: var(--coffee); color: var(--cream); }
+.exp-btn.solid { background: var(--coffee); color: var(--cream); box-shadow: 0 8px 20px rgba(74,55,40,.3); }
+.exp-btn.solid:hover { background: var(--coffee-deep); transform: scale(1.05); }
+.exp-btn.ghost { background: transparent; border: 1.5px dashed rgba(74,55,40,.38); color: rgba(74,55,40,.6); }
+.exp-btn.ghost:hover { border-color: var(--orange); color: var(--orange); }
+.export-note { text-align: center; font-size: 12px; color: rgba(74,55,40,.5); margin-top: 13px; }
+
+/* ═══════════ 頁尾 ═══════════ */
+footer {
+  background: var(--coffee-deep);
+  color: rgba(250,246,239,.55);
+  text-align: center; font-size: 12px; letter-spacing: .18em;
+  padding: 26px 16px;
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════ 頁首 ═══════════ -->
+<header class="hero">
+  <div class="brand">✦ ANNA TAROT ✦</div>
+  <h1>塔羅 10 大牌陣<br>進階實戰解牌<span class="dot">好幫手</span></h1>
+  <p>挑選客戶情境與牌陣 → 洗牌抽牌<br>寫下你的綜合解讀 → 讓 AI 導師為你講評<br>像真正的諮詢現場一樣練習，累積你的實戰手感</p>
+</header>
+
+<div class="wrap">
+
+  <!-- ═══════════ 1. 選擇情境與牌陣 ═══════════ -->
+  <section class="panel setup" style="margin-top:-46px;">
+    <div class="section-head">
+      <div class="step-badge">1</div>
+      <div>
+        <h2>選擇諮詢情境與牌陣</h2>
+        <div class="sub">先設定今天的客戶是誰、要用哪一種牌陣</div>
+      </div>
+    </div>
+
+    <div class="setup-grid">
+      <div>
+        <label class="field-label" for="scenarioSelect" id="scenarioLabel">客戶情境</label>
+        <select id="scenarioSelect" class="scenario-select"></select>
+        <div class="client-quote" id="clientQuote"></div>
+        <button class="client-refresh" id="clientRefresh" type="button">🔄 換一位客戶練習</button>
+      </div>
+      <div>
+        <span class="field-label">選擇牌陣（10 種）</span>
+        <div class="spread-btns" id="spreadBtns"></div>
+      </div>
+    </div>
+
+    <div class="pos-def">
+      <div class="lbl" id="posDefTitle"></div>
+      <div class="chips" id="posChips"></div>
+    </div>
+  </section>
+
+  <!-- ═══════════ 2. 線上牌陣模擬 ═══════════ -->
+  <section>
+    <div class="section-head">
+      <div class="step-badge">2</div>
+      <div>
+        <h2>線上牌陣模擬</h2>
+        <div class="sub">洗牌之後隨機抽出 78 張牌的任意牌組<br>（含正逆位，不重複）</div>
+      </div>
+    </div>
+
+    <div class="shuffle-zone">
+      <div class="deck-toggle" id="deckToggle">
+        <span class="deck-lbl">抽牌範圍：</span>
+        <button type="button" class="deck-btn" data-mode="full">78 張全牌組</button>
+        <button type="button" class="deck-btn" data-mode="major">22 張大牌</button>
+      </div>
+      <button class="shuffle-btn" id="shuffleBtn">🔮 洗牌並抽選牌陣</button>
+      <div class="draw-hint" id="drawHint"></div>
+    </div>
+
+    <div id="boardArea"></div>
+  </section>
+
+  <!-- ═══════════ 3. 學員解牌輸入區 ═══════════ -->
+  <section class="panel">
+    <div class="section-head">
+      <div class="step-badge">3</div>
+      <div>
+        <h2>學員解牌輸入區</h2>
+        <div class="sub">把每個位置的牌義串成一段給客戶的完整解讀</div>
+      </div>
+    </div>
+
+    <textarea id="interpTa" class="interp-ta" placeholder="請結合客戶情境與當前牌陣的各個位置，寫下你的綜合解牌與建議..."></textarea>
+    <div class="interp-foot">
+      <button class="submit-btn" id="submitBtn">✉️ 送出給 AI 導師講評</button>
+      <span class="char-count" id="charCount">已輸入 0 字</span>
+    </div>
+    <div class="warn" id="warnBox"></div>
+  </section>
+
+  <!-- ═══════════ 4. AI 導師回饋區 ═══════════ -->
+  <section id="reportSection">
+    <div class="section-head">
+      <div class="step-badge">4</div>
+      <div>
+        <h2>AI 導師回饋</h2>
+        <div class="sub">模擬導師視角的診斷報告</div>
+      </div>
+    </div>
+    <div id="reportArea"></div>
+  </section>
+
+</div>
+
+<footer>✦ 安娜塔羅 ANNA TAROT · 塔羅解牌實戰教室 ✦<br>本工具為教學用途</footer>
+
+<script>
+/* ═══════════════════════ 資料區 ═══════════════════════ */
+
+const MAJOR_ARCANA = [
+  { name: '愚者',     en: 'The Fool',           up: '自由、冒險、新的開始',       rev: '魯莽、猶豫、缺乏計畫' },
+  { name: '魔術師',   en: 'The Magician',       up: '創造力、行動力、資源整合',   rev: '缺乏自信、操弄、計畫空轉' },
+  { name: '女祭司',   en: 'The High Priestess', up: '直覺、內在智慧、靜觀',       rev: '忽視直覺、祕而不宣、表象判斷' },
+  { name: '皇后',     en: 'The Empress',        up: '豐盛、滋養、感性能量',       rev: '過度依賴、匱乏感、忽略自我照顧' },
+  { name: '皇帝',     en: 'The Emperor',        up: '穩定、權威、建立結構',       rev: '固執、控制欲、缺乏彈性' },
+  { name: '教皇',     en: 'The Hierophant',     up: '傳統、指導、可信賴的體制',   rev: '墨守成規、質疑權威、需要新方法' },
+  { name: '戀人',     en: 'The Lovers',         up: '愛、結合、價值觀契合',       rev: '關係失衡、抉擇困難、價值衝突' },
+  { name: '戰車',     en: 'The Chariot',        up: '意志力、勝利、掌控方向',     rev: '失控、方向迷失、內在拉扯' },
+  { name: '力量',     en: 'Strength',           up: '勇氣、柔性力量、耐心',       rev: '自我懷疑、內在恐懼、勉強硬撐' },
+  { name: '隱者',     en: 'The Hermit',         up: '內省、尋求真理、沉澱獨處',   rev: '孤立、逃避、過度封閉' },
+  { name: '命運之輪', en: 'Wheel of Fortune',   up: '轉機、命運流動、時來運轉',   rev: '阻滯、時機未到、重複的課題' },
+  { name: '正義',     en: 'Justice',            up: '公平、真相、承擔後果',       rev: '失衡、偏頗、逃避責任' },
+  { name: '吊人',     en: 'The Hanged Man',     up: '換位思考、暫停、以退為進',   rev: '徒勞犧牲、僵局、無謂拖延' },
+  { name: '死神',     en: 'Death',              up: '結束與重生、斷捨離',         rev: '抗拒改變、拖著不放、停滯' },
+  { name: '節制',     en: 'Temperance',         up: '平衡、調和、循序漸進',       rev: '失衡、極端、欲速則不達' },
+  { name: '惡魔',     en: 'The Devil',          up: '慾望、束縛、物質牽絆',       rev: '掙脫束縛、覺醒、戒斷' },
+  { name: '高塔',     en: 'The Tower',          up: '驟變、瓦解、真相揭露',       rev: '勉強維持、延遲的崩解、餘震未平' },
+  { name: '星星',     en: 'The Star',           up: '希望、療癒、清晰願景',       rev: '信心不足、失望、目標模糊' },
+  { name: '月亮',     en: 'The Moon',           up: '潛意識、不安、霧裡看花',     rev: '迷霧漸散、真相浮現、走出焦慮' },
+  { name: '太陽',     en: 'The Sun',            up: '成功、喜悅、能量充沛',       rev: '過度樂觀、延遲的成功、自信受挫' },
+  { name: '審判',     en: 'Judgement',          up: '覺醒、召喚、重新評估',       rev: '自我批判、忽視內在召喚、舊事未了' },
+  { name: '世界',     en: 'The World',          up: '完成、圓滿、階段整合',       rev: '未竟之事、臨門一腳、循環未閉合' },
+];
+MAJOR_ARCANA.forEach(c => { c.art = '🌟'; c.arcana = 'major'; });
+
+/* ─── 小阿爾克那 56 張（4 花色 × 14）─── */
+const MINOR_ARCANA = (() => {
+  const rankZh = ['王牌','二','三','四','五','六','七','八','九','十','侍者','騎士','王后','國王'];
+  const rankEn = ['Ace','Two','Three','Four','Five','Six','Seven','Eight','Nine','Ten','Page','Knight','Queen','King'];
+  const suits = [
+    { zh: '權杖', en: 'Wands', art: '🔥', cards: [
+      ['靈感爆發、行動的開端、創業能量', '延遲的開始、熱情熄滅、缺乏動力'],
+      ['規劃未來、選擇方向、初步成果',   '害怕未知、計畫停滯、目光短淺'],
+      ['遠見、等待成果、拓展機會',       '計畫受阻、缺乏遠見、白等一場'],
+      ['慶祝、穩定基礎、歡聚時刻',       '根基不穩、失和、慶祝延期'],
+      ['競爭、意見交鋒、良性切磋',       '惡性競爭、內耗、迴避衝突'],
+      ['勝利、被肯定、凱旋而歸',         '驕傲自滿、遲來的肯定、名不符實'],
+      ['堅守立場、以一擋百、防禦',       '寡不敵眾、疲於應付、放棄抵抗'],
+      ['快速進展、消息傳來、事態加速',   '延誤、訊息混亂、操之過急'],
+      ['堅持到底、帶傷防備、韌性',       '心力交瘁、過度防備、瀕臨極限'],
+      ['重擔、責任過載、辛勞收尾',       '不堪負荷、學會放下、需要分工'],
+      ['熱情的學習者、新消息、探索',     '三分鐘熱度、壞消息、方向不明'],
+      ['冒險、衝勁十足、說走就走',       '魯莽行事、有勇無謀、半途而廢'],
+      ['自信熱情、魅力領導、活力',       '善妒、跋扈、自信不足'],
+      ['有遠見的領導者、開創格局、魄力', '獨斷專行、好大喜功、濫用權威'],
+    ]},
+    { zh: '聖杯', en: 'Cups', art: '💧', cards: [
+      ['新感情、情感豐沛、心靈滿溢',     '情感壓抑、空虛、錯過的愛'],
+      ['兩情相悅、夥伴契合、互相吸引',   '關係失衡、貌合神離、誤解'],
+      ['友誼、慶祝、團體支持',           '社交過度、八卦是非、第三者'],
+      ['意興闌珊、忽略眼前機會、沉思',   '走出低潮、重新振作、接受新機會'],
+      ['失落、專注於失去、悲傷',         '走出悲傷、看見僅存的美好、釋懷'],
+      ['童年回憶、舊識重逢、單純的快樂', '沉溺過去、拒絕長大、舊事重演'],
+      ['幻想、選擇太多、白日夢',         '認清現實、做出取捨、幻滅'],
+      ['放下、離開去追尋更深的意義',     '不敢離開、逃避課題、原地打轉'],
+      ['願望成真、滿足、享受成果',       '得意忘形、貪婪、表面的快樂'],
+      ['圓滿的關係、家庭幸福、情感歸屬', '家庭失和、表面和諧、價值分歧'],
+      ['感性的訊息、直覺萌芽、浪漫邀請', '情緒化、逃避現實、幼稚'],
+      ['浪漫的追求、動人的提案、憑心而行','空頭支票、情感操縱、情緒勒索'],
+      ['同理、直覺敏銳、情感支持',       '情緒氾濫、過度付出、界線模糊'],
+      ['情緒成熟、包容、以柔克剛',       '情感壓抑、被情緒左右、冷漠'],
+    ]},
+    { zh: '寶劍', en: 'Swords', art: '⚔️', cards: [
+      ['真相大白、清晰的判斷、突破',     '思緒混亂、誤判、真相被掩蓋'],
+      ['僵局、逃避決定、暫時的平衡',     '被迫抉擇、資訊揭露、僵局打破'],
+      ['心碎、背叛、痛苦的真相',         '療傷、原諒、走出傷痛'],
+      ['休息、沉澱、暫停充電',           '過勞、拒絕休息、重返崗位'],
+      ['勝之不武、衝突後的空虛、內耗',   '和解、放下輸贏、餘波盪漾'],
+      ['過渡、離開風暴、漸入平靜',       '無法前行、舊事糾纏、遷移受阻'],
+      ['策略、暗中行事、取巧',           '東窗事發、自欺欺人、坦白'],
+      ['自我設限、受困的思維、無力感',   '掙脫束縛、看見出口、重獲自由'],
+      ['焦慮、失眠、憂心成疾',           '走出焦慮、噩夢結束、尋求協助'],
+      ['谷底、痛苦的結束、背後中傷',     '觸底反彈、劫後重生、拒絕再受害'],
+      ['好奇求知、蒐集情報、觀察',       '流言蜚語、打探隱私、輕率發言'],
+      ['果斷出擊、直言不諱、雷厲風行',   '咄咄逼人、思慮不周、言語傷人'],
+      ['理性清晰、界線分明、獨立',       '尖酸刻薄、冷若冰霜、帶著偏見'],
+      ['公正的權威、理智決策、專業',     '濫用理性、冷酷、偏頗的判決'],
+    ]},
+    { zh: '錢幣', en: 'Pentacles', art: '🪙', cards: [
+      ['新的財務機會、實質的開始、種子', '錯失機會、財務不穩、貪小失大'],
+      ['平衡多重事務、彈性應變、周轉',   '失衡、蠟燭多頭燒、財務吃緊'],
+      ['團隊合作、專業被認可、學以致用', '各自為政、品質低落、缺乏規劃'],
+      ['守成、儲蓄、掌控資源',           '吝嗇、抓得太緊、害怕失去'],
+      ['匱乏、被排除在外、困頓',         '走出困境、獲得援助、恢復信心'],
+      ['慷慨、施與受、資源流動',         '施恩圖報、依賴、給予失衡'],
+      ['耐心等待收成、評估投資、蓄勢',   '徒勞無功、不耐煩、投資失利'],
+      ['精進技藝、勤奮、專注細節',       '敷衍了事、原地踏步、完美主義'],
+      ['豐盛自足、優雅獨立、享受成果',   '過度工作、財務依賴、揮霍'],
+      ['家族財富、長期穩定、傳承',       '財產糾紛、家族壓力、根基動搖'],
+      ['務實的學習、新的工作機會、起步', '拖延、眼高手低、缺乏進展'],
+      ['穩紮穩打、可靠、按部就班',       '一成不變、過度保守、停滯'],
+      ['務實的照顧者、豐盛、安全感',     '患得患失、物質焦慮、忽略自我'],
+      ['事業有成、財務穩健、可靠的支柱', '固執守財、以財壓人、工作狂'],
+    ]},
+  ];
+  const out = [];
+  suits.forEach(suit => {
+    suit.cards.forEach((kw, i) => {
+      out.push({
+        name: suit.zh + rankZh[i],
+        en: rankEn[i] + ' of ' + suit.en,
+        up: kw[0], rev: kw[1],
+        art: suit.art, arcana: 'minor',
+      });
+    });
+  });
+  return out;
+})();
+
+const FULL_DECK = MAJOR_ARCANA.concat(MINOR_ARCANA);  // 78 張
+
+const SCENARIOS = [
+  { id: 'love', label: '感情迷惘', icon: '💗', clients: [
+    '客戶與曖昧對象認識半年，最近對方忽冷忽熱、訊息回得越來越慢。客戶想知道：「這段關係目前的能量狀態是什麼？我可以如何調整自己的步調，讓關係變得更清晰？」',
+    '客戶與伴侶交往五年，對方遲遲不談婚事，每次提起就轉移話題。客戶想知道：「我們的關係卡在什麼地方？我可以如何開啟對話，讓關係往下一步轉化？」',
+    '客戶結婚七年，與另一半像室友一樣，各過各的生活。客戶想知道：「我們的婚姻目前處於什麼狀態？我們可以如何重新靠近、找回當初的溫度？」',
+    '客戶同時被兩位條件不同的追求者告白：一位穩重體貼、一位有趣但飄忽。客戶想知道：「這兩段緣分各自帶給我什麼課題？我可以如何看清自己真正想要的伴侶關係？」',
+    '客戶喜歡上朝夕相處的同事，但擔心影響工作與友誼。客戶想知道：「這份心意對我的意義是什麼？我可以如何面對與表達，才能對彼此都好？」',
+    '客戶正在相親交往中，對方條件很好、家人也滿意，但客戶總覺得少了心動的感覺。客戶想知道：「這段關係還有哪些發展的可能？我該如何釐清心動與安穩對我的意義？」',
+    '客戶剛結束一段八年的長跑感情，朋友開始介紹新對象，但客戶心裡還是很怕受傷。客戶想知道：「上一段感情帶給我的學習是什麼？我可以如何療癒自己、重新打開心？」',
+    '客戶發現伴侶最近心不在焉，兩人的對話越來越少，客戶很不安卻不知道從何說起。客戶想知道：「我們兩人的關係出現了什麼狀況？我可以如何調整與溝通，改善彼此的信任、增進感情？」',
+    '客戶的家人強烈反對這段感情，一邊是相愛的伴侶、一邊是養育自己的家人，客戶夾在中間喘不過氣。客戶想知道：「這段感情正在教我什麼？我可以如何在愛情與家人之間搭起橋樑？」',
+    '客戶單身五年，身邊朋友一個個結婚，開始懷疑自己是不是不適合談戀愛。客戶想知道：「我目前的感情能量處於什麼狀態？我可以如何準備自己，迎接對的關係？」',
+    '客戶與伴侶大吵一架後冷戰一週，誰都不肯先開口。客戶想知道：「這次衝突的根源是什麼？我可以如何打破僵局，讓這段關係轉化得更成熟？」',
+    '客戶新婚半年，與另一半在生活習慣與兩邊家庭的相處上不斷磨合，常常覺得委屈。客戶想知道：「我們的磨合期正在經歷什麼？我可以如何調整，讓兩個家庭的關係更圓融？」',
+    '客戶和交往三年的男友因誤會分手一個月，彼此心裡都還有感情。客戶想知道：「這段關係還有什麼未完成的課題？如果想修復，我可以從哪裡開始？」',
+    '客戶 32 歲、行銷企劃，婚後與公婆同住，婆婆常對家務和育兒下指導棋，先生卻總是裝沒事。客戶想知道：「婆媳之間的張力如何影響我們夫妻的感情？如果我想突破這個局面，可以怎麼做？」',
+    '客戶 36 歲，先生下班就躺在沙發滑手機，家事幾乎全落在她身上，講了會吵、不講自己悶。客戶想知道：「這個家務分工僵局的背後是什麼？有什麼行動建議能讓他真正動起來？」',
+    '客戶 29 歲，男友長期在海外出差，一去就是半年，時差讓兩人越來越沒話聊。客戶想知道：「這段遠距的考驗想教我們什麼？我可以做什麼改變，讓感情隔著距離仍然保溫？」',
+    '客戶 40 歲、兩個孩子的媽媽，生活整天繞著孩子轉，和先生從情人變成了育兒隊友。客戶想知道：「我們的親密感流失到哪裡去了？有什麼具體行動能找回屬於兩人的時光？」',
+    '客戶 27 歲、護理師，輪班作息和男友完全錯開，見面像在交接班。客戶想知道：「作息錯開對我們感情的影響有多深？如果想突破，可以從哪些行動開始？」',
+    '客戶 34 歲，交往七年的伴侶最近突然開始強調「各自財務獨立」，讓她感覺被推遠了。客戶想知道：「這個轉變代表我們的關係正走向哪裡？我可以做什麼調整，來確認彼此的承諾？」',
+    '客戶 45 歲、離婚三年，最近遇到一位溫柔的對象，但正值青春期的孩子反彈很大。客戶想知道：「新感情與孩子之間，我可以怎麼安排步調？有什麼行動建議能讓兩邊都被照顧到？」',
+    '客戶 30 歲、幼教老師，男友的媽媽常當面稱讚「娶老師最會照顧家」，讓她懷疑這個家庭期待的是一個「角色」，而不是真正的她。客戶想知道：「在這段關係裡，我真正被看見了嗎？如果想被真實地愛著，我可以怎麼做？」',
+    '客戶 38 歲，夫妻一起經營小吃店，從早到晚綁在一起，一點小事就互相點火。客戶想知道：「工作與感情糾纏的壓力點在哪裡？可以做什麼改變，讓相處多一點喘息的空間？」',
+    '客戶 26 歲、研究生，曖昧對象總是深夜才密她，白天訊息已讀不回。客戶想知道：「這段若即若離的互動反映了什麼？有什麼行動建議能幫我拿回自己的主導權？」',
+    '客戶 33 歲，上週才被交往五年的男友提分手，理由只有一句「我累了」，她完全措手不及，滿腦子都是挽回的念頭。客戶想知道：「我現在就去挽回他，會帶來什麼影響？這段關係的裂痕是怎麼累積的？」',
+    '客戶 28 歲，與前任和平分手半年、彼此都還單身，最近對方頻繁按讚留言、還約了吃飯，舊情蠢蠢欲動。客戶想知道：「我們之間復合的緣分還在嗎？如果想重新開始，我需要先做什麼準備、確認哪些事？」',
+  ]},
+  { id: 'career', label: '職涯轉職', icon: '🌱', clients: [
+    '客戶在現職待了五年，最近感到強烈倦怠，手上有一個薪水較高、但產業完全陌生的 offer。客戶想知道：「這份倦怠想告訴我什麼？面對新機會，我可以如何評估與準備，讓職涯往更適合我的方向轉化？」',
+    '客戶被公司裁員兩個月，投了幾十封履歷都沒有回音，開始懷疑自己的能力。客戶想知道：「我的職涯能量目前卡在什麼地方？我可以如何調整方向與心態，打開新的機會？」',
+    '客戶想離職開一間自己的甜點工作室，但存款只夠撐一年，家人也不太支持。客戶想知道：「這個創業夢想目前的養分與缺口各是什麼？我可以如何一步步鋪路，讓它更穩地實現？」',
+    '客戶的主管兩年來一直承諾要幫他升遷加薪，卻遲遲沒有兌現。客戶想知道：「我在這份工作裡的處境是什麼？我可以如何主動為自己的職涯創造下一步？」',
+    '客戶手上有兩個 offer：A 公司薪水高但出了名的爆肝，B 公司穩定但成長空間有限。客戶想知道：「這兩條路各自會帶給我什麼成長與代價？我該如何釐清自己在職涯中真正重視的東西？」',
+    '客戶做了多年會計，其實一直熱愛設計，最近認真考慮轉行。客戶想知道：「這份對設計的熱情在我生命中扮演什麼角色？我可以如何規劃，讓轉換跑道走得更穩？」',
+    '客戶跳槽到新公司三個月，卻始終覺得格格不入，和團隊處不來。客戶想知道：「我和這個環境之間發生了什麼？我可以如何調整，在這裡找到自己的位置？」',
+    '客戶被公司指派外派海外兩年，薪水幾乎翻倍，但要離開家人和另一半。客戶想知道：「這個機會對我的人生意味著什麼？我可以如何權衡事業與家庭，做出不後悔的安排？」',
+    '客戶做了十年行政工作，想轉往數位行銷發展，卻擔心經驗歸零的問題。客戶想知道：「我這些年累積的能力可以如何轉化成新領域的養分？我該如何規劃這段轉型？」',
+    '客戶經營的副業收入已經快追上正職薪水，最近常常蠟燭兩頭燒。客戶想知道：「我的正職與副業各自的能量走向如何？我可以如何安排，讓收入與熱情都被照顧到？」',
+    '客戶的部門半年內走了一半的同事，公司氣氛低迷。客戶想知道：「公司目前的變動對我而言是什麼訊號？我可以如何布局自己的下一步？」',
+    '客戶考公職已經三年，每次都差一點點上榜，家裡的經濟壓力越來越大。客戶想知道：「這三年的堅持帶給我什麼？我可以如何評估與調整方向，讓努力有更好的出口？」',
+    '客戶剛升上主管職三個月，發現帶人比做事累得多，開始懷疑自己不適合。客戶想知道：「我在『領導』這門功課上正經歷什麼？我可以如何成長為自己認同的主管樣子？」',
+    '客戶四十歲，工作穩定卻越來越沒有成就感，半夜常問自己「這輩子就這樣了嗎」。客戶想知道：「我的下半場職涯還有哪些可能？我可以如何重新點燃工作的意義感？」',
+    '客戶同時接了三份兼職，行程滿檔，卻沒有一份是真心喜歡的。客戶想知道：「我的職涯重心可以如何收斂與聚焦？什麼才是值得我全力投入的方向？」',
+    '客戶 33 歲、甜點師，存了一筆錢想開自己的甜點店。客戶想知道：「開店我還需要準備什麼？資金、人手、心理建設各要多注意哪些？」',
+    '客戶 28 歲、軟體工程師，嚮往成為數位遊牧，邊旅行邊遠端接案。客戶想知道：「這種工作型態適合我的體質嗎？出發前有什麼行動建議與必要準備？」',
+    '客戶 35 歲、設計師，和兩位朋友打算合夥開一間設計工作室。客戶想知道：「我們三個人的組合能量如何？開工作室之前要多注意什麼、先建立哪些共識？」',
+    '客戶 30 歲、上班族，下班斜槓經營手作飾品品牌，最近訂單變多開始蠟燭兩頭燒。客戶想知道：「我的斜槓該怎麼排出優先順序？如果想更上一層樓，可以怎麼做？」',
+    '客戶 42 歲、部門主管，公司要求他帶領 AI 轉型專案，學起來很吃力又不敢示弱。客戶想知道：「這波轉型對我的職涯是危機還是禮物？有什麼行動建議能幫我站穩？」',
+    '客戶 26 歲、社群小編，想離職成為自由接案的文案工作者。客戶想知道：「離開組織之前我還缺什麼？客源、報價、心理建設要怎麼一步步準備？」',
+    '客戶 39 歲、資深護理師，想把專業轉進芳療與身心照護領域，開一間自己的療癒空間。客戶想知道：「把專業轉成自己的事業，第一步該怎麼走？我需要做什麼改變？」',
+    '客戶 31 歲，白天在金融業上班、晚上教瑜伽，教學收入已接近正職。客戶想知道：「全職投入教學之前，我的準備清單還缺哪些？心理上需要建設什麼？」',
+    '客戶 45 歲、傳產二代老闆娘，想把家裡的工廠導入電商轉型，長輩觀望、員工抗拒。客戶想知道：「這個轉型的機會與阻力各在哪裡？如果想突破，可以怎麼做？」',
+    '客戶 24 歲、社會新鮮人，第一份工作三個月就萌生離職念頭，又怕被貼上抗壓性低的標籤。客戶想知道：「這份不適應是重要訊號還是逃避？我可以做什麼行動來確認自己的方向？」',
+  ]},
+  { id: 'partner', label: '合夥財運', icon: '🤝', clients: [
+    '客戶與好友合夥經營工作室兩年，近期在帳務與利潤分配上出現分歧，氣氛越來越僵。客戶想知道：「我們的合夥關係正在經歷什麼？我可以如何調整溝通與制度，讓合作與財務都回到正軌？」',
+    '客戶的朋友邀他一起開咖啡店：朋友出技術、客戶出資金。客戶想知道：「這個合作案的體質如何？我可以如何設計合作方式，讓友情與利益都被照顧到？」',
+    '客戶的合夥人最近常常請假、進度擺爛，利潤卻照樣對半分，客戶心裡越來越不平衡。客戶想知道：「這段合夥的失衡是從哪裡開始的？我可以如何開啟對話，重新建立公平的合作模式？」',
+    '客戶的公司想引進一位新股東擴大經營，資金到位但客戶擔心主導權被稀釋。客戶想知道：「引進新夥伴會為公司帶來什麼變化？我可以如何安排股權與角色，守住核心又打開格局？」',
+    '客戶打算和親哥哥合資做小生意，擔心錢的事會影響家人感情。客戶想知道：「與家人合作，我們的功課是什麼？我們可以如何設計規則，讓親情與生意都平安？」',
+    '客戶與人合夥三年，累積了實力想自立門戶，又怕撕破臉、客源被瓜分。客戶想知道：「我與這段合夥的緣分走到了哪個階段？如果要獨立，我可以如何準備，讓轉身轉得漂亮？」',
+    '客戶的合夥人口頭承諾很多（分紅、股份），卻一直沒有白紙黑字。客戶想知道：「我們合作的信任基礎目前如何？我可以如何推動正式的約定，讓關係更健康？」',
+    '客戶的店生意越來越好，合夥人想趁勢快速展店，客戶卻想穩紮穩打。客戶想知道：「快與穩兩種路線各自的風險與機會是什麼？我們可以如何找到共同的節奏？」',
+    '客戶的朋友找他投資一個號稱「穩賺不賠」的虛擬貨幣項目，報酬聽起來很誘人。客戶想知道：「這筆投資的能量與風險是什麼？我可以如何評估，守護自己的財務安全？」',
+    '客戶的接案工作室收入不穩，合夥人為了搶案子一直壓低報價。客戶想知道：「我們的定價與價值感出了什麼狀況？我們可以如何調整策略，讓收入配得上專業？」',
+    '客戶的合夥人的另一半頻頻干涉公司決策，連人事和帳目都要過問。客戶想知道：「這個局面對公司的影響是什麼？我可以如何設立界線，讓經營回歸專業？」',
+    '客戶的店在大環境影響下生意下滑，正面臨增資撐下去或認賠出場的抉擇。客戶想知道：「這間店目前的生命力如何？我可以如何評估與取捨，為自己的財務做出最好的安排？」',
+    '客戶借了一筆錢給朋友作為合夥資金，對方遲遲沒有動靜，也避談還款。客戶想知道：「這筆金錢與這段關係正在經歷什麼？我可以如何處理，兼顧界線與情誼？」',
+    '客戶準備接手家裡經營三十年的店，但父親仍事事干涉，新舊做法常常衝突。客戶想知道：「這段接班過渡期的課題是什麼？我可以如何讓上一代放心，也讓店成功轉型？」',
+    '客戶獨自經營品牌三年遇到瓶頸，考慮找夥伴一起衝，又擔心失去自由。客戶想知道：「什麼樣的合作型態適合現在的我？我可以如何為好的夥伴緣分做準備？」',
+    '客戶 37 歲、咖啡師，房東主動提議「以租金入股」一起經營咖啡店。客戶想知道：「這種合作結構的風險藏在哪裡？簽約之前要多注意什麼？」',
+    '客戶 29 歲，和大學同學合夥做電商選品，對方想把資金全部壓在直播帶貨上。客戶想知道：「我們的方向分歧該怎麼整合？有什麼行動建議能讓決策過程不傷感情？」',
+    '客戶 33 歲，設計師朋友邀她投資線上課程事業，回報藍圖畫得很美。客戶想知道：「這個項目的實際體質如何？投入之前我該做哪些查核與準備？」',
+    '客戶 41 歲，與妹妹共同繼承了父親留下的店面，一個想出租、一個想自己開店。客戶想知道：「這份家族資產最好的安排是什麼？如果想兩全其美，可以怎麼做？」',
+    '客戶 35 歲、工作室負責人，接到大客戶的訂單卻被要求月結九十天，現金流開始吃緊。客戶想知道：「我們的財務體質撐得住這張單嗎？有什麼調整方案可以並行？」',
+    '客戶 30 歲，和交往中的男友合資買下一層公寓當工作室，感情與財務從此綁在一起。客戶想知道：「這個共同資產會如何影響我們的關係？該先做哪些約定來保護彼此？」',
+    '客戶 38 歲、小型出版社創辦人，想找異業合作打開新客源。客戶想知道：「什麼樣的夥伴和我們最互補？提出合作提案時要注意什麼？」',
+    '客戶 27 歲、手搖飲加盟主，第一間店穩定了，想趁勢開第二間。客戶想知道：「展店的時機成熟了嗎？資金與人力還需要準備什麼？」',
+    '客戶 44 歲，與合夥人共同創業滿十年，最近開始思考退場與股權交接。客戶想知道：「這段合夥關係的收尾要怎麼安排才漂亮？有什麼行動建議？」',
+    '客戶 32 歲、自由工作者，收入時高時低，想建立更穩定的多元收入組合。客戶想知道：「我的財務結構目前缺了什麼？可以做什麼改變讓金流更穩？」',
+  ]},
+  { id: 'self', label: '自我探索', icon: '🌙', clients: [
+    '客戶學塔羅兩年，今年想在塔羅這條路上加深加廣。客戶想知道：「我可以如何增進自己的解牌能力？哪些面向是我下一階段成長的關鍵？」',
+    '客戶想學習人類圖，但目前還有點迷惘，也長期受冒牌者症候群困擾。客戶想知道：「這趟學習會為我帶來什麼？我可以如何透過它轉化自我懷疑、長出自信？」',
+    '客戶最近上了內在小孩的課程，許多童年的情緒開始浮上來。客戶想知道：「這些情緒想帶我看見什麼？我可以如何陪伴與療癒自己？」',
+    '客戶三十五歲，日子過得不差，心裡卻總有種「應該不只是這樣」的感覺。客戶想知道：「我這個階段的人生課題與使命是什麼？我可以從哪裡開始探索？」',
+    '客戶解牌時常懷疑自己是不是在「亂猜」，不敢信任直覺。客戶想知道：「我可以如何分辨直覺與腦補？如何鍛鍊並信任自己的內在聲音？」',
+    '客戶自覺容易吸收別人的情緒，與人相處後常常特別疲憊。客戶想知道：「我的能量界線出了什麼狀況？我可以如何保護與淨化自己？」',
+    '客戶練習冥想半年，最近開始坐不住、雜念變多。客戶想知道：「這個瓶頸期在提醒我什麼？我可以如何調整練習，讓內在更安定？」',
+    '客戶習慣把別人的需求放在第一位，拒絕別人時會有罪惡感。客戶想知道：「這個模式的根源是什麼？我可以如何練習把自己放回生命的中心？」',
+    '客戶最近失眠、淺眠，白天精神渙散，檢查身體又沒有大問題。客戶想知道：「我的身心正在向我傳達什麼訊息？我可以如何調整生活的節奏？」',
+    '客戶經營自媒體分享塔羅內容，最近靈感枯竭、越寫越焦慮。客戶想知道：「我的創作能量卡在哪裡？我可以如何重新連結想分享的初心？」',
+    '客戶常滑社群看到同行發展得很好，心裡又羨慕又自卑。客戶想知道：「這份比較心想教我什麼？我可以如何回到並走穩自己的節奏？」',
+    '客戶做事要求完美，常因為怕做不好而遲遲不敢開始。客戶想知道：「完美主義在保護我什麼、又限制了我什麼？我可以如何溫柔地鬆綁？」',
+    '客戶越來越喜歡身心靈領域，家人卻覺得他「想太多、不務實」。客戶想知道：「我可以如何在靈性追求與現實生活之間找到平衡，也讓家人安心？」',
+    '客戶考慮把塔羅從興趣變成副業，開始幫人收費占卜，心裡又期待又怕自己不夠格。客戶想知道：「成為收費占卜師，我還需要準備什麼？我可以如何一步步累積自己的專業與底氣？」',
+    '客戶最近容易莫名煩躁，一點小事就爆炸，事後又很自責。客戶想知道：「這些情緒的源頭是什麼？我可以如何與它們共處並轉化？」',
+    '客戶想整理自己的人生：物品、關係、行程都覺得太滿了。客戶想知道：「我生命中該留下與該放下的分別是什麼？我可以如何騰出空間，迎接新的可能？」',
+    '客戶最近反覆夢到同一個場景，醒來後印象深刻、心裡懸懸的。客戶想知道：「這個夢想傳遞什麼訊息？我的潛意識正在提醒我什麼？」',
+    '客戶對塔羅、占星、頌缽都有興趣，但時間和金錢有限。客戶想知道：「哪一條學習路徑與我現階段的能量最相應？我可以如何安排學習的先後順序？」',
+    '客戶腦中總有個聲音說「你不夠好」，做什麼都會先否定自己。客戶想知道：「這個內在批評者是從哪裡來的？我可以如何轉化它，讓它成為支持我的力量？」',
+    '客戶生日快到了，想為新的一歲設定方向。客戶想知道：「接下來這一年，我的成長主題是什麼？我可以把能量聚焦在哪些地方？」',
+    '客戶 34 歲、上班族，最近開始接觸阿卡西紀錄，解讀時浮現的畫面讓她又好奇又害怕。客戶想知道：「現階段的我適合深入阿卡西紀錄嗎？我該用什麼心態與步調來探索？」',
+    '客戶 29 歲、療癒師，想進修天使靈氣，卻一直覺得自己「不夠純淨」、不配傳遞這樣的能量。客戶想知道：「這份不配得感是從哪裡來的？如果在學習路上產生自我懷疑，我可以怎麼調整？」',
+    '客戶 31 歲、插畫家，內在有滿滿的創作熱情，外在卻總是太擔心害怕而拖延，案子常拖到最後一刻才熬夜趕完。客戶想知道：「我內在的熱情與外在的恐懼到底在拉扯什麼？要怎麼化解這種矛盾感，讓行動跟得上心？」',
+    '客戶 40 歲、全職媽媽，這幾年陸續學了塔羅、占星、靈氣，家人笑她「什麼都學、什麼都不精」。客戶想知道：「我不斷學習的背後，到底在尋找什麼？這些累積可以如何整合成一條屬於我自己的路？」',
+    '客戶 36 歲、男性主管，白天理性果斷，夜深人靜時卻常感到空虛、甚至想哭，又覺得不能讓任何人看到脆弱。客戶想知道：「這份被藏起來的脆弱想告訴我什麼？我可以怎麼給它一個安放的位置？」',
+  ]},
+];
+
+const SPREADS = [
+  { id: 'one',      name: '單張牌練習',           short: '單張牌練習',       count: 1,  layout: 'one',
+    positions: ['核心指引'] },
+  { id: 'time3',    name: '三張牌時間之流牌陣',   short: '三張牌時間之流',   count: 3,  layout: 'row3',
+    positions: ['過去', '現在', '未來'] },
+  { id: 'bms3',     name: '三張牌身心靈牌陣',     short: '三張牌身心靈',     count: 3,  layout: 'row3',
+    positions: ['身（行動）', '心（情感）', '靈（潛意識）'] },
+  { id: 'tri3',     name: '三張牌聖三角牌陣',     short: '三張牌聖三角',     count: 3,  layout: 'tri',
+    positions: ['目前現況', '問題根源', '指引方向'] },
+  { id: 'core4',    name: '四張牌直指核心牌陣',   short: '四張牌直指核心',   count: 4,  layout: 'row4',
+    positions: ['目前現況', '面臨阻礙', '核心關鍵', '解決對策'] },
+  { id: 'choice5',  name: '五張牌選擇牌陣',       short: '五張牌選擇',       count: 5,  layout: 'choice',
+    positions: ['現狀', '選擇A發展', '選擇A結果', '選擇B發展', '選擇B結果'] },
+  { id: 'hex6',     name: '六張牌六芒星牌陣',     short: '六張牌六芒星',     count: 6,  layout: 'hex',
+    positions: ['過去影響', '現在處境', '未來趨勢', '自身環境', '周遭阻礙', '最終結果'] },
+  { id: 'goal6',    name: '六張牌目標牌陣',       short: '六張牌目標',       count: 6,  layout: '3x2',
+    positions: ['目標現狀', '達成阻礙', '助力資源', '必要行動', '心理建設', '預期收穫'] },
+  { id: 'horse7',   name: '七張牌馬蹄鐵牌陣',     short: '七張牌馬蹄鐵',     count: 7,  layout: 'horse',
+    positions: ['過去影響', '現在處境', '未來發展', '應對方式', '周遭影響', '潛在阻礙', '最終結果'] },
+  { id: 'celtic10', name: '十張牌塞爾特十字牌陣', short: '十張牌塞爾特十字', count: 10, layout: 'celtic',
+    positions: ['現狀', '阻礙', '意識目標', '潛意識根源', '近期過去', '近期未來', '自我狀態', '環境影響', '希望與恐懼', '最終結果'] },
+];
+
+const SPREAD_TIPS = {
+  one:      '單張牌雖然只有一個位置，但別忘了把牌面的「人物視角、方向、色彩」都轉譯成客戶聽得懂的語言，一張牌也能講出立體的故事。',
+  time3:    '時間之流的關鍵在「過去 → 現在」的因果線是否說得通，再由這條線自然推向未來，避免三張牌各講各的。',
+  bms3:     '身心靈牌陣要注意三個層面的「落差」：當行動與潛意識方向相反時，那個落差本身就是客戶最需要聽到的訊息。',
+  tri3:     '聖三角牌陣的力量在「三點成面」：先把現況與根源對照清楚，第 3 張指引才有說服力。建議把三張牌講成一個閉環——是什麼、為什麼、怎麼辦。',
+  core4:    '直指核心牌陣的靈魂在第 3 張「核心關鍵」——建議先解 1、2 鋪陳，再用核心關鍵翻轉視角，最後以解決對策收尾，結構感會更強。',
+  choice5:  '選擇牌陣切記「不替客戶做決定」：把 A、B 兩條路的能量差異描述清楚，再把選擇權交還給客戶，這是諮詢倫理也是技巧。',
+  hex6:     '六芒星牌陣資訊量大，建議用「時間軸（1-2-3）」與「空間軸（4-5）」兩條線分開梳理，最後匯流到第 6 張最終結果。',
+  goal6:    '目標牌陣是行動導向的牌陣，解讀時每一張都要能回答「所以客戶可以做什麼？」，特別是第 4 張必要行動要給出具體可執行的建議。',
+  horse7:   '馬蹄鐵牌陣是一條時間與行動的弧線：先走完 1-2-3 的時間軸，再用 4、5、6 談應對、環境與阻礙，最後以第 7 張收束，層次會非常清楚。',
+  celtic10: '塞爾特十字建議用「十字看處境、權杖看走向」兩段式解讀，並記得將第 9 張「希望與恐懼」與第 3 張「意識目標」對照——它們常常互為表裡。',
+};
+
+const SCENARIO_TIPS = {
+  love:    '感情議題中，客戶往往最需要的不是預測，而是「被理解」。可以先反映客戶的情緒（例如：忽冷忽熱真的會讓人很不安），再進入牌義分析。',
+  career:  '轉職議題建議多問開放式問題，例如「留下來最捨不得的是什麼？」讓牌陣的訊息與客戶的真實顧慮對上，解讀才會落地。',
+  partner: '合夥財務議題要特別小心措辭的中立性，避免讓客戶覺得你在「站邊」。可多使用「這段關係的能量顯示⋯」而非評斷任何一方。',
+  self:    '自我探索議題中，客戶要的往往不是答案，而是「被看見」。試著把牌義翻譯成客戶內在狀態的鏡子，並在結尾送上一個溫柔的自我練習（例如書寫、小儀式、一句可以帶走的話），讓探索能在生活裡落地。',
+};
+
+/* 各牌陣排版的卡片位置 class */
+const LAYOUT_CLASS = {
+  one:    [''],
+  row3:   ['', '', ''],
+  row4:   ['', '', '', ''],
+  '3x2':  ['', '', '', '', '', ''],
+  tri:    ['pos-t1', 'pos-t2', 'pos-t3'],
+  choice: ['pos-st', 'pos-a1', 'pos-a2', 'pos-b1', 'pos-b2'],
+  hex:    ['pos-h1', 'pos-h2', 'pos-h3', 'pos-h4', 'pos-h5', 'pos-h6'],
+  horse:  ['pos-m1', 'pos-m2', 'pos-m3', 'pos-m4', 'pos-m5', 'pos-m6', 'pos-m7'],
+  celtic: ['pos-c1', 'pos-c2', 'pos-c3', 'pos-c4', 'pos-c5', 'pos-c6',
+           'pos-s7 staff', 'pos-s8 staff', 'pos-s9 staff', 'pos-s10 staff'],
+};
+const LAYOUT_WRAP = {
+  one: 'lay-one', row3: 'lay-row3', row4: 'lay-row4', '3x2': 'lay-3x2',
+  tri: 'lay-tri', choice: 'lay-choice', hex: 'lay-hex', horse: 'lay-horse', celtic: 'lay-celtic',
+};
+
+/* ═══════════════════════ 狀態 ═══════════════════════ */
+
+const state = {
+  scenarioId: 'love',
+  spreadId: 'time3',
+  clientIdx: 0,       // 目前情境中的客戶編號
+  deckMode: 'full',   // 'full' = 78 張全牌組, 'major' = 22 張大牌
+  drawn: null,        // [{card, reversed}]
+  shuffling: false,
+  thinking: false,
+  feedback: null,
+};
+
+const $ = id => document.getElementById(id);
+const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
+const scenario = () => SCENARIOS.find(s => s.id === state.scenarioId);
+const spread   = () => SPREADS.find(s => s.id === state.spreadId);
+
+/* ═══════════════════════ 抽牌與回饋邏輯 ═══════════════════════ */
+
+function drawSpread(count) {
+  const deck = (state.deckMode === 'major' ? MAJOR_ARCANA : FULL_DECK).slice();
+  for (let i = deck.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    const t = deck[i]; deck[i] = deck[j]; deck[j] = t;
+  }
+  const picked = deck.slice(0, count);
+
+  /* 正逆位交錯機制：逆位張數控制在 25%~75% 之間，
+     兩張以上時保證正位、逆位至少各一張，不會出現整排同向 */
+  let revCount;
+  if (count === 1) {
+    revCount = Math.random() < 0.5 ? 1 : 0;
+  } else {
+    const minR = Math.max(1, Math.round(count * 0.25));
+    const maxR = Math.min(count - 1, Math.round(count * 0.75));
+    revCount = minR + Math.floor(Math.random() * (maxR - minR + 1));
+  }
+  const flags = [];
+  for (let i = 0; i < count; i++) flags.push(i < revCount);
+  for (let i = flags.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    const t = flags[i]; flags[i] = flags[j]; flags[j] = t;
+  }
+  return picked.map((card, i) => ({ card, reversed: flags[i] }));
+}
+
+function buildMentorFeedback(sc, sp, drawn, text) {
+  const withIdx = drawn.map((d, i) => ({ card: d.card, reversed: d.reversed, idx: i }));
+  const revs = withIdx.filter(d => d.reversed);
+  const ups  = withIdx.filter(d => !d.reversed);
+
+  /* 1. 牌陣核心矛盾點解析 */
+  let conflict;
+  if (revs.length && ups.length) {
+    const a = ups[0], b = revs[0];
+    conflict =
+      '本次牌陣最值得深挖的張力，出現在「' + sp.positions[a.idx] + '」的正位' + a.card.name +
+      '（' + a.card.up + '）與「' + sp.positions[b.idx] + '」的逆位' + b.card.name +
+      '（' + b.card.rev + '）之間。一邊是向外展開的能量，一邊卻是受阻、內縮的訊號——這組對照正是客戶「' +
+      sc.label + '」議題的核心矛盾：表面上的動能與底層的卡點並不同步。' +
+      '優秀的解牌者會把這個落差「說破」，讓客戶意識到自己真正卡住的位置。';
+  } else if (revs.length === drawn.length) {
+    conflict =
+      '本次牌陣全數為逆位，這本身就是強烈訊號：整個局面的能量處於堵塞、需要先「清理」而非「前進」的階段。' +
+      '矛盾點在於——客戶帶著「想往前走」的問題來（' + sc.label + '），牌陣卻一致指向「先停下來面對內在」。' +
+      '解讀時若只逐張講負面關鍵字，會讓客戶越聽越沉重；更好的做法是把逆位讀成「尚未釋放的潛能」。';
+  } else {
+    const first = drawn[0], last = drawn[drawn.length - 1];
+    conflict =
+      '本次牌陣全數為正位，能量流暢，但這反而是進階解牌者的考驗：矛盾點藏在「位置與位置的關係」裡。' +
+      '例如「' + sp.positions[0] + '」的' + first.card.name + '與「' + sp.positions[drawn.length - 1] + '」的' +
+      last.card.name + '，兩者的元素性格並不相同——前者與後者之間的過渡，就是客戶在「' + sc.label +
+      '」中需要主動搭起的橋。全正位不等於沒有課題。';
+  }
+
+  /* 大小牌比例觀察（全牌組模式限定） */
+  if (state.deckMode === 'full' && drawn.length >= 3) {
+    const majors = drawn.filter(d => d.card.arcana === 'major').length;
+    if (majors >= Math.ceil(drawn.length / 2)) {
+      conflict += '另外值得注意：本次大牌比例偏高（' + majors + '／' + drawn.length +
+        '），顯示這不只是日常的波動，而是牽動客戶人生方向的深層課題，解讀時可以把格局拉大。';
+    } else if (majors === 0) {
+      conflict += '另外值得注意：本次全數為小牌，議題偏向日常事件層面，' +
+        '客戶手上的主導權其實很高，建議把重點放在具體可行的行動上。';
+    }
+  }
+
+  /* 2. 諮詢技巧與同理心稱讚 */
+  const praises = [];
+  if (/感受|情緒|心情|不安|焦慮|辛苦|理解/.test(text)) {
+    praises.push('你在解讀中主動照顧了客戶的情緒層面，先接住感受再進入分析，這是非常成熟的諮詢節奏');
+  }
+  if (/建議|可以|試著|不妨|行動|具體/.test(text)) {
+    praises.push('你有意識地把牌義轉譯成可執行的行動建議，避免了「只講牌、不講人」的常見問題');
+  }
+  if (text.length >= 150) {
+    praises.push('整體論述完整度高，看得出你有把每個位置串成一條敘事線，而不是逐張獨立翻譯');
+  } else if (text.length >= 60) {
+    praises.push('你的表達精煉、不堆砌關鍵字，這在實戰中能讓客戶更容易抓到重點');
+  } else {
+    praises.push('你抓重點的直覺不錯，切入的角度是對的');
+  }
+  const praise =
+    (praises.length > 1 ? praises.slice(1) : praises).join('；') + '。特別是在「' + sc.label + '」這類議題中，' +
+    '客戶的自尊與安全感都很脆弱，你的語氣讓人感覺被陪伴而非被評斷——請保持這個溫度。';
+
+  /* 3. 改進與切入點建議 */
+  const improve =
+    SPREAD_TIPS[sp.id] + ' 另外，' + SCENARIO_TIPS[sc.id] +
+    ' 下一步的練習方向：試著在結尾加上一句「收束句」，用一個意象總結整個牌陣（例如以' +
+    drawn[drawn.length - 1].card.name + '的畫面作結），讓客戶帶著一個清晰的畫面離開諮詢，記憶點會完全不同。';
+
+  /* 4. 綜合評分（基本盤 78 ＋ 三個構面加分，上限 97） */
+  const lenBonus   = Math.min(10, Math.floor(text.length / 60));          // 解讀完整度：每 60 字 +1，最多 +10
+  const skillBonus = praises.length >= 3 ? 4 : praises.length * 2;        // 諮詢技巧：同理語言、行動建議、敘事連貫
+  const flair      = Math.floor(Math.random() * 4);                       // 整體印象：導師臨場評價 +0~3
+  let score = Math.min(97, 78 + lenBonus + skillBonus + flair);
+  const scoreDetail = '評分依據：完成完整解牌（基本盤 78）＋解讀完整度 +' + lenBonus +
+    '＋諮詢技巧 +' + skillBonus + '＋整體印象 +' + flair + (score === 97 ? '（滿級上限 97）' : '');
+  const grade = score >= 92 ? '大師級的溫柔與洞察' : score >= 85 ? '穩健的實戰水準' : '基本功扎實・持續進步中';
+
+  /* 開場白：先肯定、先同理，再進入分析 */
+  const openers = [
+    '辛苦了，我把你這次的解牌完整讀了一遍。',
+    '謝謝你認真完成這次練習，每一句我都仔細讀過了。',
+    '先深呼吸一下，你已經完成了最不容易的部分——把解讀完整說出來。',
+  ];
+  const warms = [
+    '願意一次又一次坐到牌桌前練習，這件事本身就很值得肯定。',
+    '看得出你是帶著真心在面對這位客戶的，這份心意比技巧更難得。',
+    '解牌沒有標準答案，你敢下判斷、敢給出自己的觀點，這就是進步的開始。',
+  ];
+  const opening =
+    openers[Math.floor(Math.random() * openers.length)] +
+    warms[Math.floor(Math.random() * warms.length)] +
+    '這次的練習裡，' + praises[0] + '——我們就從這個好的基礎出發，一起往下看。';
+
+  return { opening, conflict, praise, improve, score, grade, scoreDetail };
+}
+
+/* ═══════════════════════ 畫面渲染 ═══════════════════════ */
+
+function pickClient(forceNew) {
+  const list = scenario().clients;
+  if (list.length < 2) { state.clientIdx = 0; return; }
+  let n = Math.floor(Math.random() * list.length);
+  if (forceNew) {
+    while (n === state.clientIdx) n = Math.floor(Math.random() * list.length);
+  }
+  state.clientIdx = n;
+}
+
+function renderClient() {
+  const q = $('clientQuote');
+  q.innerHTML = '<b>客戶說：</b>' + esc(scenario().clients[state.clientIdx]);
+  q.style.animation = 'none';
+  void q.offsetWidth;
+  q.style.animation = 'quoteIn .45s ease';
+}
+
+function renderSetup() {
+  const totalCases = SCENARIOS.reduce((n, s) => n + s.clients.length, 0);
+  $('scenarioLabel').textContent = '客戶情境（' + totalCases + ' 種）';
+  $('scenarioSelect').innerHTML = SCENARIOS.map(s =>
+    '<option value="' + s.id + '"' + (s.id === state.scenarioId ? ' selected' : '') + '>' +
+    s.icon + ' ' + s.label + '</option>').join('');
+  renderClient();
+
+  $('spreadBtns').innerHTML = SPREADS.map(s =>
+    '<button class="spread-btn' + (s.id === state.spreadId ? ' active' : '') + '" data-id="' + s.id + '">' +
+    s.short + '</button>').join('');
+  Array.prototype.forEach.call(document.querySelectorAll('.spread-btn'), btn => {
+    btn.addEventListener('click', () => {
+      state.spreadId = btn.getAttribute('data-id');
+      state.drawn = null; state.feedback = null;
+      hideWarn(); renderSetup(); renderBoard(); renderReport();
+    });
+  });
+
+  $('posDefTitle').textContent = '「' + spread().name + '」位置定義：';
+  $('posChips').innerHTML = spread().positions.map((p, i) =>
+    '<span class="chip"><span class="n">' + (i + 1) + '</span>' + esc(p) + '</span>').join('');
+}
+
+function cardHTML(d, i) {
+  const sp = spread();
+  const posCls = LAYOUT_CLASS[sp.layout][i] || '';
+  return (
+    '<div class="tcard ' + (d.reversed ? 'rev ' : '') + posCls + '" style="animation-delay:' + (i * 0.12) + 's">' +
+      '<div class="pos-row"><span class="n">' + (i + 1) + '</span>' +
+      '<span class="pos-name">' + esc(sp.positions[i]) + '</span></div>' +
+      '<div class="mid">' +
+        '<div class="art">' + (d.card.art || '🌟') + '</div>' +
+        '<div class="cname">' + d.card.name + '</div>' +
+        '<div class="cen">' + d.card.en + '</div>' +
+      '</div>' +
+      '<span class="orient ' + (d.reversed ? 'rv' : 'up') + '">' + (d.reversed ? '▽ 逆位' : '△ 正位') + '</span>' +
+      '<div class="keys">' + (d.reversed ? d.card.rev : d.card.up) + '</div>' +
+    '</div>'
+  );
+}
+
+function renderBoard() {
+  const area = $('boardArea');
+  const sp = spread();
+
+  if (state.shuffling) {
+    let backs = '';
+    for (let i = 0; i < 5; i++) {
+      backs += '<div class="card-back" style="animation-delay:' + (i * 0.12) + 's; z-index:' + i + '">✦</div>';
+    }
+    area.innerHTML =
+      '<div class="shuffle-stage">' + backs +
+      '<div class="txt dots">正在為客戶洗牌與切牌<span>.</span><span>.</span><span>.</span></div></div>';
+    $('drawHint').textContent = '';
+    return;
+  }
+
+  if (!state.drawn) {
+    area.innerHTML =
+      '<div class="empty-box"><div class="ic">🂠</div><p>牌陣尚未展開，點擊上方按鈕開始洗牌抽牌</p></div>';
+    $('drawHint').textContent = '';
+    return;
+  }
+
+  let extra = '';
+  if (sp.layout === 'choice') {
+    extra = '<div class="branch-labels"><span>─ 選擇 A 路線 ─</span><span>─ 選擇 B 路線 ─</span></div>';
+  } else if (sp.layout === 'celtic') {
+    extra = '<div class="celtic-labels"><span>─ 十字：處境全貌 ─</span><span>─ 權杖：發展走向 ─</span></div>';
+  }
+  area.innerHTML =
+    '<div class="scroll-hint">👈 手機上左右滑動，可看完整牌陣形狀 👉</div>' + extra +
+    '<div class="' + LAYOUT_WRAP[sp.layout] + '">' +
+    state.drawn.map((d, i) => cardHTML(d, i)).join('') + '</div>';
+  $('drawHint').textContent =
+    '已從' + (state.deckMode === 'major' ? ' 22 張大牌' : ' 78 張全牌組') + '為「' + scenario().label +
+    '」抽出 ' + sp.name + '，共 ' + sp.count + ' 張。再按一次可重新洗牌。';
+}
+
+function renderReport() {
+  const area = $('reportArea');
+  if (state.thinking) {
+    area.innerHTML =
+      '<div class="think-box"><div class="ic">🕯️</div>' +
+      '<div class="t1 dots">AI 導師正在逐句批閱你的解牌<span>.</span><span>.</span><span>.</span></div>' +
+      '<div class="t2">對照牌陣結構 → 檢查敘事邏輯 → 評估諮詢語氣</div></div>';
+    return;
+  }
+  if (!state.feedback) {
+    area.innerHTML =
+      '<div class="empty-box"><div class="ic">📜</div><p>完成解牌並送出後<br>AI 導師診斷報告將在此展開</p></div>';
+    return;
+  }
+
+  const fb = state.feedback;
+  const R = 52, C = 2 * Math.PI * R;
+  area.innerHTML =
+    '<div class="report">' +
+      '<div class="report-head">' +
+        '<div class="info">' +
+          '<div class="tag">✦ ANNA TAROT MENTOR ✦</div>' +
+          '<h3>AI 導師診斷報告</h3>' +
+          '<div class="meta">情境：' + scenario().label + '｜牌陣：' + spread().name + '（' + spread().count + ' 張）</div>' +
+          '<div class="grade">「' + fb.grade + '」</div>' +
+          '<div class="score-detail">' + fb.scoreDetail + '</div>' +
+        '</div>' +
+        '<div class="score-wrap">' +
+          '<svg viewBox="0 0 120 120">' +
+            '<circle class="score-ring-bg" cx="60" cy="60" r="' + R + '"/>' +
+            '<circle class="score-ring-fg" id="scoreRing" cx="60" cy="60" r="' + R + '" ' +
+              'stroke-dasharray="' + C + '" stroke-dashoffset="' + C + '"/>' +
+          '</svg>' +
+          '<div class="score-num"><b>' + fb.score + '</b><span>綜合評分</span></div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="report-body">' +
+        '<div class="rb-block rb-lead"><h4>💬 導師的話</h4><p>' + fb.opening + '</p></div>' +
+        '<div class="rb-block"><h4>🔍 【牌陣核心矛盾點解析】</h4><p>' + fb.conflict + '</p></div>' +
+        '<div class="rb-block"><h4>🌷 【諮詢技巧與同理心稱讚】</h4><p>' + fb.praise + '</p></div>' +
+        '<div class="rb-block"><h4>🧭 【改進與切入點建議】</h4><p>' + fb.improve + '</p></div>' +
+        '<div class="report-foot">✦ 本報告由 AI 導師生成，僅供解牌練習參考 · 安娜塔羅實戰教室 ✦</div>' +
+      '</div>' +
+    '</div>' +
+    '<div class="export-bar">' +
+      '<button type="button" class="exp-btn primary" id="btnCopy">📋 複製練習紀錄</button>' +
+      '<button type="button" class="exp-btn outline" id="btnWord">📥 下載 Word 檔</button>' +
+      '<button type="button" class="exp-btn solid" id="btnMail">✉️ 一鍵傳給安娜老師</button>' +
+      '<button type="button" class="exp-btn ghost" id="btnReset">🔁 清除重填</button>' +
+    '</div>' +
+    '<p class="export-note">複製後可直接貼到你的 Notion 或任何筆記工具保存；「傳給安娜老師」會開啟你的信箱並自動帶入這次的練習紀錄。</p>';
+
+  $('btnCopy').addEventListener('click', () => {
+    copyText(buildRecord(), ok => {
+      const b = $('btnCopy'); if (!b) return;
+      b.textContent = ok ? '✅ 已複製！可貼到 Notion 保存' : '⚠ 複製失敗，請重試一次';
+      setTimeout(() => { const b2 = $('btnCopy'); if (b2) b2.textContent = '📋 複製練習紀錄'; }, 2600);
+    });
+  });
+  $('btnWord').addEventListener('click', downloadWord);
+  $('btnMail').addEventListener('click', mailTeacher);
+  $('btnReset').addEventListener('click', resetPractice);
+
+  setTimeout(() => {
+    const ring = $('scoreRing');
+    if (ring) ring.style.strokeDashoffset = C * (1 - fb.score / 100);
+  }, 150);
+}
+
+/* ═══════════════════════ 練習紀錄匯出 ═══════════════════════ */
+
+function buildRecord() {
+  const sp = spread(), sc = scenario(), fb = state.feedback;
+  const lines = [];
+  lines.push('【安娜塔羅・解牌練習紀錄】');
+  lines.push('練習時間：' + new Date().toLocaleString('zh-TW'));
+  lines.push('主題情境：' + sc.label);
+  lines.push('客戶說：' + sc.clients[state.clientIdx]);
+  lines.push('使用牌陣：' + sp.name + '（' + sp.count + ' 張）｜抽牌範圍：' +
+    (state.deckMode === 'major' ? '22 張大牌' : '78 張全牌組'));
+  lines.push('');
+  lines.push('▍抽到的牌');
+  state.drawn.forEach((d, i) => {
+    lines.push((i + 1) + '. ' + sp.positions[i] + '：' + d.card.name +
+      '（' + (d.reversed ? '逆位' : '正位') + '）— ' + (d.reversed ? d.card.rev : d.card.up));
+  });
+  lines.push('');
+  lines.push('▍我的解牌');
+  lines.push(document.getElementById('interpTa').value.trim());
+  lines.push('');
+  lines.push('▍AI 導師診斷報告　綜合評分 ' + fb.score + ' 分（' + fb.grade + '）');
+  lines.push(fb.scoreDetail);
+  lines.push('【導師的話】' + fb.opening);
+  lines.push('【牌陣核心矛盾點解析】' + fb.conflict);
+  lines.push('【諮詢技巧與同理心稱讚】' + fb.praise);
+  lines.push('【改進與切入點建議】' + fb.improve);
+  lines.push('');
+  lines.push('✦ 安娜塔羅 ANNA TAROT · 塔羅解牌實戰教室 ✦');
+  return lines.join('\n');
+}
+
+function copyText(t, done) {
+  const finish = ok => { if (done) done(ok); };
+  const fallback = () => {
+    const ta = document.createElement('textarea');
+    ta.value = t; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    let ok = false;
+    try { ok = document.execCommand('copy'); } catch (e) {}
+    document.body.removeChild(ta); finish(ok);
+  };
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(t).then(() => finish(true), fallback);
+  } else fallback();
+}
+
+function downloadWord() {
+  const rec = buildRecord();
+  const escHtml = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  const html =
+    '<html xmlns:w="urn:schemas-microsoft-com:office:word"><head><meta charset="utf-8">' +
+    '<title>塔羅練習紀錄</title></head>' +
+    '<body style="font-family:\'Noto Sans TC\',\'微軟正黑體\',sans-serif;line-height:1.9;font-size:12pt;">' +
+    rec.split('\n').map(l => l ? '<p>' + escHtml(l) + '</p>' : '<br>').join('') +
+    '</body></html>';
+  const blob = new Blob(['﻿' + html], { type: 'application/msword' });
+  const d = new Date();
+  const stamp = d.getFullYear() + ('0' + (d.getMonth() + 1)).slice(-2) + ('0' + d.getDate()).slice(-2);
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = '塔羅練習紀錄_' + stamp + '.doc';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  setTimeout(() => URL.revokeObjectURL(a.href), 3000);
+}
+
+function mailTeacher() {
+  const rec = buildRecord();
+  copyText(rec);   // 同步複製完整版，信件內文過長時可直接貼上
+  const subject = encodeURIComponent('塔羅解牌練習紀錄｜' + scenario().label + '｜' + spread().name);
+  let body = rec;
+  if (body.length > 1500) {
+    body = body.slice(0, 1500) + '\n…（紀錄較長已截斷，完整內容已自動複製，貼上即可）';
+  }
+  location.href = 'mailto:helloanna520@gmail.com?subject=' + subject + '&body=' + encodeURIComponent(body);
+}
+
+function resetPractice() {
+  state.drawn = null; state.feedback = null;
+  document.getElementById('interpTa').value = '';
+  document.getElementById('charCount').textContent = '已輸入 0 字';
+  hideWarn(); renderBoard(); renderReport();
+  document.querySelector('.panel.setup').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+/* ═══════════════════════ 事件 ═══════════════════════ */
+
+function showWarn(msg) { const w = $('warnBox'); w.textContent = '⚠ ' + msg; w.classList.add('show'); }
+function hideWarn() { $('warnBox').classList.remove('show'); }
+
+$('scenarioSelect').addEventListener('change', e => {
+  state.scenarioId = e.target.value;
+  state.drawn = null; state.feedback = null;
+  pickClient(false);
+  hideWarn(); renderSetup(); renderBoard(); renderReport();
+});
+
+function renderDeckToggle() {
+  Array.prototype.forEach.call(document.querySelectorAll('.deck-btn'), b => {
+    b.classList.toggle('active', b.getAttribute('data-mode') === state.deckMode);
+  });
+}
+Array.prototype.forEach.call(document.querySelectorAll('.deck-btn'), b => {
+  b.addEventListener('click', () => {
+    if (state.deckMode === b.getAttribute('data-mode')) return;
+    state.deckMode = b.getAttribute('data-mode');
+    state.drawn = null; state.feedback = null;
+    hideWarn(); renderDeckToggle(); renderBoard(); renderReport();
+  });
+});
+
+$('clientRefresh').addEventListener('click', () => {
+  pickClient(true);
+  renderClient();
+});
+
+$('shuffleBtn').addEventListener('click', () => {
+  if (state.shuffling) return;
+  state.shuffling = true; state.drawn = null; state.feedback = null;
+  hideWarn();
+  $('shuffleBtn').disabled = true;
+  $('shuffleBtn').textContent = '洗牌中…';
+  renderBoard(); renderReport();
+  setTimeout(() => {
+    state.drawn = drawSpread(spread().count);
+    state.shuffling = false;
+    $('shuffleBtn').disabled = false;
+    $('shuffleBtn').textContent = '🔮 洗牌並抽選牌陣';
+    renderBoard();
+  }, 1600);
+});
+
+$('interpTa').addEventListener('input', e => {
+  $('charCount').textContent = '已輸入 ' + e.target.value.trim().length + ' 字';
+});
+
+$('submitBtn').addEventListener('click', () => {
+  if (state.thinking) return;
+  const text = $('interpTa').value.trim();
+  if (!state.drawn) { showWarn('請先點擊上方「洗牌並抽選牌陣」，抽出牌陣後再進行解牌練習。'); return; }
+  if (text.length < 20) { showWarn('解牌內容太短囉！請至少寫 20 字，把各位置的牌義與客戶情境串起來。'); return; }
+  hideWarn();
+  state.thinking = true; state.feedback = null;
+  $('submitBtn').disabled = true;
+  $('submitBtn').textContent = '導師批閱中…';
+  renderReport();
+  $('reportSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  setTimeout(() => {
+    state.feedback = buildMentorFeedback(scenario(), spread(), state.drawn, text);
+    state.thinking = false;
+    $('submitBtn').disabled = false;
+    $('submitBtn').textContent = '✉️ 送出給 AI 導師講評';
+    renderReport();
+    setTimeout(() => $('reportSection').scrollIntoView({ behavior: 'smooth', block: 'start' }), 120);
+  }, 1800);
+});
+
+/* ═══════════════════════ 初始化 ═══════════════════════ */
+pickClient(false);
+renderDeckToggle();
+renderSetup();
+renderBoard();
+renderReport();
+</script>
+</body>
+</html>
